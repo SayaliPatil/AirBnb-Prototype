@@ -1,2 +1,2 @@
 # cmpe275-openhome
-Openhome web application
+Openhome web application using springboot
