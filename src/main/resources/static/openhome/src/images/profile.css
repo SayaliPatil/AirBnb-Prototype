@@ -1,0 +1,125 @@
+.logo-profile {
+font-family: sans-serif;
+  width:400px;
+  color: #418cf4;
+  margin-left: -130px;
+  margin-top: 10px;
+}
+button.save{
+  width: 150px;
+  margin-top: 60px;
+  margin-left: 500px;
+}
+button.upload{
+  width: 150px;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+.logo-home{
+  width:40px;
+  height:40px;
+  font-weight: 300;
+  color: #418cf4;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.drop-nav {
+	width: 120px;
+	margin-left: 100px;
+	font-size: 16px;
+  margin-top: 5px;
+
+
+}	
+.header-btn{
+  font-size: 16px;
+}
+span.mail{
+  margin-top: 20px;
+  font-size: 18px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.drop-nav.username{
+  margin-right: 10px;
+  width: 200px;
+  color: #41b8f4;
+}
+.drop-nav:active { 
+    background-color: white;
+}
+.profile{
+  margin-left: 200px;
+  margin-top: 520px;
+  position: absolute;
+
+}
+.profile-form{
+  height:1050px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-right: 300px;
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  background-color: #F5F5F5;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0);
+}
+.profile-header{
+  margin-top: -400px;
+  margin-left: 0px;
+}
+
+.name-class{
+  margin-left: 50px;
+  width:305px;
+  height: 40px;
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 18px;
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0);
+  text-align: left;
+  padding:20px;
+}
+.about-class{
+  text-align: left;
+  margin-left: 50px;
+  margin-top: 0px;
+  width:618px;
+  font-weight: 500;
+  font-size: 18px;
+  padding:20px;
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0);
+}
+.gender-type{
+  margin-left: 50px;
+  width:305px;
+  height:40px;
+  border: 1px  #D3D3D3;
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0);
+}
+.image-upload{
+  margin-left: 50px;
+  width:305px;
+  height:40px;
+  border: 1px solid white;
+}
+
+.image-class{
+  margin-left: 460px;
+  margin-top: -100px;
+  width:205px;
+  height:130px;
+}
+.profile-main{
+  margin-top: 0px;
+  margin-left: 200px;
+ position: absolute;
+}
