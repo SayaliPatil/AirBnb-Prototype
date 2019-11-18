@@ -10,3 +10,6 @@
 # Maven
 log/
 target/
+
+#node_modules
+openhome_frontend/node_modules/
