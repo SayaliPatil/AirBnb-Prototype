@@ -13,3 +13,6 @@ target/
 
 #node_modules
 openhome_frontend/node_modules/
+
+#IDE files
+.idea/
