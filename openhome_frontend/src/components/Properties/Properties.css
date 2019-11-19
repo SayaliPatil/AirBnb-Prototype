@@ -1,0 +1,41 @@
+.prop{
+    margin-top: 20px;
+    font-size:18px;
+    margin-left : 170px;
+    margin-right: 170px;
+    border-radius: 6px;
+    box-shadow: 0 0 70px 0 rgba(0,0,0,.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.backColor5_list {
+    background-color: beige;
+    height: 250px;
+    width : 600px;
+    margin-left : -90px;
+    text-align : bottom;
+    margin-right : 20px
+}
+
+.backColor_dash_list {
+    background-color: white;
+    height: 250px;
+    width : 600px;
+    text-align : bottom;
+    /* margin-left : 20px; */
+    padding: 30px;
+}
+
+.headline_list {
+    font-size: 20px;
+    margin-top:0.5px
+}
+
+.noresult {
+    margin-top : 40px;
+    margin-left  : 50px;
+    text-align : center;
+    font-size:  23px;
+    font-weight: bold;
+}
