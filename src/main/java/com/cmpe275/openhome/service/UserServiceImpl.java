@@ -1,20 +1,15 @@
 package com.cmpe275.openhome.service;
 
-import java.util.Locale;
 import java.util.Optional;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.User;
 import com.cmpe275.openhome.repository.UserRepository;
 import com.cmpe275.openhome.utils.EmailUtility;
+import com.cmpe275.openhome.utils.HashingUtility;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -26,16 +21,13 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 	
 	@Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
 	EmailService emailService;
 	
 	private static final String DUPLICATE_USER_EXCEPTION_MESSAGE = "User already registered with same email address";
 	@Override
 	public void register(User user) {
 		// TODO Auto-generated method stub
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(HashingUtility.createHashedCode(user.getPassword()));
 		System.out.println("Password: " +user.getPassword());
 		userRepository.save(user);
 		
@@ -43,7 +35,7 @@ public class UserServiceImpl implements UserService{
 	
 	public boolean loginUser(User user) {
 		User activeUser = findByEmail(user.getEmail());
-		return bCryptPasswordEncoder.matches(activeUser.getPassword(), user.getPassword());
+		return activeUser.getPassword().equals(HashingUtility.createHashedCode(user.getPassword()));
 	}
 	@Override
 	public User findByEmail(String email) {

@@ -53,8 +53,6 @@ class SignUp extends Component {
 	submitLogin = (e) => {
 		var headers=new Headers();
 		e.preventDefault();
-
-		axios.default.withCredentials=true;
 		if(VALIDATION.validateField("Password",this.state.password) && VALIDATION.validateEmail(this.state.email) && VALIDATION.validateName(this.state.firstName) && VALIDATION
 			.validateName(this.state.lastName)){
 				const data = {

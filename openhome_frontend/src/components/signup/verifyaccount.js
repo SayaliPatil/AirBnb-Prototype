@@ -20,18 +20,21 @@ class VerifyAccount extends Component {
               console.log("Status Code : ",response);
               if(response.status==200) {
                 console.log("Status Code in if: ",response);
+                alert("User account has been verified Successfully");
                 // UTIL.displayAlert("User account has been verified Successfully","success", this);
                 this.props.history.push('/login');
             }
             else if(response.status==400) {
               console.log("Status Code in else if: ",response);
+              alert("User account has already been verified");
               // UTIL.displayAlert("User account has already been verified","warning", this);
               this.props.history.push('/login');
             }
             else {
               console.log("Status Code in else: ",response);
+              alert("User can not be verified because of server error");
               // UTIL.displayAlert("User can not be verified because of server error","error", this);
-              this.props.history.push('/login');
+              window.location.reload();
             }
           });
         });

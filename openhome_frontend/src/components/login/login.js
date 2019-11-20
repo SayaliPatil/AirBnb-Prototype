@@ -13,7 +13,7 @@ class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: "",
+			email: "",
 			password: "",
 			authFlag : false
 		};
@@ -28,7 +28,7 @@ class Login extends Component {
 	}
 	usernameChangeHandler = (e) => {
 		this.setState({
-			username : e.target.value
+			email : e.target.value
 		})
 	}
 	passwordChangeHandler = (e) => {
@@ -40,42 +40,51 @@ class Login extends Component {
 		var headers=new Headers();
 		e.preventDefault();
 		const data = {
-			username : this.state.username,
+			email : this.state.email,
 			password : this.state.password
 		}
-		axios.default.withCredentials=true;
-		if(VALIDATION.validateField("Password",this.state.password) && VALIDATION.validateEmail(this.state.username)){
-		axios.post('http://localhost:8080/api/login', data)
-			.then(response => {
-				console.log("Status Code : ",response);
-				if(response.status==200) {
-					this.setState({
-						authFlag : true
-					})
-					var userdata=response.data.userID;
-					var servertoken=response.data.servertoken;
-
-					console.log("server token:", response.userID);
-					UTIL.saveServerToken(userdata, servertoken);
-				}
-				else {
-					alert("User not registered, Please sign up");
-					this.setState({
-						authFlag : false
-					})
-
-
-				}
+		if(VALIDATION.validateField("Password",this.state.password) && VALIDATION.validateEmail(this.state.email)){
+			fetch(`http://localhost:8080/api/login`, {
+				 method: 'POST',
+				 mode: 'cors',
+				 headers: { ...headers,'Content-Type': 'application/json' },
+				 body: JSON.stringify(data)
+			 }).then(response => {
+				 console.log("Status Code : ",response);
+				 if(response.status==200) {
+						 this.setState({
+							 authFlag : true
+						 })
+						 alert("User logged in successfully");
+						 window.location.reload();
+				 }
+				 else if(response.status==404) {
+						alert("User not registered, Please sign up");
+						window.location.reload();
+						this.setState({
+							authFlag : false
+						})
+				 }
+				 else if(response.status==400) {
+					 alert("Please entered incorrect email and password");
+					 window.location.reload();
+					 this.setState({
+						 authFlag : false
+					 })
+				 }
+			})
+			.catch(error => {
+				console.log("Error : " + error);
+				alert("User login failed because of sever error")
 			});
 		}
-
 	}
 	render() {
 
 		return(
 			<div>
 			{
-				this.state.authFlag!=false? <Redirect to='/'/>:''
+				this.state.authFlag!=false? <Redirect to='/home'/>:''
 			}
 				<div className="home-login">
 						<h3> Log in to OpenHome </h3>

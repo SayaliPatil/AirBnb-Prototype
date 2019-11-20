@@ -81,13 +81,13 @@ public class UserSignupController {
 			if (verificationStatus) {
 				return new ResponseEntity<>("{\"status\" : \"User is verified successfully!!\"}", HttpStatus.OK);
 			} else if (!verificationStatus) {
-				return new ResponseEntity<>("{\"status\" : \"User could not be verified because of bad request from user!!\"}", HttpStatus.MULTIPLE_CHOICES);
+				return new ResponseEntity<>("{\"status\" : \"User could not be verified because of bad request from user!!\"}", HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception exp) {
 			System.out.println("Verification Exception:" + exp.getMessage());
 			throw new CustomException(USER_VERIFICATION_EXCEPTION_MESSAGE); 
 		}
-		return new ResponseEntity<>("{\"status\" : \"User could not be verified because of server error!!\"}", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("{\"status\" : \"User could not be verified because of server error!!\"}", HttpStatus.SERVICE_UNAVAILABLE);
 	}
     
 ////    
