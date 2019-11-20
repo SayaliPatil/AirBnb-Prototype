@@ -131,7 +131,7 @@ class Booking extends Component {
                 <th className="fonts">Property Type</th>
                 <th className="fonts">Sharing Type</th>
                 <th className="fonts">Bedrooms</th>
-                <th className="fonts">Area</th>
+                <th className="fonts">Area(Sq.ft)</th>
                 <th className="fonts">Free Wifi</th>
                 </tr>
                 </thead>
