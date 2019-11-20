@@ -27,7 +27,8 @@ public class PropertySearchController {
     
     @Autowired
     PropertyService propertyService;
-    
+    private Long id;
+
     @ResponseBody
     @PostMapping("/properties")
     public List<Property> getProperties(@Valid @RequestBody Property prop) {
@@ -37,6 +38,7 @@ public class PropertySearchController {
     @ResponseBody
     @PostMapping("/search")
     public Property getPropertyById(@RequestBody Long id) {
+        this.id = id;
         return propertyService.getPropertyById(id);
     }
 }
