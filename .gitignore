@@ -11,6 +11,9 @@
 log/
 target/
 
+# FrontEnd
+node modules/
+
 #node_modules
 openhome_frontend/node_modules/
 

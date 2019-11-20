@@ -1,13 +1,13 @@
 import React,{ Component } from 'react';
 import axios from 'axios';
 import { Route, Redirect,withRouter } from 'react-router-dom';
-import './../images/login.css';
+import './../../images/login.css';
 //import SignUpHeader from './signup_header.js';
-import facebookicon from './../images/facebookicon.jpg';
-import googleicon from './../images/googleicon.jpg';
+import facebookicon from './../../images/facebookicon.jpg';
+import googleicon from './../../images/googleicon.jpg';
 import { Button,Modal,Checkbox } from 'react-bootstrap';
-import * as UTIL from './../utils/util';
-import * as VALIDATION from './../utils/validation';
+import * as UTIL from './../../utils/util';
+import * as VALIDATION from './../../utils/validation';
 
 class SignUp extends Component {
 	constructor(props) {
@@ -53,8 +53,6 @@ class SignUp extends Component {
 	submitLogin = (e) => {
 		var headers=new Headers();
 		e.preventDefault();
-
-		axios.default.withCredentials=true;
 		if(VALIDATION.validateField("Password",this.state.password) && VALIDATION.validateEmail(this.state.email) && VALIDATION.validateName(this.state.firstName) && VALIDATION
 			.validateName(this.state.lastName)){
 				const data = {
@@ -67,35 +65,42 @@ class SignUp extends Component {
 				if(this.state.email.includes("sjsu"))	{
 						data.user_role = "Host";
 				}
-			axios.post('http://localhost:8080/api/signup', data)
-				.then(response => {
-					console.log("Status Code : ",response);
-					if(response.status==200) {
-						this.setState({
-							authFlag : true
-						})
-						var userdata=response.data.userID;
-						var servertoken=response.data.servertoken;
-						UTIL.saveServerToken(userdata, servertoken)
-					}
-					else {
-						this.setState({
-							authFlag : false
-						})
-					}
+				else {
+					data.user_role = "Guest";
+				}
+				fetch(`http://localhost:8080/api/signup`, {
+					 method: 'POST',
+					 mode: 'cors',
+					 headers: { ...headers,'Content-Type': 'application/json' },
+					 body: JSON.stringify(data)
+				 }).then(response => {
+					 console.log("Status Code : ",response);
+					 if(response.status==200) {
+							 this.setState({
+								 authFlag : true
+							 })
+							 window.location.reload();
+					 }
+					 else if(response.status==302) {
+						 	alert("User is already registered with same email id");
+							window.location.reload();
+	 						this.setState({
+	 							authFlag : false
+	 						})
+					 }
+				})
+				.catch(error => {
+					console.log("Error : " + error);
+					alert("User registeration failed because of sever error")
 				});
 			}
 	}
 	render() {
 		return(
 			<div>
-				{
-					this.state.authFlag!=false? <Redirect to='/'/>:''
-				}
-
 				<div className="home-login">
 					<div  className="sign-main">
-					<h4> Sign up for HomeAway </h4>
+					<h4> Sign up for OpenHome </h4>
 					<div className="account-para">
 					<h3> Already have an account ?
 					 	<a href="login" className="header-img"> Log in</a>
@@ -118,17 +123,14 @@ class SignUp extends Component {
 						      <h5 className="horizontal-line"> <span>or</span> </h5>
 			                   <button className="fb-button" onClick={this.signup}><img className="fb-image" src ={facebookicon} />Log in with Facebook</button>
 			                   <button className="google-button" onClick={this.signup}><img className="fb-image" src ={googleicon}/>Log in with Google</button>
-			                   <p className="footer">We don't post anything without your permission.</p>
+			                   <p className="footer">We dont post anything without your permission.</p>
 							</table>
 						</form>
-
 					</div>
 					</div>
 			</div>
 			);
 	}
 }
-
-
 
 export default SignUp;

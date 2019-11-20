@@ -1,5 +1,8 @@
 // Add utility methods
 import { createBrowserHistory } from 'history';
+import error_icon from './../images/error_icon.jpg';
+import info_icon from './../images/info_icon.png';
+import success_icon from './../images/success_icon.jpg';
 export const history = createBrowserHistory();
 
 const headers = {
@@ -60,3 +63,24 @@ export const getUserHTTPHeader = function(){
     }
     return header;
 };
+
+export var options = {
+    offset: 14,
+    position: 'bottom center',
+    theme: 'dark',
+    time: 5000,
+    transition: 'scale'
+};
+
+//
+// export var displayAlert = (msg, type, self) => {
+//     self.msg.show(msg, {
+//         time: 5000,
+//         type: type,
+//         icon: (type === "error") ?
+//             <img style={{height: "32px", width: "40px"}} src={error_icon}/> :
+//             (type === "success")?<img style={{height: "32px", width: "32px"}} src={success_icon}/>:
+//             <img style={{height: "32px", width: "32px"}} src={info_icon}/>
+//
+//     })
+// };
