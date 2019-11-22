@@ -1,11 +1,10 @@
 import React,{ Component } from 'react';
 import axios from 'axios';
 import { Route, Redirect,withRouter } from 'react-router-dom';
-import './../../images/login.css';
+import './../login/login.css';
 //import SignUpHeader from './signup_header.js';
 import facebookicon from './../../images/facebookicon.jpg';
 import googleicon from './../../images/googleicon.jpg';
-import { Button,Modal,Checkbox } from 'react-bootstrap';
 import * as UTIL from './../../utils/util';
 import * as VALIDATION from './../../utils/validation';
 
@@ -98,7 +97,7 @@ class SignUp extends Component {
 	render() {
 		return(
 			<div>
-				<div className="home-login">
+				<div className="login-class">
 					<div  className="sign-main">
 					<h4> Sign up for OpenHome </h4>
 					<div className="account-para">
@@ -109,9 +108,9 @@ class SignUp extends Component {
 					</div>
 					<div className="form-login">
 
-						<form className="form-group1">
+						<form className="form-class1">
 						<table className="login-table">
-						      <tr><h3 className="header-login"> Account Login </h3></tr>
+						      <tr><h3 className="header-signup-class"> Account Login </h3></tr>
 						      <hr></hr>
 						      <tr>
 						      		<td><input type="text" className="txt-field-small1" placeholder="First Name" onChange = {this.firstnameChangeHandler}/> </td>

@@ -1,5 +1,5 @@
 
-.home-login {
+.login-class{
 	background-color: rgba(192,192,192,0.3);
 	background-repeat: repeat;
 	background-size: cover;
@@ -7,7 +7,7 @@
 	text-align: center;
 	height: 710px;
 }
-.form-group{
+.form-class{
 	background-color: white;
 	position: relative;
 	height:550px;
@@ -16,22 +16,13 @@
 	margin-top: 0px;
 
 }
-.form-group1{
+.form-class1{
 	background-color: white;
 	position: relative;
 	height:550px;
 	width:580px;
 	margin-top: 50px;
 	margin-left: 400px;
-}
-
-.form-control {
-	position: relative;
-	text-align: center;
-	height: 200px;
-	width: 220px;
-	margin-left: 100px;
-	margin-top: 1px;
 }
 .txt-field-small1{
 	position: relative;
@@ -43,7 +34,7 @@
 	 border-radius: 1px;
 	 box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	 padding: 5px;
-	 margin-top: 20px;	
+	 margin-top: 20px;
 	 font-family:Serif;
 	 font-style: 12px;
 	 text-align: left;
@@ -58,12 +49,12 @@
 	 border-radius: 1px;
 	 box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	 padding: 5px;
-	 margin-top: 20px;	
+	 margin-top: 20px;
 	 font-family:Serif;
 	 font-style: 12px;
 	 text-align: left;
 }
-.txt-field {
+.txt-class {
 	  margin-left: 80px;
 	  height:40px;
 	  width: 310px;
@@ -72,14 +63,14 @@
 	 box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	 padding: 5px;
 	 margin-left: 60px;
-	 margin-top: 20px;	
+	 margin-top: 20px;
 	 font-family:Serif;
 	 font-style: 12px;
 	 text-align: left;
 }
 
 
-.header-login {
+.header-signup-class {
 	margin-left: 30px;
 	margin-top: 10px;
 	font-family: sans-serif;
@@ -127,7 +118,7 @@
   	height:35px;
   	line-height: 30px;
   	margin-top: 0px;
-	
+
 }
 
 .google-button {
@@ -157,7 +148,7 @@
 	 border-radius: 1px;
 	 box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	 padding: 5px;
-	 margin-top: 10px;	
+	 margin-top: 10px;
 	 font-family:Serif;
 	 text-align: left;
 }
@@ -239,15 +230,15 @@
 	font-size: 13px;
 }
 .horizontal-line{
-	width: 80%; 
-   text-align: center; 
-   border-bottom: 1px solid #D3D3D3; 
+	width: 80%;
+   text-align: center;
+   border-bottom: 1px solid #D3D3D3;
    border-bottom-width: thin;
    line-height: 0.1em;
-   margin: 10px 0 20px; 
+   margin: 10px 0 20px;
    margin-left: 65px;
-    background:#fff; 
-    padding:0px; 
+    background:#fff;
+    padding:0px;
 }
 
 .logo-home1 {

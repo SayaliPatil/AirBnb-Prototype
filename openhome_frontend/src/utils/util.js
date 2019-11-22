@@ -2,7 +2,7 @@
 import { createBrowserHistory } from 'history';
 import error_icon from './../images/error_icon.jpg';
 import info_icon from './../images/info_icon.png';
-import success_icon from './../images/success_icon.jpg';
+// import success_icon from './../images/success_icon.jpg';
 export const history = createBrowserHistory();
 
 const headers = {

@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router';
-import './Booking.css';
+import './payment.css';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-class Booking extends Component {
+class Payment extends Component {
     constructor(props){
         super(props);
         this.state = {
-            display : [],
-            redirectVar : ''
+            display : []
         }
         this.submitBooking = this.submitBooking.bind(this);
         // this.checkinChangeHandler = this.checkinChangeHandler.bind(this);
     }
     submitBooking = (e) => {
-        console.log("Inside submitBooking");
-        e.preventDefault();
-        this.setState({
-            redirectVar : <Redirect to= "/payment"/>
-        })
-        this.props.history.push("/payment");
+    console.log("Inside submitBooking");
+    e.preventDefault();
     }
 
     componentDidMount(){
@@ -56,64 +51,6 @@ class Booking extends Component {
         this.setState({
         wifi : temp.wifi
         });
-        // console.log("display", this.state.display);
-        // this.state.display.map(Item => {
-        // // this.setState({
-        // //     headline : Item.headline
-        // // });
-        // this.setState({
-        //     address : Item.address
-        // });
-        // this.setState({
-        //     price : Item.price
-        // });
-        // this.setState({
-        //     sharing_type : Item.sharing_type
-        // });
-        // this.setState({
-        // prop_type : Item.prop_type
-        // });
-        // this.setState({
-        // beds : Item.beds
-        // });
-        // this.setState({
-        // sq_ft : Item.sq_ft
-        // });
-        // this.setState({
-        // description : Item.description
-        // });
-        // this.setState({
-        // wifi : Item.wifi
-        // });
-        // })
-        //axios.defaults.withCredentials = true;
-        // axios.get(eventURL + 'events/' + ID)
-        // .then((response) => {
-        // console.log("response", response)
-        // if(response.status == 200)
-        // {
-        // this.setState({
-        // results : this.state.results.concat(response.data.events)
-        // });
-        // }
-        // this.state.results.map(Item => {
-        // this.setState({
-        // eventName : Item.eventName,
-        // });
-        // this.setState({
-        // eventId : Item.eventId,
-        // });
-        // this.setState({
-        // orgId : Item.orgId,
-        // });
-        // this.setState({
-        // location : Item.location,
-        // });
-        // this.setState({
-        // date : Item.date,
-        // });
-        // })
-        // });
         }
     render() {
         return (
@@ -178,4 +115,4 @@ class Booking extends Component {
     }
 }
 
-export default Booking;
+export default Payment;

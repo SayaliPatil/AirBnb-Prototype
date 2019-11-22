@@ -1,13 +1,13 @@
 import React,{ Component } from 'react';
-import './../../images/login.css';
+import './login.css';
 import facebookicon from './../../images/facebookicon.jpg';
 import googleicon from './../../images/googleicon.jpg';
-import { Button,Modal,Checkbox } from 'react-bootstrap';
 import axios from 'axios';
 // import cookie from 'react-cookies';
 import { Route, Redirect,withRouter } from 'react-router-dom';
 import * as UTIL from './../../utils/util';
 import * as VALIDATION from './../../utils/validation';
+import {history} from "./../../utils/util";
 
 class Login extends Component {
 	constructor(props) {
@@ -15,7 +15,8 @@ class Login extends Component {
 		this.state = {
 			email: "",
 			password: "",
-			authFlag : false
+			authFlag : false,
+			redirectVar: ''
 		};
 		this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
     this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
@@ -52,14 +53,18 @@ class Login extends Component {
 			 }).then(response => {
 				 console.log("Status Code : ",response);
 				 if(response.status==200) {
+					 response.json().then((data) => {
+                        console.log(data.email);
+												UTIL.saveServerToken(data.email , "XSKCC" , )
+           });
 						 this.setState({
 							 authFlag : true
 						 })
 						 alert("User logged in successfully");
-						 window.location.reload();
 				 }
 				 else if(response.status==404) {
 						alert("User not registered, Please sign up");
+						history.push('/signup');
 						window.location.reload();
 						this.setState({
 							authFlag : false
@@ -86,7 +91,7 @@ class Login extends Component {
 			{
 				this.state.authFlag!=false? <Redirect to='/home'/>:''
 			}
-				<div className="home-login">
+				<div className="login-class">
 						<h3> Log in to OpenHome </h3>
 					<div className="account-para">
 					<h3> Need an account ?
@@ -94,12 +99,12 @@ class Login extends Component {
 					 </h3>
 					 </div>
 					<div className="form-login">
-						<form className="form-group">
+						<form className="form-class">
 							<table className="login-table">
 						      <tr><h3 className="header-login1"> Account Login </h3></tr>
 						      <hr></hr>
-						      <tr> <input type="text" className="txt-field" placeholder="Email Address" onChange = {this.usernameChangeHandler}/> </tr>
-						      <tr> <input type="password" className="txt-field" placeholder="Password" onChange= {this.passwordChangeHandler}/></tr>
+						      <tr> <input type="text" className="txt-class" placeholder="Email Address" onChange = {this.usernameChangeHandler}/> </tr>
+						      <tr> <input type="password" className="txt-class" placeholder="Password" onChange= {this.passwordChangeHandler}/></tr>
 						      <a href="#" className="forgot-pwd1"> Forgot Password </a><br></br>
 						      <button onClick = {this.submitLogin} className="btn btn-primary login">Login</button>
 						       <h4 className="horizontal-line"> <span>or</span> </h4>

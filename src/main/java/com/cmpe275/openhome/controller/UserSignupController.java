@@ -1,6 +1,8 @@
 package com.cmpe275.openhome.controller;
 
 import java.net.URISyntaxException;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,7 @@ public class UserSignupController {
     
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(@Valid @RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<?> login(@Valid @RequestBody User user) throws URISyntaxException {
     	System.out.println("Body sent : " +user.getEmail());
     	User existingUser = userService.findByEmail(user.getEmail());
     	if(existingUser == null) {
@@ -69,7 +71,7 @@ public class UserSignupController {
     		return new ResponseEntity<>("{\"status\" : \"User entered wrong email or password..!!\"}", HttpStatus.BAD_REQUEST);
 		}
         System.out.println("User logged in successfully");
-        return new ResponseEntity<>("{\"status\" : \"User Logged in Successfully.!!\"}", HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/verifyaccount", method = RequestMethod.GET)
@@ -89,10 +91,4 @@ public class UserSignupController {
 		}
 		return new ResponseEntity<>("{\"status\" : \"User could not be verified because of server error!!\"}", HttpStatus.SERVICE_UNAVAILABLE);
 	}
-    
-////    
-//	@GetMapping("/user/{id}")
-//	public Optional<User> getUserById(@PathVariable(value = "id") Long userId) {
-//	    return userRepository.findById(userId);
-//	}
 }
