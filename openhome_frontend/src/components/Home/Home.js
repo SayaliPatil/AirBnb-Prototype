@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
+import {BASE_URL} from './../../components/Configs/Configs.js';
+import axios from 'axios';
+import {Redirect} from 'react-router';
+import {Link} from 'react-router-dom';
 import './Home.css';
 class Home extends Component {
     constructor(props){
-        //Call the constrictor of Super class i.e The Component
     super(props);
-        //maintain the state required for this component
     this.state = {
-        location : "",
+        address : "",
         startdate : "",
-        enddate : ""
+        enddate : "",
+        listed: []
     }
-        //Bind the handlers to this class
-    this.locationChangeHandler = this.locationChangeHandler.bind(this);
+    this.addressChangeHandler = this.addressChangeHandler.bind(this);
     this.startdateChangeHandler = this.startdateChangeHandler.bind(this);
     this.enddateChangeHandler = this.enddateChangeHandler.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
+    this.handleSlider1 = this.handleSlider1.bind(this);
+    this.handleSlider2 = this.handleSlider2.bind(this);
     }
-    locationChangeHandler = (e) => {
+    addressChangeHandler = (e) => {
         this.setState({
-            location : e.target.value
+            address : e.target.value
         })
     }
     startdateChangeHandler = (e) => {
@@ -35,37 +39,40 @@ class Home extends Component {
         this.setState({
             price1 : e.target.value
         })
-        console.log("value : " + this.state.price1);
     }
     handleSlider2 = (e) => {
         this.setState({
             price2 : e.target.value
         })
-        console.log("value : " + this.state.price2);
     }
     submitSearch = (e) => {
         var headers = new Headers();
-
         e.preventDefault();
-       
-            // const values = {
-            //     emailtopass : jwt_decode(localStorage.getItem("travelerJWT")).email,
-            //     location : this.state.location,
-            //     startdate : this.state.startdate,
-            //     enddate : this.state.enddate,
-            //     guests : this.state.guests,
-            // }
-            // this.props.propsearch(values, () => {
-            //    // this.props.history.push("/propertysearch");
-               
-            //   });
-        
-        
-       
+        const data = {
+            address : this.state.address,
+            startdate : this.state.startdate,
+            enddate : this.state.enddate,
+        }
+        // axios.defaults.withCredentials = true;
+        axios.post(`${BASE_URL}/api/results`, data)
+            .then(response => {
+                // this.setState({
+                //     listed:this.state.listed.concat(response.data)
+                // })
+                console.log("Prop details : " + JSON.stringify(response.data));
+                console.log("prop status : "+ JSON.stringify(response.status));
+                if(JSON.stringify(response.status) == 200){
+                    this.setState({
+                        redirectVar : <Redirect to= "/properties"/>
+                })
+            }     
+        });  
     }
+
     render() { 
         return ( 
             <div>
+             {this.state.redirectVar}
             <div className="bgnd">
                 <form className="form-inline1" onSubmit={this.submitSearch}>
                     <input onChange = {this.locationChangeHandler} className="start" type="text"  name="location" placeholder="Location?" required></input>
