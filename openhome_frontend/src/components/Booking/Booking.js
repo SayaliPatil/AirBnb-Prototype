@@ -25,98 +25,56 @@ class Booking extends Component {
 
     componentDidMount(){
         console.log("inside componentWillMount of booking")
-        var temp = {headline: "Nice Suit", address: 'san jose', price: 20, sharing_type: "private room", prop_type: "condo", beds:2, sq_ft:600, description:"It is very nice apartment", wifi: "Yes"};
-        this.setState({
-            display : this.state.display.concat(temp)
+        var id = localStorage.getItem("propid")
+        axios.get(BASE_URL + '/api/booking/' + id)
+         .then((response) => {
+            console.log("response", response)
+            if(response.status == 200)
+            {
+                this.setState({
+                    display : this.state.display.concat(response.data)
+                });
+            }
+            this.state.display.map(Item => {
+                this.setState({
+                    headline : Item.headline,
+                });
+                this.setState({
+                    address : Item.address,
+                });
+                this.setState({
+                    price : Item.price,
+                });
+                this.setState({
+                    wifi : Item.wifi,
+                });
+                this.setState({
+                    beds : Item.beds,
+                });
+                this.setState({
+                    sharing_type : Item.sharing_type
+                });
+                this.setState({
+                    prop_type : Item.prop_type
+                });
+                this.setState({
+                    sq_ft : Item.sq_ft
+                });
+                this.setState({
+                    description : Item.description
+                });
+                this.setState({
+                    startdate : Item.startdate
+                });
+                this.setState({
+                    enddate : Item.enddate
+                });
+            })
         });
-        this.setState({
-            headline : temp.headline
-        });
-        this.setState({
-            address : temp.address
-        });
-        this.setState({
-            price : temp.price
-        });
-        this.setState({
-            sharing_type : temp.sharing_type
-        });
-        this.setState({
-        prop_type : temp.prop_type
-        });
-        this.setState({
-        beds : temp.beds
-        });
-        this.setState({
-        sq_ft : temp.sq_ft
-        });
-        this.setState({
-        description : temp.description
-        });
-        this.setState({
-        wifi : temp.wifi
-        });
-        // console.log("display", this.state.display);
-        // this.state.display.map(Item => {
-        // // this.setState({
-        // //     headline : Item.headline
-        // // });
-        // this.setState({
-        //     address : Item.address
-        // });
-        // this.setState({
-        //     price : Item.price
-        // });
-        // this.setState({
-        //     sharing_type : Item.sharing_type
-        // });
-        // this.setState({
-        // prop_type : Item.prop_type
-        // });
-        // this.setState({
-        // beds : Item.beds
-        // });
-        // this.setState({
-        // sq_ft : Item.sq_ft
-        // });
-        // this.setState({
-        // description : Item.description
-        // });
-        // this.setState({
-        // wifi : Item.wifi
-        // });
-        // })
-        //axios.defaults.withCredentials = true;
-        // axios.get(eventURL + 'events/' + ID)
-        // .then((response) => {
-        // console.log("response", response)
-        // if(response.status == 200)
-        // {
-        // this.setState({
-        // results : this.state.results.concat(response.data.events)
-        // });
-        // }
-        // this.state.results.map(Item => {
-        // this.setState({
-        // eventName : Item.eventName,
-        // });
-        // this.setState({
-        // eventId : Item.eventId,
-        // });
-        // this.setState({
-        // orgId : Item.orgId,
-        // });
-        // this.setState({
-        // location : Item.location,
-        // });
-        // this.setState({
-        // date : Item.date,
-        // });
-        // })
-        // });
-        }
-    render() {
-        return (
+    }
+
+    render() { 
+        return ( 
             <div>
                 <div className="main_cont">
                 <div className="main-div5">
@@ -160,11 +118,11 @@ class Booking extends Component {
                 <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="checkin">CheckIn</label>
-                <input onChange = {this.checkinChangeHandler} type="date" name="checkin" class="form-control txt1 hiett" id="checkin" placeholder="mm-dd-yyyy" required/>
+                <input onChange = {this.checkinChangeHandler} type="date" name="checkin" min={this.state.startdate} max={this.state.enddate} class="form-control txt1 hiett" id="checkin" placeholder="mm-dd-yyyy" required/>
                 </div>
                 <div class="form-group col-md-6">
                 <label for="checkout">Check Out</label>
-                <input onChange = {this.checkoutChangeHandler} type="date" name="checkout" className="txt1 hiett form-control" id="checkout" placeholder="mm-dd-yyyy" required/>
+                <input onChange = {this.checkoutChangeHandler} type="date" name="checkout" min={this.state.startdate} max={this.state.enddate} className="txt1 hiett form-control" id="checkout" placeholder="mm-dd-yyyy" required/>
                 </div>
                 </div>
                 <button className="hiett roundbutton btn btn-primary">Book Now</button>

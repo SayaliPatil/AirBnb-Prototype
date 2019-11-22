@@ -31,12 +31,10 @@ class Properties extends Component {
     showBooking = (ID ,e) => {
         console.log("ID : " + ID);  
         e.preventDefault();
-    //     this.props.showBookingPage(ID, () => {
-    //         this.setState({
-    //             redirectVar : <Redirect to= "/traveler/booking"/>
-    //   })
-    //       // this.props.history.push("/traveler/booking");
-    //   });
+        localStorage.setItem("propid", ID);
+        this.setState({
+            redirectVar : <Redirect to= "/booking"/>
+        })
   }
     render() { 
         console.log("all properties ", this.state.propertiesList);
@@ -68,6 +66,7 @@ class Properties extends Component {
     // }
     return (
         <div>
+        {this.state.redirectVar}
             <div className="noresult">
                 <h>{this.state.propertiesList.length} RESULTS FOUND</h></div>
                 {/* <div className="prop_pagi">

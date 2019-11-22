@@ -38,17 +38,14 @@ public class PropertyService {
 	}
 
 	public Property getPropertyById(Long id) {
-
-		System.out.println("search lists count: " + propertyRepository.count());
-		System.out.printf("inside getById", id);
-		// return propertyRepository.findOne();
+		System.out.printf("inside getPropertyById : ", id);
 		Property prop = null;
 		Query query = entityManager.createQuery("from Property as p WHERE p.id=:id");
 	    query.setParameter("id",id);
-	    System.out.println(query.getParameterValue("id"));
+//	    System.out.println(query.getParameterValue("id"));
 	    try {
 			prop = (Property) query.getSingleResult();
-			System.out.printf("inside getprop "+prop);
+			System.out.printf("inside getprop : "+prop);
 	    } catch (Exception e) {
 	        System.out.println("Here! Inside getPropertyById");
 	    }
@@ -71,6 +68,7 @@ public class PropertyService {
 	    } catch (Exception e) {
 	        System.out.println("Here! Inside getAllResults");
 	    }
-	 return propList;
+	    return propList;
 	}
+	
 }
