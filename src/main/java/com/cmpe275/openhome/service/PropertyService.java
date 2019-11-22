@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.PropertyRepository;
@@ -22,16 +23,16 @@ public class PropertyService {
 	@Autowired
 	private EntityManager entityManager;
 	
+	private List<Property> propList;
 	/**
 	 * Fetches all properties
 	 * 
 	 * @return List of properties
 	 */
+	
+	
 	public List<Property> getAllProperties() {
-		List<Property> propList = new ArrayList<Property>();
-		System.out.println("Return the lists : " + propertyRepository.count());
-		propList = propertyRepository.findAll();
-		// propertyRepository.findAll().forEach(propList::add);
+		System.out.println("size of proplist : " + propList.size());
 		System.out.printf("inside getAllProperties", propList);
 		return propList;
 	}
@@ -52,5 +53,24 @@ public class PropertyService {
 	        System.out.println("Here! Inside getPropertyById");
 	    }
 	 return prop;
+	}
+	
+	public List<Property> getAllResults(Property prop) {
+//		List<Property> propList = new ArrayList<Property>();
+		//Query query = entityManager.createQuery("from Property as p WHERE p.startdate <= startdate AND p.enddate >= enddate");
+		Query query = entityManager.createQuery("from Property as p WHERE UPPER(p.address) LIKE CONCAT('%',UPPER(:address),'%') AND p.startdate <= :startdate AND p.enddate >= :enddate");
+	    query.setParameter("address",prop.getAddress());
+	    query.setParameter("enddate",prop.getEnddate(), TemporalType.TIMESTAMP);
+	    query.setParameter("startdate",prop.getStartdate(), TemporalType.TIMESTAMP);
+//	    System.out.println(query.getParameterValue("address"));
+//	    System.out.println(query.getParameterValue("startdate"));
+//	    System.out.println(query.getParameterValue("enddate"));
+	    try {
+			propList = (List<Property>)query.getResultList();
+			System.out.printf("inside getAllResults "+propList);
+	    } catch (Exception e) {
+	        System.out.println("Here! Inside getAllResults");
+	    }
+	 return propList;
 	}
 }

@@ -14,16 +14,19 @@ class Properties extends Component {
     }
 
     componentDidMount(){
-        // axios.get(`${BASE_URL}/properties`,)
-        // .then((response) => {
-        //        this.setState({hackathonlist:response.data})
-        // });
-        var list = [
-            {headline: "nice suit", address: 'san jose', startdate: 11/12/19, enddate: 11/12/19, price: 20},
-            {headline: "beautiful place", address: 'san bruno', startdate: 11/12/19, enddate: 11/12/19, price: 20},
-            {headline: "wonderful house", address: 'santa clara', startdate: 11/12/19, enddate: 11/12/19, price: 20}
-        ];
-        this.setState({propertiesList:list})
+        axios.get(`${BASE_URL}/api/allproperties`,)
+        .then((response) => {
+                console.log("inside componentDidMount of Properties :", JSON.stringify(response.data))
+                this.setState({
+                    propertiesList: response.data
+                })
+        });
+        // var list = [
+        //     {headline: "nice suit", address: 'san jose', startdate: 11/12/19, enddate: 11/12/19, price: 20},
+        //     {headline: "beautiful place", address: 'san bruno', startdate: 11/12/19, enddate: 11/12/19, price: 20},
+        //     {headline: "wonderful house", address: 'santa clara', startdate: 11/12/19, enddate: 11/12/19, price: 20}
+        // ];
+        // this.setState({propertiesList:list})
     }
     showBooking = (ID ,e) => {
         console.log("ID : " + ID);  
@@ -36,9 +39,10 @@ class Properties extends Component {
     //   });
   }
     render() { 
-        console.log(this.state.propertiesList);
+        console.log("all properties ", this.state.propertiesList);
         // if(this.state.propertiesList != null) {
             let propDetails = this.state.propertiesList.map(propertyItem => {
+                console.log("property headline :", propertyItem.headline)
                 return (
                     <div className="prop">
                     <div class="row">
@@ -46,11 +50,11 @@ class Properties extends Component {
                     {/* <img src={propertyItem.photos} className="mediao"/> */}
                     </div>
                     <div class="col-sm-7" className="backColor_dash_list">  
-                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem._id)}>{propertyItem.headline}</Link></p>                   
+                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.id)}>{propertyItem.headline}</Link></p>                   
                     <ul class="list-inline">
                     <li>Address : {propertyItem.address}</li> 
                     <li>StartDate : {propertyItem.startdate}</li>
-                    <li>EndDate : {propertyItem.enddate}</li>                
+                    <li>EndDate : {(propertyItem.enddate).toString()}</li>                
                     </ul>
                     <br/>
                     <ul class="list-inline">

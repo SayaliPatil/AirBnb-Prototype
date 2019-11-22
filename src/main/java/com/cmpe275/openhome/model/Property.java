@@ -11,7 +11,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -29,6 +32,7 @@ import lombok.NonNull;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 @Table(name = "availableprop")
 public class Property {
+	
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -39,18 +43,25 @@ public class Property {
 	private String description;
 	
 	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
     private Date startdate;
     
     @Column(nullable=false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
     private Date enddate;
     
     private int price;
+    
     private int beds;
+    
     private int sq_ft;
+    
     private String wifi;
+    
     private String sharing_type;
+    
     private String prop_type;
+    
     private String headline;
+ 
 }
