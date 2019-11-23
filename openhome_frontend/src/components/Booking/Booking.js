@@ -100,10 +100,10 @@ class Booking extends Component {
                 </thead>
                 <tbody>
                 <tr>
-                <td className="fonts">{this.state.prop_type}</td>
-                <td className="fonts">{this.state.sharing_type}</td>
+                <td className="fonts">{this.state.proptype}</td>
+                <td className="fonts">{this.state.sharingtype}</td>
                 <td className="fonts">{this.state.beds}</td>
-                <td className="fonts">{this.state.sq_ft}</td>
+                <td className="fonts">{this.state.sqft}</td>
                 <td className="fonts">{this.state.wifi}</td>
                 </tr>
                 </tbody>

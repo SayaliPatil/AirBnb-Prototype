@@ -11,11 +11,21 @@ class Home extends Component {
         address : "",
         startdate : "",
         enddate : "",
+        wifi : "",
+        sharing_type : "",
+        prop_type : "",
+        description : "",
+        minprice : 0,
+        price2 : 0,
         listed: []
     }
     this.addressChangeHandler = this.addressChangeHandler.bind(this);
     this.startdateChangeHandler = this.startdateChangeHandler.bind(this);
     this.enddateChangeHandler = this.enddateChangeHandler.bind(this);
+    this.wifiChangeHandler = this.wifiChangeHandler.bind(this);
+    this.sharingChangeHandler = this.sharingChangeHandler.bind(this);
+    this.propChangeHandler = this.propChangeHandler.bind(this);
+    this.descriptionHandler = this.descriptionHandler.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.handleSlider1 = this.handleSlider1.bind(this);
     this.handleSlider2 = this.handleSlider2.bind(this);
@@ -37,24 +47,55 @@ class Home extends Component {
     }
     handleSlider1 = (e) => {
         this.setState({
-            price1 : e.target.value
+            minprice : e.target.value
         })
     }
     handleSlider2 = (e) => {
         this.setState({
-            price2 : e.target.value
+            maxprice : e.target.value
+        })
+    }
+
+    wifiChangeHandler = (e) => {
+        this.setState({
+            wifi : e.target.value
+        })
+    }
+    
+    sharingChangeHandler = (e) => {
+        this.setState({
+            sharing_type : e.target.value
+        })
+    }
+
+    propChangeHandler = (e) => {
+        this.setState({
+            prop_type : e.target.value
+        })
+    }
+    
+    descriptionHandler = (e) => {
+        this.setState({
+            description : e.target.value
         })
     }
     submitSearch = (e) => {
         var headers = new Headers();
         e.preventDefault();
-        const data = {
-            address : this.state.address,
-            startdate : this.state.startdate,
-            enddate : this.state.enddate,
-        }
-        // axios.defaults.withCredentials = true;
-        axios.post(`${BASE_URL}/api/results`, data)
+       
+            const data = {
+                address : this.state.address,
+                startdate : this.state.startdate,
+                enddate : this.state.enddate,
+                wifi : this.state.wifi,
+                sharingtype : this.state.sharing_type,
+                proptype : this.state.prop_type,
+                description : this.state.description,
+                minprice : this.state.minprice,
+                maxprice : this.state.maxprice
+            }
+            console.log("data : ", data);
+            axios.post(`${BASE_URL}/api/results`, data)
             .then(response => {
                 // this.setState({
                 //     listed:this.state.listed.concat(response.data)
@@ -67,6 +108,8 @@ class Home extends Component {
                 })
             }     
         });  
+        
+       
     }
 
     render() { 
@@ -75,13 +118,12 @@ class Home extends Component {
              {this.state.redirectVar}
             <div className="bgnd">
                 <form className="form-inline1" onSubmit={this.submitSearch}>
-                    <input onChange = {this.locationChangeHandler} className="start" type="text"  name="location" placeholder="Location?" required></input>
+                    <input onChange = {this.addressChangeHandler} className="start" type="text"  name="location" placeholder="Location?" required></input>
                     <input onChange = {this.startdateChangeHandler} type="date" className="start" name="startdate" placeholder="MM/DD/YYYY" required/>
                     <input onChange = {this.enddateChangeHandler} type="date" className="start" name="enddate" placeholder="MM/DD/YYYY" required/>
                     <div className="drop">
                     <div class="form-group1">
-                        {/* <label className="field-label">Gender</label> */}
-                        <select class="start"  onChange = {this.genderChangeHandler}>
+                        <select class="start"  onChange = {this.sharingChangeHandler}>
                         <option value="Select">Sharing Type</option>
                             <option value="private room">private room</option>
                             <option value="entire place">entire place</option>
@@ -90,8 +132,7 @@ class Home extends Component {
                     </div>
                     <div className="drop1">
                     <div class="form-group1">
-                        {/* <label className="field-label">Gender</label> */}
-                        <select className="start"  onChange = {this.genderChangeHandler}>
+                        <select className="start"  onChange = {this.propChangeHandler}>
                         <option value="Select">Property Type</option>
                             <option value="house">house</option>
                             <option value="townhouse">townhouse</option>
@@ -102,22 +143,21 @@ class Home extends Component {
                     </div>
                     <div className="drop2">
                     <div class="form-group1">
-                        {/* <label className="field-label">Gender</label> */}
-                        <select class="start"  onChange = {this.genderChangeHandler}>
+                        <select class="start"  onChange = {this.wifiChangeHandler}>
                         <option value="Select">Free Wifi</option>
-                            <option value="available">available</option>
-                            <option value="not available">not available</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
                         </select>
                     </div>
                     </div>
-                    <input onChange = {this.keywordChangeHandler} className="start top4" type="text"  name="keyword" placeholder="keyword?"></input>
+                    <input onChange = {this.descriptionHandler} className="start top4" type="text"  name="keyword" placeholder="keyword?"></input>
                     <div className="slider1 start1">
-                        <span className="slidetxt">Min Price: {this.state.price1}</span>
-                        <input class="slider" type="range" min="0" max="1000" step="1" value={this.state.price1} onChange={this.handleSlider1}/>
+                        <span className="slidetxt">Min Price: {this.state.minprice}</span>
+                        <input class="slider" type="range" min="0" max="1000" step="1" value={this.state.minprice} onChange={this.handleSlider1}/>
                     </div>
                     <div className="slider2 start2">
-                        <span className="slidetxt">Max Price: {this.state.price2}</span>
-                        <input class="slider" type="range" min="0" max="1000" step="1" value={this.state.price2} onChange={this.handleSlider2}/>
+                        <span className="slidetxt">Max Price: {this.state.maxprice}</span>
+                        <input class="slider" type="range" min="0" max="1000" step="1" value={this.state.maxprice} onChange={this.handleSlider2}/>
                     </div>
                     <button class="butsize btn btn-primary">Submit</button>
                 </form>

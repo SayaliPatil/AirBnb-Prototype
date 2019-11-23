@@ -54,14 +54,18 @@ public class Property {
     
     private int beds;
     
-    private int sq_ft;
+    private int sqft;
     
     private String wifi;
     
-    private String sharing_type;
+    private String sharingtype;
     
-    private String prop_type;
+    private String proptype;
     
     private String headline;
+    
+    private int minprice;
+    
+    private int maxprice;
  
 }

@@ -45,12 +45,12 @@ public class PropertySearchController {
     	return propertyService.getAllResults(prop);
     }
      
-    @ResponseBody
-    @PostMapping("/search")
-    public Property getPropertyById(@RequestBody Long id) {
-        this.id = id;
-        return propertyService.getPropertyById(id);
-    }
+//    @ResponseBody
+//    @PostMapping("/search")
+//    public Property getPropertyById(@RequestBody Long id) {
+//        this.id = id;
+//        return propertyService.getPropertyById(id);
+//    }
     
     @ResponseBody
     @RequestMapping(method=RequestMethod.GET, value = "/booking/{id}")
