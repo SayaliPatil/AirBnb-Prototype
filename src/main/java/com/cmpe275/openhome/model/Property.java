@@ -67,5 +67,6 @@ public class Property {
     private int minprice;
     
     private int maxprice;
+   
  
 }

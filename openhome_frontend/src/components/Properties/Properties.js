@@ -8,12 +8,26 @@ class Properties extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-           propertiesList : []
+           propertiesList : [],
+           current : 1,
+           itemsPerPage : 2,
+           activePage: 1
          }
          this.showBooking = this.showBooking.bind(this);
+         this.clickHandler = this.clickHandler.bind(this);
     }
 
+    clickHandler(event) {
+        this.setState({
+            current: Number(event.target.id)
+        });
+      }
+
+    // componentWillMount() {
+    //     console.log("photos : ", this.state.propertiesList);
+    // }
     componentDidMount(){
+        console.log("photos : ", this.state.propertiesList[0]);
         axios.get(`${BASE_URL}/api/allproperties`,)
         .then((response) => {
                 console.log("inside componentDidMount of Properties :", JSON.stringify(response.data))
@@ -35,11 +49,34 @@ class Properties extends Component {
         this.setState({
             redirectVar : <Redirect to= "/booking"/>
         })
-  }
+    }
     render() { 
+        const { current, itemsPerPage } = this.state;
+        const indexOfLastPage = current * itemsPerPage;
+        const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+        const currentTodos = this.state.propertiesList.slice(indexOfFirstPage, indexOfLastPage);
+        console.log("Number of properties : " + this.state.propertiesList.length);
+        
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(this.state.propertiesList.length / itemsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+        const showPageNumbers1 = pageNumbers.map(number => {
+            return (
+              <li class="page-item active"
+                key={number}
+                id={number}
+                onClick={this.clickHandler}
+                className="nums"
+              >
+          {number}
+              </li>
+            );
+          });
+
         console.log("all properties ", this.state.propertiesList);
         // if(this.state.propertiesList != null) {
-            let propDetails = this.state.propertiesList.map(propertyItem => {
+            let propDetails = currentTodos.map(propertyItem => {
                 console.log("property headline :", propertyItem.headline)
                 return (
                     <div className="prop">
@@ -69,19 +106,16 @@ class Properties extends Component {
         {this.state.redirectVar}
             <div className="noresult">
                 <h>{this.state.propertiesList.length} RESULTS FOUND</h></div>
-                {/* <div className="prop_pagi">
+                <div className="prop_pagi">
                 <nav aria-label="Page navigation example">
                 <ul class="pagination">
                 {showPageNumbers1}
                 </ul>
                 </nav>
-                </div> */}
+                </div>
                 <div>
                     {propDetails}
                 </div>
-                {/* <ul class="pagination">
-                {showPageNumbers1}
-                </ul> */}
             <div></div>
         </div>
     );
