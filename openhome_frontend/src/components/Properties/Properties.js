@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 class Properties extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
            propertiesList : [],
            current : 1,
            itemsPerPage : 2,
@@ -43,14 +43,14 @@ class Properties extends Component {
         // this.setState({propertiesList:list})
     }
     showBooking = (ID ,e) => {
-        console.log("ID : " + ID);  
+        console.log("ID : " + ID);
         e.preventDefault();
         localStorage.setItem("propid", ID);
         this.setState({
             redirectVar : <Redirect to= "/booking"/>
         })
     }
-    render() { 
+    render() {
         const { current, itemsPerPage } = this.state;
         const indexOfLastPage = current * itemsPerPage;
         const indexOfFirstPage = indexOfLastPage - itemsPerPage;
@@ -80,15 +80,15 @@ class Properties extends Component {
                 return (
                     <div className="prop">
                     <div class="row">
-                    <div class="col-sm-5" className="backColor5_list">                  
+                    <div class="col-sm-5" className="backColor5_list">
                     <img src={propertyItem.images.split(';').splice(0, 1).toString()} className="mediao"/>
                     </div>
-                    <div class="col-sm-7" className="backColor_dash_list">  
-                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.id)}>{propertyItem.headline}</Link></p>                   
+                    <div class="col-sm-7" className="backColor_dash_list">
+                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.id)}>{propertyItem.headline}</Link></p>
                     <ul class="list-inline">
-                    <li>Address : {propertyItem.address}</li> 
+                    <li>Address : {propertyItem.address}</li>
                     <li>StartDate : {propertyItem.startdate}</li>
-                    <li>EndDate : {(propertyItem.enddate).toString()}</li>                
+                    <li>EndDate : {(propertyItem.enddate).toString()}</li>
                     </ul>
                     <br/>
                     <ul class="list-inline">
@@ -96,9 +96,9 @@ class Properties extends Component {
                     </ul>
                     </div>
                     </div>
-                    </div>              
+                    </div>
                   );
-        });    
+        });
     // }
     return (
         <div>

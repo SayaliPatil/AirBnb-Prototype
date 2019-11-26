@@ -6,7 +6,8 @@ import Booking from './Booking/Booking';
 import SignUp from './signup/signup.js';
 import Login from './login/login.js';
 import VerifyAccount from './signup/verifyaccount';
-import Payment from './Payment/payment';
+import PaymentDetails from './Payment/paymentDetails';
+
 
 class Main extends Component {
     render(){
@@ -15,7 +16,7 @@ class Main extends Component {
                 <Route path="/home" component={Home}/>
                 <Route path="/properties" component={Properties}/>
                 <Route path="/booking" component={Booking}/>
-                <Route path="/payment" component={Payment}/>
+                <Route path="/paymentDetails" component={PaymentDetails}/>
                 <Route  exact path="/signup" render ={() => (<SignUp/>)}/>
     		        <Route  exact path="/login" render ={() => (<Login/>)}/>
     		        <Route  path="/verifyaccount/:ID" render ={(match) => (<VerifyAccount {...match} />)} />

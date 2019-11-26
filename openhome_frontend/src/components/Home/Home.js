@@ -61,7 +61,7 @@ class Home extends Component {
             wifi : e.target.value
         })
     }
-    
+
     sharingChangeHandler = (e) => {
         this.setState({
             sharing_type : e.target.value
@@ -73,7 +73,7 @@ class Home extends Component {
             prop_type : e.target.value
         })
     }
-    
+
     descriptionHandler = (e) => {
         this.setState({
             description : e.target.value
@@ -82,7 +82,7 @@ class Home extends Component {
     submitSearch = (e) => {
         var headers = new Headers();
         e.preventDefault();
-       
+
             const data = {
                 address : this.state.address,
                 startdate : this.state.startdate,
@@ -106,14 +106,14 @@ class Home extends Component {
                     this.setState({
                         redirectVar : <Redirect to= "/properties"/>
                 })
-            }     
-        });  
-        
-       
+            }
+        });
+
+
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
              {this.state.redirectVar}
             <div className="bgnd">
@@ -166,5 +166,5 @@ class Home extends Component {
          );
     }
 }
- 
+
 export default Home;

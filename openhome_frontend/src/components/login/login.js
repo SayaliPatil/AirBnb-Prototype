@@ -44,7 +44,7 @@ class Login extends Component {
 			email : this.state.email,
 			password : this.state.password
 		}
-		if(VALIDATION.validateField("Password",this.state.password) && VALIDATION.validateEmail(this.state.email)){
+		if(VALIDATION.fieldValidity("Password",this.state.password) && VALIDATION.emailValidity(this.state.email)){
 			fetch(`http://localhost:8080/api/login`, {
 				 method: 'POST',
 				 mode: 'cors',

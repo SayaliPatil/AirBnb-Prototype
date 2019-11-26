@@ -52,8 +52,8 @@ class SignUp extends Component {
 	submitLogin = (e) => {
 		var headers=new Headers();
 		e.preventDefault();
-		if(VALIDATION.validateField("Password",this.state.password) && VALIDATION.validateEmail(this.state.email) && VALIDATION.validateName(this.state.firstName) && VALIDATION
-			.validateName(this.state.lastName)){
+		if(VALIDATION.fieldValidity("Password",this.state.password) && VALIDATION.emailValidity(this.state.email) && VALIDATION.nameValidity(this.state.firstName) && VALIDATION
+			.nameValidity(this.state.lastName)){
 				const data = {
 					first_name : this.state.firstName,
 					last_name : this.state.lastName,

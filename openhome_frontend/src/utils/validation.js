@@ -1,5 +1,5 @@
 
-var statelist = [
+var states = [
 	"alabama",
 	"alaska",
 	"arizona",
@@ -109,7 +109,7 @@ var statelist = [
 	]
 
 
-var city_names = ["aberdeen", "abilene", "akron", "albany", "albuquerque", "alexandria", "allentown", "amarillo", "anaheim", "anchorage", "ann arbor", "antioch", "apple valley", "appleton", "arlington", "arvada", "asheville", "athens", "atlanta",
+var cities = ["aberdeen", "abilene", "akron", "albany", "albuquerque", "alexandria", "allentown", "amarillo", "anaheim", "anchorage", "ann arbor", "antioch", "apple valley", "appleton", "arlington", "arvada", "asheville", "athens", "atlanta",
 	"atlantic city", "augusta", "aurora", "austin", "bakersfield", "baltimore", "barnstable", "baton rouge", "beaumont", "bel air", "bellevue", "berkeley", "bethlehem", "billings", "birmingham", "bloomington", "boise", "boise city", "bonita springs",
 	"boston", "boulder", "bradenton", "bremerton", "bridgeport", "brighton", "brownsville", "bryan", "buffalo", "burbank", "burlington", "cambridge", "canton", "cape coral", "carrollton", "cary", "cathedral city", "cedar rapids", "champaign", "chandler",
 	"charleston", "charlotte", "chattanooga", "chesapeake", "chicago", "chula vista", "cincinnati", "clarke county", "clarksville", "clearwater", "cleveland", "college station", "colorado springs", "columbia", "columbus", "concord", "coral springs", "corona",
@@ -130,13 +130,13 @@ var city_names = ["aberdeen", "abilene", "akron", "albany", "albuquerque", "alex
 						 "toledo", "topeka", "torrance", "trenton", "tucson", "tulsa", "tuscaloosa", "tyler", "utica", "vallejo", "vancouver", "vero beach", "victorville", "virginia beach", "visalia", "waco", "warren", "washington", "waterbury", "waterloo",
 						  "west covina", "west valley city", "westminster", "wichita", "wilmington", "winston", "winter haven","worcester", "yakima", "yonkers", "york", "youngstown"];
 
-export function checkValidCity(cityname){
-		if(typeof cityname === "string"){
-			var res= city_names.indexOf(cityname.toLowerCase()) > -1;
-			if(res){
+export function cityValidity(city){
+		if(typeof city === "string"){
+			var result= cities.indexOf(city.toLowerCase()) > -1;
+			if(result){
 				return true;
 			}else{
-				alert("Invalid city name !!!");
+				alert("Please enter valid US city");
 				return false;
 			}
 		}else{
@@ -144,91 +144,79 @@ export function checkValidCity(cityname){
 		}
 
 	}
-export function checkValidState(statename){
-	console.log("check valid state ",statename,"statelist.indexOf(statename.toLowerCase())",statelist.indexOf(statename.toLowerCase()));
-	if(typeof statename === "string"){
-		const res = statelist.indexOf(statename.toLowerCase()) > -1;
-    if(res){
+export function stateValidity(state){
+	if(typeof state === "string"){
+		const result = states.indexOf(state.toLowerCase()) > -1;
+    if(result){
       return true;
     }
     else{
-      alert("enter valid state");
+      alert("Please enter valid US state");
 			return false;
     }
 	}
 	return false;
 }
 
-export function emptyDate(data, field){
-	console.log("data",data);
-  if(data && data.length>0){
+export function zipCodeValidity(zipcode) {
+       var regExpression = /^(\d{5})?$/;
+       var pattern = new RegExp(regExpression);
+       var result= pattern.test(zipcode);
+       if(result){
+         return result;
+       }else{
+         alert("Zip code should be a 5 digit number");
+       }
+}
+
+export function phoneNumberValidity (phoneNumber) {
+       var regExpression = /^(\d{10})?$/;
+       var pattern = new RegExp(regExpression);
+       var result= pattern.test(phoneNumber);
+       if(result){
+         return result;
+       }
+       else{
+         alert("Phone number should be 10 digit number");
+				 return false;
+       }
+}
+
+export function dateValidity(date, field){
+  if(date && date.length>0){
     return true;
   }
-  alert("Required field ["+field+"] is missing or not valid !!!");
+  alert("Field DATE is missing or invalid !!!");
   return false;
 }
 
-export function validateEmail (email) {
+export function emailValidity (email) {
 	if(email && email.length >0){
-		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    var patt = new RegExp(re);
-    var res= patt.test(email);
-    if(res){
-      return res;
+		const regExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    var pattern = new RegExp(regExpression);
+    var result= pattern.test(email);
+    if(result){
+      return result;
     }else{
-      alert("Invalid Email");
+      alert("Please enter valid Email");
 			return false
     }
 	}else{
-		alert("Required field email is missing or not valid !!!");
+		alert("Field EMAIL is missing or not valid !!!");
 	  return false;
 	}
-
-
 }
 
-export function validateStartEndDate (start_date , end_date) {
-       if ((Date.parse(end_date) >= Date.parse(start_date))) {
-           console.log("true");
+export function startEndDateValidity (startDate , endDate) {
+       if ((Date.parse(endDate) >= Date.parse(startDate))) {
            return true;
        }else{
-        console.log("false");
-        alert("End date should be greater than start date");
+        alert("Start date should be less or equal to End date");
         return false;
        }
 }
 
-export function validatePinCode (pincode) {
-
-       var regex = /^(\d{5})?$/;
-       var patt = new RegExp(regex);
-       var res= patt.test(pincode);
-       console.log(res);
-       if(res){
-         return res;
-       }else{
-         alert("Pin should only be a 5 digit number");
-       }
-}
-
-
-export function validatePhone (phone) {
-
-       var regex = /^(\d{10})?$/;
-       var patt = new RegExp(regex);
-       var res= patt.test(phone);
-       console.log(res);
-       if(res){
-         return res
-       }
-       else{
-         alert("Phone number can only be 10 digit number");
-				 return false;
-       }
-
-
-}
- export function validateField (field,data) {
+ export function fieldValidity (field,data) {
         if(data && data.length>0){
           return true;
         }
@@ -236,34 +224,73 @@ export function validatePhone (phone) {
         return false;
     }
 
-//for name to be greater than 2 characters and less than 30
-export function validateName (name) {
+export function nameValidity (name) {
 	if(name && name.length >0){
-       var regex = /^[a-zA-Z ]{2,30}$/
-       var patt = new RegExp(regex);
-       var res= patt.test(name);
-			 if(res){
-         return res
+       var regExpression= /^[a-zA-Z ]{2,30}$/
+       var pattern = new RegExp(regExpression);
+       var result= pattern.test(name);
+			 if(result){
+         return result;
        }
        else{
          alert("Name should be more than 2 characters and less than 30 characters and only alphabets");
        }
 		 }else{
-			 alert("Required field first name or last name is missing !!!");
+			 alert("Either field first name or last name is missing !!!");
 			 return false;
 		 }
 }
 
-//for numeric fields like no_of_bags, capacity, price etc
 export function numericValidation(value, field){
-    var regex = /^\d+$/;
-    var patt = new RegExp(regex);
-    var res= patt.test(value);
-    console.log(res);
-    if(!res){
+    var regExpression = /^\d+$/;
+    var pattern = new RegExp(regExpression);
+    var result = pattern.test(value);
+    if(!result){
       alert("Required field ["+field+"] should be numeric !!!");
     }
-    return res;
+    return result;
+}
 
+export function cvvNumberValidity (cvvNumber) {
+	if(cvvNumber && cvvNumber.length >0){
+       var regExpression = /^(\d{3})?$/;
+       var pattern = new RegExp(regExpression);
+       var result= pattern.test(cvvNumber);
+			 if(result){
+         return result;
+       }
+       else{
+         alert("User entered incorrect CVV..!");
+       }
+		 }else{
+			 alert("CVV detail is missing.!! Please enter CVV");
+			 return false;
+		 }
+}
 
+export function creditCardValidity (cardNumber) {
+			if(cardNumber && cardNumber.length >0){
+				var regExpression = /^(\d{16})?$/;
+        var pattern = new RegExp(regExpression);
+        var result= pattern.test(cardNumber);
+ 			 if(result){
+          return result;
+        }
+        else{
+          alert("User entered Invalid Credit Card Number");
+					return false;
+        }
+			}else{
+				alert("Required field credit card detail is missing !!!");
+			  return false;
+			}
+}
+
+export function creditCardTypeValidity (cardType) {
+			if(cardType && cardType.length >0 && (cardType.toLowerCase() == "debit" || cardType.toLowerCase() == "credit")){
+				return true;
+			}else{
+				alert("Only debit or credit card type is allowed !!!");
+			  return false;
+			}
 }
