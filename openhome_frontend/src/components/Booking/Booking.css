@@ -1,6 +1,6 @@
 .main_cont {
     display:flex;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     /* flex-wrap :wrap; */
 }
 
@@ -12,16 +12,8 @@
 .bolds {
     font-weight: bold;
 }
-  .carousals {
-    margin-top : -10px;
-    padding: 130px;
-    /* margin-bottom: -10px; */
-    background-color: beige;
-    margin-left: 50px;
-  }
-
   .header5 {
-    margin-left: 50px;
+    margin-left: 60px;
   }
 
   .fonts {
@@ -59,4 +51,14 @@
 
   .table {
       width : 95%;
+  }
+
+  .carousals {
+    margin-top : -60px;
+    padding: 60px;
+    margin-bottom: -20px;
+  }
+
+  .photo {
+    height : 300px;
   }

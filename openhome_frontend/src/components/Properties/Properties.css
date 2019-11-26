@@ -10,18 +10,16 @@
 }
 
 .backColor5_list {
-    background-color: beige;
     height: 250px;
     width : 600px;
     margin-left : -90px;
-    text-align : bottom;
-    margin-right : 20px
+    text-align : bottom;   
 }
 
 .backColor_dash_list {
     background-color: white;
     height: 250px;
-    width : 600px;
+    width : 500px;
     text-align : bottom;
     /* margin-left : 20px; */
     padding: 30px;
@@ -51,3 +49,8 @@
     padding: 5px 5px;
 }
 
+.mediao {
+    width : 400px;
+  height : 250px;
+  margin-left : 100px;
+}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './Booking.css';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import axios from 'axios';
@@ -23,8 +25,8 @@ class Booking extends Component {
         this.props.history.push("/payment");
     }
 
-    componentDidMount(){
-        console.log("inside componentWillMount of booking")
+    componentWillMount(){
+        console.log("inside componentDidMount of booking")
         var id = localStorage.getItem("propid")
         axios.get(BASE_URL + '/api/booking/' + id)
          .then((response) => {
@@ -52,13 +54,13 @@ class Booking extends Component {
                     beds : Item.beds,
                 });
                 this.setState({
-                    sharing_type : Item.sharing_type
+                    sharingtype : Item.sharingtype
                 });
                 this.setState({
-                    prop_type : Item.prop_type
+                    proptype : Item.proptype
                 });
                 this.setState({
-                    sq_ft : Item.sq_ft
+                    sqft : Item.sqft
                 });
                 this.setState({
                     description : Item.description
@@ -69,19 +71,33 @@ class Booking extends Component {
                 this.setState({
                     enddate : Item.enddate
                 });
+                this.setState({
+                    images : Item.images
+                });
             })
         });
     }
 
     render() { 
+        
+        if(this.state.images != undefined) {
+            let imagesArray = this.state.images.split(";");
+            var photoArray = imagesArray.map((value) => {
+                return(
+                    // <p><img  className="photo" src={value}></img></p>
+                    <img src={value} className="photo"/>
+                )
+            })
+        }else
+            console.log("undefined images")
+        
         return ( 
             <div>
                 <div className="main_cont">
                 <div className="main-div5">
                 <div className="carousals">
-                {/* <Carousel class="carouselprop" showThumbs={false}>{photoArray}</Carousel> */}
+                <Carousel class="carouselprop carousel-slider" showThumbs={false}>{photoArray}</Carousel>
                 </div>
-                <br/>
                 <div>
                 <h2 className="header5">{this.state.headline}</h2>
                 <p className="header5 lowHeader">{this.state.address}</p>

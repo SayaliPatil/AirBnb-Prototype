@@ -68,5 +68,5 @@ public class Property {
     
     private int maxprice;
    
- 
+    private String images;
 }

@@ -56,7 +56,6 @@ class Properties extends Component {
         const indexOfFirstPage = indexOfLastPage - itemsPerPage;
         const currentTodos = this.state.propertiesList.slice(indexOfFirstPage, indexOfLastPage);
         console.log("Number of properties : " + this.state.propertiesList.length);
-        
         const pageNumbers = [];
         for (let i = 1; i <= Math.ceil(this.state.propertiesList.length / itemsPerPage); i++) {
             pageNumbers.push(i);
@@ -77,12 +76,12 @@ class Properties extends Component {
         console.log("all properties ", this.state.propertiesList);
         // if(this.state.propertiesList != null) {
             let propDetails = currentTodos.map(propertyItem => {
-                console.log("property headline :", propertyItem.headline)
+                console.log("property headline :", propertyItem.images.split(';').splice(0, 1).toString())
                 return (
                     <div className="prop">
                     <div class="row">
                     <div class="col-sm-5" className="backColor5_list">                  
-                    {/* <img src={propertyItem.photos} className="mediao"/> */}
+                    <img src={propertyItem.images.split(';').splice(0, 1).toString()} className="mediao"/>
                     </div>
                     <div class="col-sm-7" className="backColor_dash_list">  
                     <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.id)}>{propertyItem.headline}</Link></p>                   
