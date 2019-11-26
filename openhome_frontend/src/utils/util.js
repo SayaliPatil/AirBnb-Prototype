@@ -37,21 +37,6 @@ export const getServerTokenDetails=()=> {
 
 export const deleteServerToken = () => {
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('userServertoken');
-    localStorage.removeItem('propertyLocation');
-    localStorage.removeItem('propertyHeadline');
-    localStorage.removeItem('propertyDescription');
-    localStorage.removeItem('propertyArea');
-    localStorage.removeItem('propertyType');
-    localStorage.removeItem('bedroomNumber');
-    localStorage.removeItem('bathroomNumber');
-    localStorage.removeItem('accomodation');
-    localStorage.removeItem('bookingType');
-    localStorage.removeItem('propertyPricing');
-    localStorage.removeItem('availabilityStartDate');
-    localStorage.removeItem('availabilityEndDate');
-    localStorage.removeItem('nightStay');
-    localStorage.removeItem('propertyid');
       alert("user will be logged out");
       history.push('/');
 };
@@ -63,24 +48,3 @@ export const getUserHTTPHeader = function(){
     }
     return header;
 };
-
-export var options = {
-    offset: 14,
-    position: 'bottom center',
-    theme: 'dark',
-    time: 5000,
-    transition: 'scale'
-};
-
-//
-// export var displayAlert = (msg, type, self) => {
-//     self.msg.show(msg, {
-//         time: 5000,
-//         type: type,
-//         icon: (type === "error") ?
-//             <img style={{height: "32px", width: "40px"}} src={error_icon}/> :
-//             (type === "success")?<img style={{height: "32px", width: "32px"}} src={success_icon}/>:
-//             <img style={{height: "32px", width: "32px"}} src={info_icon}/>
-//
-//     })
-// };

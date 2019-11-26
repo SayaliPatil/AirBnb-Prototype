@@ -18,9 +18,9 @@ class Booking extends Component {
         console.log("Inside submitBooking");
         e.preventDefault();
         this.setState({
-            redirectVar : <Redirect to= "/payment"/>
+            redirectVar : <Redirect to= "/paymentDetails"/>
         })
-        this.props.history.push("/payment");
+        this.props.history.push("/paymentDetails");
     }
 
     componentDidMount(){

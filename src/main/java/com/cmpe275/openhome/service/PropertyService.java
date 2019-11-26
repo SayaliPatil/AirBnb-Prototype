@@ -62,6 +62,7 @@ public class PropertyService {
 	    query.setParameter("address",prop.getAddress());
 	    query.setParameter("enddate",prop.getEnddate(), TemporalType.TIMESTAMP);
 	    query.setParameter("startdate",prop.getStartdate(), TemporalType.TIMESTAMP);
+	    System.out.println("Query generated for address : " +prop.getAddress() + "enddate : " +prop.getEnddate() + "prop.getStartdate() " +prop.getStartdate());
 //	    System.out.println(query.getParameterValue("address"));
 //	    System.out.println(query.getParameterValue("startdate"));
 //	    System.out.println(query.getParameterValue("enddate"));

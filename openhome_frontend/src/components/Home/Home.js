@@ -13,14 +13,14 @@ class Home extends Component {
         enddate : "",
         listed: []
     }
-    this.addressChangeHandler = this.addressChangeHandler.bind(this);
+    this.locationChangeHandler = this.locationChangeHandler.bind(this);
     this.startdateChangeHandler = this.startdateChangeHandler.bind(this);
     this.enddateChangeHandler = this.enddateChangeHandler.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.handleSlider1 = this.handleSlider1.bind(this);
     this.handleSlider2 = this.handleSlider2.bind(this);
     }
-    addressChangeHandler = (e) => {
+    locationChangeHandler = (e) => {
         this.setState({
             address : e.target.value
         })
@@ -65,12 +65,12 @@ class Home extends Component {
                     this.setState({
                         redirectVar : <Redirect to= "/properties"/>
                 })
-            }     
-        });  
+            }
+        });
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
              {this.state.redirectVar}
             <div className="bgnd">
@@ -126,5 +126,5 @@ class Home extends Component {
          );
     }
 }
- 
+
 export default Home;
