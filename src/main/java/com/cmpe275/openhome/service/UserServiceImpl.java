@@ -41,12 +41,14 @@ public class UserServiceImpl implements UserService{
 	public User findByEmail(String email) {
 		// TODO Auto-generated method stub
 		User user = null;
-		try {
-			user = userRepository.findByEmail(email);
-		}
-		catch(Exception exception) {
-			throw new CustomException(DUPLICATE_USER_EXCEPTION_MESSAGE);
-		}
+		user = userRepository.findByEmail(email);
+//		try {
+//			user = userRepository.findByEmail(email);
+//			System.out.println("User details : " +user.getFirst_name());
+//		}
+//		catch(Exception exception) {
+//			throw new CustomException(DUPLICATE_USER_EXCEPTION_MESSAGE);
+//		}
 		return user;
 	}
 	

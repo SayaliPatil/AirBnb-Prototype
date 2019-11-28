@@ -19,7 +19,7 @@ public class EmailService {
         sms.setSubject(subject);
         sms.setSentDate(new Date());
         sms.setText(message);
-        System.out.println("Verification email has been sent to user");
+        System.out.println("email has been sent to user");
         mailSender.send(sms);
     }
 }

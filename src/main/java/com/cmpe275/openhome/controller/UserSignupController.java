@@ -71,7 +71,7 @@ public class UserSignupController {
     		return new ResponseEntity<>("{\"status\" : \"User entered wrong email or password..!!\"}", HttpStatus.BAD_REQUEST);
 		}
         System.out.println("User logged in successfully");
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.ok(existingUser);
     }
     
     @RequestMapping(value = "/verifyaccount", method = RequestMethod.GET)

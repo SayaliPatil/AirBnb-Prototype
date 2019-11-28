@@ -13,7 +13,8 @@ const headers = {
 export const saveServerToken = (userdata, servertoken, type) => {
     console.log("saveServerToken",userdata);
         localStorage.setItem('currentUser',JSON.stringify(userdata));
-        localStorage.setItem('userServertoken',servertoken);
+        localStorage.setItem('ID',JSON.stringify(servertoken));
+        // localStorage.setItem('userServertoken',servertoken);
 };
 
 export const getUserDetails=()=>{
@@ -29,6 +30,15 @@ export const getUserDetails=()=>{
 export const getServerTokenDetails=()=> {
 	if(localStorage.userServertoken) {
 		return (localStorage.userServertoken);
+	}
+	else {
+		return null;
+	}
+}
+
+export const getUserIdDetails=()=> {
+	if(localStorage.ID) {
+		return (localStorage.ID);
 	}
 	else {
 		return null;

@@ -2,6 +2,7 @@ package com.cmpe275.openhome.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -41,6 +42,10 @@ public class Card implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ID;
 	
+	private Long userID;
+	
+	private int cvv;
+	
 	private String email;
 	
 	private String nameOnCard;
@@ -65,8 +70,4 @@ public class Card implements Serializable{
     @LastModifiedDate
     private Date updated_at;
 	
-//	@JsonProperty("email")
-//	@ManyToOne(targetEntity = User.class, cascade = {CascadeType.PERSIST})
-//	@JoinColumn(name = "email", nullable = false)
-//	private User user;
 }

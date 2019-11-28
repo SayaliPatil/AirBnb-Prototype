@@ -78,6 +78,7 @@ class SignUp extends Component {
 							 this.setState({
 								 authFlag : true
 							 })
+							 alert("Verification mail has been sent. Please verify befor login.!!")
 							 window.location.reload();
 					 }
 					 else if(response.status==302) {
@@ -97,35 +98,30 @@ class SignUp extends Component {
 	render() {
 		return(
 			<div>
-				<div className="login-class">
-					<div  className="sign-main">
+				<div className="login-div">
 					<h4> Sign up for OpenHome </h4>
-					<div className="account-para">
+					<div className="account-class">
 					<h3> Already have an account ?
-					 	<a href="login" className="header-img"> Log in</a>
+					 	<a href="login" className="header-img-class"> Log in</a>
 					 </h3>
 					</div>
-					</div>
-					<div className="form-login">
-
 						<form className="form-class1">
-						<table className="login-table">
+						<table className="login-table-class">
 						      <tr><h3 className="header-signup-class"> Account Login </h3></tr>
-						      <hr></hr>
+						      <hr className= "signup-horizontal"></hr>
 						      <tr>
-						      		<td><input type="text" className="txt-field-small1" placeholder="First Name" onChange = {this.firstnameChangeHandler}/> </td>
-						      		<td> <input type="text" className="txt-field-small2" placeholder="Last Name" onChange = {this.lastnameChangeHandler}/></td>
+						      		<td><input type="text" className="small-field1" placeholder="First Name" onChange = {this.firstnameChangeHandler}/> </td>
+						      		<td> <input type="text" className="small-field2" placeholder="Last Name" onChange = {this.lastnameChangeHandler}/></td>
 						      </tr>
-						      <tr> <td><input type="text" className="txt-field-lg" placeholder="Email Address" onChange = {this.emailChangeHandler}/></td> </tr>
-						      <tr > <td><input type="password" className="txt-field-lg" placeholder="Password" onChange = {this.passwordChangeHandler}/></td></tr>
+						      <tr> <td><input type="text" className="large-field" placeholder="Email Address" onChange = {this.emailChangeHandler}/></td> </tr>
+						      <tr > <td><input type="password" className="large-field" placeholder="Password" onChange = {this.passwordChangeHandler}/></td></tr>
 						      <button onClick = {this.submitLogin} className="btn btn-primary">Sign Me Up</button>
 						      <h5 className="horizontal-line"> <span>or</span> </h5>
-			                   <button className="fb-button" onClick={this.signup}><img className="fb-image" src ={facebookicon} />Log in with Facebook</button>
-			                   <button className="google-button" onClick={this.signup}><img className="fb-image" src ={googleicon}/>Log in with Google</button>
-			                   <p className="footer">We dont post anything without your permission.</p>
+			            <button className="facebook-button" onClick={this.signup}><img className="fb-image" src ={facebookicon} />Log in with Facebook</button>
+			            <button className="google-button" onClick={this.signup}><img className="fb-image" src ={googleicon}/>Log in with Google</button>
+			            <p className="signup-footer">We dont post anything without your permission.</p>
 							</table>
 						</form>
-					</div>
 					</div>
 			</div>
 			);

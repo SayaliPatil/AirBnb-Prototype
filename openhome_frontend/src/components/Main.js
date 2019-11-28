@@ -7,7 +7,8 @@ import SignUp from './signup/signup.js';
 import Login from './login/login.js';
 import VerifyAccount from './signup/verifyaccount';
 import PaymentDetails from './Payment/paymentDetails';
-
+import PlaceOrder from './Payment/placeOrder';
+import BookingSuccess from './Payment/bookingSuccess';
 
 class Main extends Component {
     render(){
@@ -17,6 +18,8 @@ class Main extends Component {
                 <Route path="/properties" component={Properties}/>
                 <Route path="/booking" component={Booking}/>
                 <Route path="/paymentDetails" component={PaymentDetails}/>
+                <Route path="/placeOrder" component={PlaceOrder}/>
+                <Route path="/bookingSuccess" component={BookingSuccess}/>
                 <Route  exact path="/signup" render ={() => (<SignUp/>)}/>
     		        <Route  exact path="/login" render ={() => (<Login/>)}/>
     		        <Route  path="/verifyaccount/:ID" render ={(match) => (<VerifyAccount {...match} />)} />

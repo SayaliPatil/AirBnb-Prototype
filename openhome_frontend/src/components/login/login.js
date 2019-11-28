@@ -45,42 +45,43 @@ class Login extends Component {
 			password : this.state.password
 		}
 		if(VALIDATION.fieldValidity("Password",this.state.password) && VALIDATION.emailValidity(this.state.email)){
+
 			fetch(`http://localhost:8080/api/login`, {
-				 method: 'POST',
-				 mode: 'cors',
-				 headers: { ...headers,'Content-Type': 'application/json' },
-				 body: JSON.stringify(data)
-			 }).then(response => {
-				 console.log("Status Code : ",response);
-				 if(response.status==200) {
-					 response.json().then((data) => {
-                        console.log(data.email);
-												UTIL.saveServerToken(data.email , "XSKCC" , )
-           });
-						 this.setState({
-							 authFlag : true
-						 })
-						 alert("User logged in successfully");
-				 }
-				 else if(response.status==404) {
-						alert("User not registered, Please sign up");
-						history.push('/signup');
-						window.location.reload();
-						this.setState({
-							authFlag : false
-						})
-				 }
-				 else if(response.status==400) {
-					 alert("Please entered incorrect email and password");
-					 window.location.reload();
-					 this.setState({
-						 authFlag : false
-					 })
-				 }
-			})
+             method: 'POST',
+             mode: 'cors',
+             headers: { ...headers,'Content-Type': 'application/json' },
+             body: JSON.stringify(data)
+           }).then(response => {
+              console.log("Status Code : ",response);
+              if(response.status==200) {
+								this.setState({
+	 							 authFlag : true
+	 						 })
+	 						 alert("User logged in successfully");
+                return response.json();
+            }
+						else if(response.status==404) {
+	 						alert("User not registered, Please sign up");
+	 						history.push('/signup');
+	 						window.location.reload();
+	 						this.setState({
+	 							authFlag : false
+	 						})
+	 				 }
+	 				 else if(response.status==400) {
+	 					 alert("Please entered incorrect email and password");
+	 					 window.location.reload();
+	 					 this.setState({
+	 						 authFlag : false
+	 					 })
+	 				 }
+          }).then(result => {
+            console.log("Login details Results:",result);
+						UTIL.saveServerToken(result.email , result.id );
+          })
 			.catch(error => {
 				console.log("Error : " + error);
-				alert("User login failed because of sever error")
+				window.location.reload();
 			});
 		}
 	}
@@ -91,29 +92,27 @@ class Login extends Component {
 			{
 				this.state.authFlag!=false? <Redirect to='/home'/>:''
 			}
-				<div className="login-class">
+				<div className="login-div">
 						<h3> Log in to OpenHome </h3>
-					<div className="account-para">
+					<div className="account-class">
 					<h3> Need an account ?
-					 	<a href="signup" className="header-img"> Sign Up</a>
+					 	<a href="signup" className="header-img-class"> Sign Up</a>
 					 </h3>
 					 </div>
-					<div className="form-login">
 						<form className="form-class">
-							<table className="login-table">
-						      <tr><h3 className="header-login1"> Account Login </h3></tr>
-						      <hr></hr>
-						      <tr> <input type="text" className="txt-class" placeholder="Email Address" onChange = {this.usernameChangeHandler}/> </tr>
-						      <tr> <input type="password" className="txt-class" placeholder="Password" onChange= {this.passwordChangeHandler}/></tr>
-						      <a href="#" className="forgot-pwd1"> Forgot Password </a><br></br>
+							<table className="login-table-class">
+						      <tr><h3 className="header-login-class"> Account Login </h3></tr>
+						      <hr className= "signup-horizontal"></hr>
+						      <tr> <input type="text" className="txt-class-login" placeholder="Email Address" onChange = {this.usernameChangeHandler}/> </tr>
+						      <tr> <input type="password" className="txt-class-login" placeholder="Password" onChange= {this.passwordChangeHandler}/></tr>
+						      <a href="#" className="forgot-password"> Forgot Password </a><br></br>
 						      <button onClick = {this.submitLogin} className="btn btn-primary login">Login</button>
 						       <h4 className="horizontal-line"> <span>or</span> </h4>
-			                   <button className="fb-button1" ><img className="fb-image" src ={facebookicon} />Log in with Facebook</button><br></br>
-			                   <button className="google-button1"><img className="fb-image" src ={googleicon}/>Log in with Google</button>
-			                   <p className="footer">We dont post anything without your permission.</p>
+			             <button className="facebook-button1" ><img className="fb-image" src ={facebookicon} />Log in with Facebook</button><br></br>
+			             <button className="google-button1"><img className="fb-image" src ={googleicon}/>Log in with Google</button>
+			             <p className="signup-footer">We dont post anything without your permission.</p>
 							</table>
 						</form>
-					</div>
 					</div>
 			</div>
 			);

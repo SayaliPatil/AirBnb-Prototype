@@ -7,11 +7,25 @@ public class EmailUtility {
 	public static final String VERIFICATION_SUCCESS_MESSAGE = "Congratulations.!! Account verified successfully";
 	
 	public static String createVerificationMsg(Long verificationcode) {
-        String verificationMessage = "Thank you the registration with OpenHome !!!\nPlease verify your account"
+        String verificationMessage = "Thank you for registration with OpenHome !!!\nPlease verify your account"
                 + " by clicking the url.\n"
                 + "\nUrl : " + URL_PREFIX + verificationcode
                 + "\n\nRegards\nTeam OpenHome";
         System.out.println("verificationMessage : " +verificationMessage);
         return verificationMessage;
+    }
+	
+	public static String createBookingConfirmationMsg() {
+        String bookingMessage = "Thank you for Booking with OpenHome !!!"
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("bookingMessage : " +bookingMessage);
+        return bookingMessage;
+    }
+	
+	public static String createBookingConfirmationMsgHost() {
+        String bookingMessage = "Your posting has been booked !!!"
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("bookingMessage : " +bookingMessage);
+        return bookingMessage;
     }
 }

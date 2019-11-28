@@ -3,6 +3,7 @@ import {Redirect} from 'react-router';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './Booking.css';
+import PaymentDetails  from'./../Payment/paymentDetails.js';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
@@ -11,18 +12,21 @@ class Booking extends Component {
         super(props);
         this.state = {
             display : [],
-            redirectVar : ''
+            redirectVar : '',
+            selected: {},
         }
         this.submitBooking = this.submitBooking.bind(this);
-        // this.checkinChangeHandler = this.checkinChangeHandler.bind(this);
     }
     submitBooking = (e) => {
         console.log("Inside submitBooking");
         e.preventDefault();
         this.setState({
-            redirectVar : <Redirect to= "/paymentDetails"/>
+            redirectVar : true
         })
-        this.props.history.push("/paymentDetails");
+        this.props.history.push({
+            pathname: '/placeOrder',
+            state: { detail: this.state.selected }
+        })
     }
 
     componentWillMount(){
@@ -36,6 +40,9 @@ class Booking extends Component {
                 this.setState({
                     display : this.state.display.concat(response.data)
                 });
+                this.setState({
+                  selected : response.data
+                })
             }
             this.state.display.map(Item => {
                 this.setState({
@@ -78,8 +85,11 @@ class Booking extends Component {
         });
     }
 
-    render() { 
-        
+    render() {
+        // if(this.state.redirectVar) {
+        //   return(<PaymentDetails booking = {this.state.selected}/>)
+        //
+        // }
         if(this.state.images != undefined) {
             let imagesArray = this.state.images.split(";");
             var photoArray = imagesArray.map((value) => {
@@ -90,8 +100,8 @@ class Booking extends Component {
             })
         }else
             console.log("undefined images")
-        
-        return ( 
+
+        return (
             <div>
                 <div className="main_cont">
                 <div className="main-div5">
@@ -141,7 +151,9 @@ class Booking extends Component {
                 <input onChange = {this.checkoutChangeHandler} type="date" name="checkout" min={this.state.startdate} max={this.state.enddate} className="txt1 hiett form-control" id="checkout" placeholder="mm-dd-yyyy" required/>
                 </div>
                 </div>
-                <button className="hiett roundbutton btn btn-primary">Book Now</button>
+
+                <button className="hiett roundbutton btn btn-primary">
+                Book Now</button>
                 </form>
                 {/* <h2>Total</h2><p className="lowHeader">${this.state.price}</p> */}
                 <br/>

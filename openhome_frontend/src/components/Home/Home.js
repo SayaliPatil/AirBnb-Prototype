@@ -119,8 +119,8 @@ class Home extends Component {
             <div className="bgnd">
                 <form className="form-inline1" onSubmit={this.submitSearch}>
                     <input onChange = {this.addressChangeHandler} className="start" type="text"  name="location" placeholder="Location?" required></input>
-                    <input onChange = {this.startdateChangeHandler} type="date" className="start" name="startdate" placeholder="MM/DD/YYYY" required/>
-                    <input onChange = {this.enddateChangeHandler} type="date" className="start" name="enddate" placeholder="MM/DD/YYYY" required/>
+                    <input onChange = {this.startdateChangeHandler} type="date" className="start" name="startdate" placeholder="MM/DD/YYYY" min={new Date().toISOString().split('T')[0]} required/>
+                    <input onChange = {this.enddateChangeHandler} type="date" className="start" name="enddate" placeholder="MM/DD/YYYY" min={new Date().toISOString().split('T')[0]} required/>
                     <div className="drop">
                     <div class="form-group1">
                         <select class="start"  onChange = {this.sharingChangeHandler}>

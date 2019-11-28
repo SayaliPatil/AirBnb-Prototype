@@ -1,12 +1,16 @@
 package com.cmpe275.openhome.model;
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,6 +55,8 @@ public class Booking {
     
     private Long property_id;
     
+    private int beds;
+    
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date created_at;
@@ -60,5 +66,5 @@ public class Booking {
     private Date updated_at;
 	
 	private boolean user_checked_in_flag;
- 
+	
 }
