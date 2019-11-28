@@ -11,7 +11,7 @@ class Properties extends Component {
            propertiesList : [],
            current : 1,
            itemsPerPage : 2,
-           activePage: 1
+           activePage: 1,
          }
          this.showBooking = this.showBooking.bind(this);
          this.clickHandler = this.clickHandler.bind(this);
@@ -46,9 +46,13 @@ class Properties extends Component {
         console.log("ID : " + ID);
         e.preventDefault();
         localStorage.setItem("propid", ID);
-        this.setState({
-            redirectVar : <Redirect to= "/booking"/>
+        this.props.history.push({
+            pathname: '/booking',
+            state: { detail: this.props.location.state.detail}
         })
+        // this.setState({
+        //     redirectVar : <Redirect to= "/booking"/>
+        // })
     }
     render() {
         const { current, itemsPerPage } = this.state;
@@ -87,8 +91,8 @@ class Properties extends Component {
                     <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.id)}>{propertyItem.headline}</Link></p>
                     <ul class="list-inline">
                     <li>Address : {propertyItem.address}</li>
-                    <li>StartDate : {propertyItem.startdate}</li>
-                    <li>EndDate : {(propertyItem.enddate).toString()}</li>
+                    <li>StartDate : {this.props.location.state.detail.startdate}</li>
+                    <li>EndDate : {this.props.location.state.detail.enddate}</li>
                     </ul>
                     <br/>
                     <ul class="list-inline">

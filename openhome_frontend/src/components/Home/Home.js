@@ -4,6 +4,7 @@ import axios from 'axios';
 import {Redirect} from 'react-router';
 import {Link} from 'react-router-dom';
 import './Home.css';
+import * as VALIDATION from './../../utils/validation';
 class Home extends Component {
     constructor(props){
     super(props);
@@ -82,34 +83,40 @@ class Home extends Component {
     submitSearch = (e) => {
         var headers = new Headers();
         e.preventDefault();
-
-            const data = {
-                address : this.state.address,
-                startdate : this.state.startdate,
-                enddate : this.state.enddate,
-                wifi : this.state.wifi,
-                sharingtype : this.state.sharing_type,
-                proptype : this.state.prop_type,
-                description : this.state.description,
-                minprice : this.state.minprice,
-                maxprice : this.state.maxprice
-            }
-            console.log("data : ", data);
-            axios.post(`${BASE_URL}/api/results`, data)
-            .then(response => {
-                // this.setState({
-                //     listed:this.state.listed.concat(response.data)
-                // })
-                console.log("Prop details : " + JSON.stringify(response.data));
-                console.log("prop status : "+ JSON.stringify(response.status));
-                if(JSON.stringify(response.status) == 200){
-                    this.setState({
-                        redirectVar : <Redirect to= "/properties"/>
-                })
-            }
-        });
-
-
+        if(VALIDATION.startEndDateValidity(this.state.startdate,this.state.enddate)) {
+                    const data = {
+                        address : this.state.address,
+                        startdate : this.state.startdate,
+                        enddate : this.state.enddate,
+                        wifi : this.state.wifi,
+                        sharingtype : this.state.sharing_type,
+                        proptype : this.state.prop_type,
+                        description : this.state.description,
+                        minprice : this.state.minprice,
+                        maxprice : this.state.maxprice
+                    }
+                    console.log("data : ", data);
+                    axios.post(`${BASE_URL}/api/results`, data)
+                    .then(response => {
+                        // this.setState({
+                        //     listed:this.state.listed.concat(response.data)
+                        // })
+                        console.log("Prop details : " + JSON.stringify(response.data));
+                        console.log("prop status : "+ JSON.stringify(response.status));
+                        if(JSON.stringify(response.status) == 200){
+                          this.props.history.push({
+                              pathname: '/properties',
+                              state: { detail: this.state }
+                          })
+                        //     this.setState({
+                        //         redirectVar : <Redirect to= "/properties"/>
+                        // })
+                    }
+                });
+          }
+          else {
+            alert("Modify Property Search Criteria");
+          }
     }
 
     render() {

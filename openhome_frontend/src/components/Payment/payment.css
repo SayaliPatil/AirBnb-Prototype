@@ -159,6 +159,12 @@
   width :30px;
   height :30px;
 }
+.arrow-class {
+  width :30px;
+  height :30px;
+  margin-left:10px;
+  margin-top: 0px;
+}
 .order-summary{
   position: fixed;
   margin-top: 30px;
@@ -186,6 +192,13 @@
   height: 10px;
   width: 350px;
 }
+.arrow-horizontal{
+  position: fixed;
+  margin-top: 20px;
+  color: black;
+  height: 10px;
+  width: 350px;
+}
 .success-horizontal{
   margin-top: 10px;
   color: black;
@@ -199,7 +212,8 @@
   width: 200%;
 }
 .date-class{
-  width: 400px;
+  width: 500px;
+  position: fixed;
 }
 .confirm-header{
 

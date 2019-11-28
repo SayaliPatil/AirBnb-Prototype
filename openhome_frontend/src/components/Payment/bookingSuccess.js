@@ -40,7 +40,7 @@ class BookingSuccess extends Component {
                   <img src= "https://www.kaedu.co.in/wp-content/uploads/2017/06/image.png" className="waiting-photo"/>
                   <h5 className ="success-footers">Booking Dates are from {this.state.bookingDetails.check_in_date.split("T")[0]} to  {this.state.bookingDetails.check_out_date.split("T")[0]}</h5>
                   <br></br>
-                  <h5 className ="success-footers">Total amount paid is : {this.state.bookingDetails.price}</h5>
+                  <h5 className ="success-footers">Total amount paid is : $ {this.state.bookingDetails.price}</h5>
                   <br></br>
                   <Link to='/home'><button className="btn btn-primary" style={{width:250}}>Go to HomePage</button> </Link>
             </div>

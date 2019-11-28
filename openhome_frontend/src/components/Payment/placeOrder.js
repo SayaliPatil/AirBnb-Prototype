@@ -54,6 +54,10 @@ class PlaceOrder extends Component {
     var start = new Date(this.state.orderSummary.startdate );
     var end = new Date(this.state.orderSummary.enddate);
     var total_nights = (end.getTime() - start.getTime()) / (1000 * 3600 * 24);
+    console.log("total_nights : " +total_nights);
+    if(total_nights == 0) {
+        total_nights = 1;
+    }
     if(this.state.cardSelected) {
       var details={
         "property_id":localStorage.getItem("propid"),

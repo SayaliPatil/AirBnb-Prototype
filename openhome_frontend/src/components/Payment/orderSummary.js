@@ -21,10 +21,10 @@ class OrderSummary extends Component {
       }
     this.carddetail ={}
   }
-  componentWillMount() {
-    const state = this.props.order;
-    console.log("Propperty details on order summary page : " +state.address);
-  }
+  // componentWillMount() {
+  //   const state = this.props.order;
+  //   console.log("Propperty details on order summary page : " +state.address);
+  // }
   render() {
     let imagesArray = this.props.order.images.split(";");
     let value = imagesArray[0];
@@ -33,6 +33,10 @@ class OrderSummary extends Component {
     var date2 = new Date(this.props.order.enddate);
     var total_nights = (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24);
     console.log("totalDays: " +total_nights);
+    if(total_nights == 0) {
+        total_nights = 1;
+    }
+    console.log("this.props.order.beds : " +this.props.order.beds);
     return (
       <div className= "order-summary">
             <table className="static-border">
@@ -49,14 +53,14 @@ class OrderSummary extends Component {
                 <br></br>
                 <tr className = "date-class">
                   <td> <img src="http://icons.iconarchive.com/icons/icons8/windows-8/512/Business-Overtime-icon.png" className="photo-class"/>  &nbsp;&nbsp;&nbsp;{this.props.order.startdate.split("T")[0]}
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://dejpknyizje2n.cloudfront.net/svgcustom/clipart/preview/arrow-pointing-right-or-left-up-or-down-2617-13878-300x300.png" className="photo-class"/></td> <td>{this.props.order.enddate.split("T")[0]} </td>
+                  &nbsp;&nbsp;&nbsp;<img src="https://dejpknyizje2n.cloudfront.net/svgcustom/clipart/preview/arrow-pointing-right-or-left-up-or-down-2617-13878-300x300.png" className="arrow-class"/></td> <td>&nbsp;&nbsp;{this.props.order.enddate.split("T")[0]} </td>
                 </tr>
                 <br></br>
-                <hr className= "horizontal"/>
+                <hr className= "arrow-horizontal"/>
                 <br></br>
                 <tr>
-                  <th> $ {(this.props.order.price)} per night </th>
-                  <th> {total_nights}  nights </th>
+                  <th> $ {(this.props.order.price)} / night </th>
+                  <th> {total_nights > 1 ? total_nights + "nights" : total_nights + " night"}   </th>
                 </tr>
                 <br></br>
               <tr>

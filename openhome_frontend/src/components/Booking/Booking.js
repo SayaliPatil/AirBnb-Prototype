@@ -14,6 +14,7 @@ class Booking extends Component {
             display : [],
             redirectVar : '',
             selected: {},
+            numberofRooms: '',
         }
         this.submitBooking = this.submitBooking.bind(this);
     }
@@ -21,8 +22,10 @@ class Booking extends Component {
         console.log("Inside submitBooking");
         e.preventDefault();
         this.setState({
-            redirectVar : true
+            redirectVar : true,
+
         })
+        this.state.selected.beds = this.state.numberofRooms;
         this.props.history.push({
             pathname: '/placeOrder',
             state: { detail: this.state.selected }
@@ -41,7 +44,7 @@ class Booking extends Component {
                     display : this.state.display.concat(response.data)
                 });
                 this.setState({
-                  selected : response.data
+                  selected : response.data,
                 })
             }
             this.state.display.map(Item => {
@@ -73,23 +76,23 @@ class Booking extends Component {
                     description : Item.description
                 });
                 this.setState({
-                    startdate : Item.startdate
+                    startdate : this.props.location.state.detail.startdate
                 });
                 this.setState({
-                    enddate : Item.enddate
+                    enddate : this.props.location.state.detail.enddate
                 });
                 this.setState({
                     images : Item.images
                 });
             })
+
         });
     }
-
     render() {
-        // if(this.state.redirectVar) {
-        //   return(<PaymentDetails booking = {this.state.selected}/>)
-        //
-        // }
+      const options = [];
+      for(var i = 1; i <= this.state.beds ; i++) {
+        options.push(i);
+      }
         if(this.state.images != undefined) {
             let imagesArray = this.state.images.split(";");
             var photoArray = imagesArray.map((value) => {
@@ -100,7 +103,9 @@ class Booking extends Component {
             })
         }else
             console.log("undefined images")
-
+            this.state.selected.startdate = this.state.startdate;
+            this.state.selected.enddate = this.state.enddate;
+            //
         return (
             <div>
                 <div className="main_cont">
@@ -144,14 +149,25 @@ class Booking extends Component {
                 <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="checkin">CheckIn</label>
-                <input onChange = {this.checkinChangeHandler} type="date" name="checkin" min={this.state.startdate} max={this.state.enddate} class="form-control txt1 hiett" id="checkin" placeholder="mm-dd-yyyy" required/>
+                <input onChange = {this.checkinChangeHandler} type="date" data-date="" data-date-format="DD MMMM YYYY" value={this.state.startdate} name="checkin" min={this.state.startdate} max={this.state.enddate} className="form-control txt1 hiett" id="checkin" placeholder="yyy-mm-dd" required/>
                 </div>
                 <div class="form-group col-md-6">
                 <label for="checkout">Check Out</label>
-                <input onChange = {this.checkoutChangeHandler} type="date" name="checkout" min={this.state.startdate} max={this.state.enddate} className="txt1 hiett form-control" id="checkout" placeholder="mm-dd-yyyy" required/>
+                <input onChange = {this.checkoutChangeHandler} type="date" data-date="" data-date-format="DD MMMM YYYY" value={this.state.enddate} name="checkout" min={this.state.startdate} max={this.state.enddate}  className="txt1 hiett form-control" id="checkout" placeholder="yyyy-mm-dd" required/>
                 </div>
                 </div>
-
+                <select className="form-control"
+                          onChange={event => this.setState({numberofRooms: event.target.value})}>
+                            {
+                                options.map(option => {
+                                    return (
+                                        <option>
+                                            {option}
+                                        </option>
+                                    )
+                                })
+                            }
+                </select>
                 <button className="hiett roundbutton btn btn-primary">
                 Book Now</button>
                 </form>
