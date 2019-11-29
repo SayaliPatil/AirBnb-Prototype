@@ -88,7 +88,7 @@ class Properties extends Component {
                     <img src={propertyItem.images.split(';').splice(0, 1).toString()} className="mediao"/>
                     </div>
                     <div class="col-sm-7" className="backColor_dash_list">
-                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.id)}>{propertyItem.headline}</Link></p>
+                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.property_id)}>{propertyItem.headline}</Link></p>
                     <ul class="list-inline">
                     <li>Address : {propertyItem.address}</li>
                     <li>StartDate : {this.props.location.state.detail.startdate}</li>

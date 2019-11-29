@@ -63,6 +63,7 @@ class PaymentDetails extends Component {
     					 console.log("Status Code : ",response);
     					 if(response.status==200) {
                   console.log("Response got : " +response);
+                  alert("Card added successfully.!!")
                   window.location.reload();
     					 }
     				})

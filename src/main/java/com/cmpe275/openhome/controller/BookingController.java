@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Card;
 import com.cmpe275.openhome.model.User;
@@ -42,20 +43,26 @@ public class BookingController {
 	@Autowired
 	EmailService emailService;
 	
+	private static final String BOOKING_CONFIRMATION_EXCEPTION_MESSAGE = "Booking and property tables could not updated";
+	
 	@PostMapping("/book")
     @ResponseBody
-    public ResponseEntity<?> registration(@Valid @RequestBody Booking booking) throws URISyntaxException {
-    	System.out.println("Body sent : " +booking.getUser_email());
+    public ResponseEntity<?> booking(@Valid @RequestBody Booking booking) throws URISyntaxException {
+    	System.out.println("Body sent : " +booking);
     	User existingUser = userService.findByEmail(booking.getUser_email());
     	if(existingUser == null) {
     		System.out.println("User does not exist exist");
     		return new ResponseEntity<>("{\"status\" : \"No user found with sent email id.!!\"}", HttpStatus.BAD_REQUEST);
     	}	
     	Booking book = bookingService.saveBookingDetails(booking);
-    	String guestMessage = EmailUtility.createBookingConfirmationMsg();
-    	String hostMessage = EmailUtility.createBookingConfirmationMsgHost();
-        emailService.sendEmail(book.getUser_email(), guestMessage, " Booking Confirmation with OpenHome.!!");
-        emailService.sendEmail(book.getHost_email(), hostMessage, " Booking Confirmation with OpenHome.!!");
+    	
+        try {
+        	bookingService.updateBookedProperty(book);
+        }
+        catch(Exception e) {
+        	System.out.println("Exception during booking : " +e.getMessage());
+        	throw new CustomException(BOOKING_CONFIRMATION_EXCEPTION_MESSAGE); 
+        }
     	return ResponseEntity.ok(book);
     }
 	
@@ -65,6 +72,17 @@ public class BookingController {
     	System.out.println("User ID send as a parm : " +id);
     	List<Booking> book = bookingService.getBookingDetails(id);
     	return ResponseEntity.ok(book);
+    }
+    
+    @PostMapping("/book/email")
+    @ResponseBody
+    public ResponseEntity<?> registration(@Valid @RequestBody Booking booking) throws URISyntaxException {
+    	System.out.println("Body sent : " +booking);
+    	String guestMessage = EmailUtility.createBookingConfirmationMsg();
+    	String hostMessage = EmailUtility.createBookingConfirmationMsgHost();
+        emailService.sendEmail(booking.getUser_email(), guestMessage, " Booking Confirmation with OpenHome.!!");
+        emailService.sendEmail(booking.getHost_email(), hostMessage, " Booking Confirmation with OpenHome.!!");
+        return new ResponseEntity<>("{\"status\" : \"Email has been sent successfully\"}", HttpStatus.OK);
     }
     
 }

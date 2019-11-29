@@ -14,7 +14,6 @@ class Booking extends Component {
             display : [],
             redirectVar : '',
             selected: {},
-            numberofRooms: '',
         }
         this.submitBooking = this.submitBooking.bind(this);
     }
@@ -25,7 +24,6 @@ class Booking extends Component {
             redirectVar : true,
 
         })
-        this.state.selected.beds = this.state.numberofRooms;
         this.props.history.push({
             pathname: '/placeOrder',
             state: { detail: this.state.selected }
@@ -89,10 +87,6 @@ class Booking extends Component {
         });
     }
     render() {
-      const options = [];
-      for(var i = 1; i <= this.state.beds ; i++) {
-        options.push(i);
-      }
         if(this.state.images != undefined) {
             let imagesArray = this.state.images.split(";");
             var photoArray = imagesArray.map((value) => {
@@ -103,8 +97,9 @@ class Booking extends Component {
             })
         }else
             console.log("undefined images")
-            this.state.selected.startdate = this.state.startdate;
-            this.state.selected.enddate = this.state.enddate;
+            this.state.selected.userSelectedStartDate = this.props.location.state.detail.startdate;
+            this.state.selected.userSelectedEnddate = this.props.location.state.detail.enddate;
+            // this.state.selected.property_unique_id = this.props.location.state.detail.id
             //
         return (
             <div>
@@ -156,18 +151,6 @@ class Booking extends Component {
                 <input onChange = {this.checkoutChangeHandler} type="date" data-date="" data-date-format="DD MMMM YYYY" value={this.state.enddate} name="checkout" min={this.state.startdate} max={this.state.enddate}  className="txt1 hiett form-control" id="checkout" placeholder="yyyy-mm-dd" required/>
                 </div>
                 </div>
-                <select className="form-control"
-                          onChange={event => this.setState({numberofRooms: event.target.value})}>
-                            {
-                                options.map(option => {
-                                    return (
-                                        <option>
-                                            {option}
-                                        </option>
-                                    )
-                                })
-                            }
-                </select>
                 <button className="hiett roundbutton btn btn-primary">
                 Book Now</button>
                 </form>

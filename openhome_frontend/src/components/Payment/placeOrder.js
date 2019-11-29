@@ -51,25 +51,29 @@ class PlaceOrder extends Component {
 
   clickHandler=(event)=> {
     event.preventDefault();
-    var start = new Date(this.state.orderSummary.startdate );
-    var end = new Date(this.state.orderSummary.enddate);
+    var start = new Date(this.state.orderSummary.userSelectedStartDate );
+    var end = new Date(this.state.orderSummary.userSelectedEnddate);
     var total_nights = (end.getTime() - start.getTime()) / (1000 * 3600 * 24);
     console.log("total_nights : " +total_nights);
     if(total_nights == 0) {
-        total_nights = 1;
+      this.props.history.push({
+          pathname: '/home'
+      })
     }
     if(this.state.cardSelected) {
       var details={
         "property_id":localStorage.getItem("propid"),
-        "check_in_date":this.state.orderSummary.startdate,
-        "check_out_date":this.state.orderSummary.enddate,
+        "check_in_date":this.state.orderSummary.userSelectedStartDate,
+        "check_out_date":this.state.orderSummary.userSelectedEnddate,
+        "availabilty_start_date" : this.state.orderSummary.startdate.split("T")[0],
+        "availabilty_end_date" : this.state.orderSummary.enddate.split("T")[0],
         "host_email":this.state.orderSummary.host_email,
         "price":this.state.orderSummary.price * total_nights * this.state.orderSummary.beds,
         "beds":this.state.orderSummary.beds,
         "user_checked_in_flag" : false,
-        "user_email" : UTIL.getUserDetails()
+        "user_email" : UTIL.getUserDetails(),
+        "property_unique_id" : this.state.orderSummary.id
       }
-      console.log("Details of property at booking table page is :" ,this.props.detailsofProperty);
       const headers = {
               'Accept': 'application/json'
             };
@@ -88,7 +92,6 @@ class PlaceOrder extends Component {
                   this.setState({
                     bookingDetails:result,
                   });
-                  console.log("invoice after promise: ", this.state.bookingDetails);
                   this.props.history.push({
                       pathname: '/bookingSuccess',
                       state: { bookingDetails: result }
@@ -102,12 +105,10 @@ class PlaceOrder extends Component {
     }
   render() {
     var email = UTIL.getUserDetails();
-    console.log("EMAIL : " +email)
     if(email == undefined || email == null || email.length == 0) {
       alert("Login to book property");
       this.props.history.push('/login');
     }
-    console.log("cardDetails : " +this.state.cardDetails);
         let fetchCard = this.state.cardDetails.map(cardItem => {
             return (
                 <div className="card-table">
@@ -128,7 +129,7 @@ class PlaceOrder extends Component {
                 </div>
               );
     });
-    console.log("Order summary : " + this.state.orderSummary.address);
+    console.log("Order summary : " + this.state.orderSummary.property_unique_id);
     return (
             <div className = "add-payment-main">
                 <h1 className ="confirm-header"> Confirm and Pay </h1>

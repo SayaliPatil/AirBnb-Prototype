@@ -37,6 +37,9 @@ public class Property {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
     private Long id;
+    
+    private Long property_id;
+    
     @Column(nullable=false)
 	private String address;
 	
@@ -71,4 +74,6 @@ public class Property {
     private String images;
     
     private String host_email;
+    
+    private boolean booked_flag;
 }

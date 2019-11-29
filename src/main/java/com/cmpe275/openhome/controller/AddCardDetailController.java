@@ -25,6 +25,7 @@ import com.cmpe275.openhome.model.User;
 import com.cmpe275.openhome.repository.CardRepository;
 import com.cmpe275.openhome.repository.UserRepository;
 import com.cmpe275.openhome.service.CardService;
+import com.cmpe275.openhome.service.EmailService;
 import com.cmpe275.openhome.service.UserService;
 import com.cmpe275.openhome.utils.EmailUtility;
 
@@ -43,6 +44,9 @@ public class AddCardDetailController {
 	@Autowired
     private UserService userService;
 	
+	@Autowired
+	EmailService emailService;
+	
 	@PostMapping("/addcard")
     @ResponseBody
     public ResponseEntity<String> registration(@Valid @RequestBody Card card) throws URISyntaxException {
@@ -53,6 +57,8 @@ public class AddCardDetailController {
     		return new ResponseEntity<>("{\"status\" : \"No user found with sent email id.!!\"}", HttpStatus.BAD_REQUEST);
     	}
         cardService.saveCardDetails(card);
+        String guestMessage = EmailUtility.createCardAdditionConfirmationMsg();
+        emailService.sendEmail(card.getEmail(), guestMessage, " Payment method added successfully.!!");
         return new ResponseEntity<>("{\"status\" : \"User's card details saved successfully.!!\"}", HttpStatus.OK);
     }
 	

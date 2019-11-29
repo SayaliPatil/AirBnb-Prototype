@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -54,6 +55,12 @@ public class Booking {
     private String host_email;
     
     private Long property_id;
+    
+    private Long property_unique_id;
+   
+    private String availabilty_start_date;
+    
+    private String availabilty_end_date;
     
     private int beds;
     

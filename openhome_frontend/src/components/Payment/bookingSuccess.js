@@ -22,6 +22,25 @@ class BookingSuccess extends Component {
     this.setState({
       bookingDetails : state.bookingDetails
     })
+
+  }
+  componentDidMount() {
+    const headers = {
+            'Accept': 'application/json'
+          };
+          fetch(`http://localhost:8080/api/book/email`, {
+             method: 'POST',
+             mode: 'cors',
+             headers: { ...headers,'Content-Type': 'application/json' },
+             body: JSON.stringify(this.state.bookingDetails)
+           }).then(response => {
+              console.log("Status Code : ",response);
+              if(response.status==200) {
+                return response.json();
+            }
+          }).then(result => {
+            console.log("Booking Results:",result);
+          })
   }
   render() {
     console.log("Booking details on success page : " +this.state.bookingDetails);

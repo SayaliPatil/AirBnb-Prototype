@@ -28,4 +28,12 @@ public class EmailUtility {
         System.out.println("bookingMessage : " +bookingMessage);
         return bookingMessage;
     }
+	
+	public static String createCardAdditionConfirmationMsg() {
+        String cardAdditionMessage = "Thank you for updating payment method with OpenHome !!!\n Card has been added successfully." 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("cardAdditionMessage : " +cardAdditionMessage);
+        return cardAdditionMessage;
+    }
+	
 }

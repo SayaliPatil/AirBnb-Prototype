@@ -120,14 +120,16 @@ class Home extends Component {
     }
 
     render() {
+      var date = new Date().toLocaleString( 'sv', { timeZoneName: 'short' } );
+      var minDate = date.split(" ")[0];
         return (
             <div>
              {this.state.redirectVar}
             <div className="bgnd">
                 <form className="form-inline1" onSubmit={this.submitSearch}>
                     <input onChange = {this.addressChangeHandler} className="start" type="text"  name="location" placeholder="Location?" required></input>
-                    <input onChange = {this.startdateChangeHandler} type="date" className="start" name="startdate" placeholder="MM/DD/YYYY" min={new Date().toISOString().split('T')[0]} required/>
-                    <input onChange = {this.enddateChangeHandler} type="date" className="start" name="enddate" placeholder="MM/DD/YYYY" min={new Date().toISOString().split('T')[0]} required/>
+                    <input onChange = {this.startdateChangeHandler} type="date" className="start" name="startdate" placeholder="MM/DD/YYYY" min={minDate} required/>
+                    <input onChange = {this.enddateChangeHandler} type="date" className="start" name="enddate" placeholder="MM/DD/YYYY" min={minDate} required/>
                     <div className="drop">
                     <div class="form-group1">
                         <select class="start"  onChange = {this.sharingChangeHandler}>

@@ -60,6 +60,8 @@ public class Card implements Serializable{
 	
 	private String state;
 	
+	private int walletAmount;
+	
 	private int zip;
 	
 	@Temporal(TemporalType.TIMESTAMP)
