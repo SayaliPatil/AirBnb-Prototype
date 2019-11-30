@@ -25,13 +25,10 @@ class BookingSuccess extends Component {
 
   }
   componentDidMount() {
-    const headers = {
-            'Accept': 'application/json'
-          };
           fetch(`http://localhost:8080/api/book/email`, {
              method: 'POST',
              mode: 'cors',
-             headers: { ...headers,'Content-Type': 'application/json' },
+             headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
              body: JSON.stringify(this.state.bookingDetails)
            }).then(response => {
               console.log("Status Code : ",response);

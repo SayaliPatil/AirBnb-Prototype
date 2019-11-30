@@ -39,7 +39,6 @@ class PaymentDetails extends Component {
 
  handleCardAdd(data){
    var email= UTIL.getUserDetails();
-   var headers=new Headers();
    if(email){
        if(VALIDATION.emailValidity(email) && this.checkCreditDataValid(data) && this.validateStateAndZipCode(data)){
          const payload = {
@@ -57,7 +56,7 @@ class PaymentDetails extends Component {
             fetch(`http://localhost:8080/api/addcard`, {
     					 method: 'POST',
     					 mode: 'cors',
-    					 headers: { ...headers,'Content-Type': 'application/json' },
+    					 headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
     					 body: JSON.stringify(payload)
     				 }).then(response => {
     					 console.log("Status Code : ",response);

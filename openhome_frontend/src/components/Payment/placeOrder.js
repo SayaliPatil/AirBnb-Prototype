@@ -6,7 +6,6 @@ import {history} from "./../../utils/util";
 import * as UTIL from './../../utils/util';
 import * as VALIDATION from './../../utils/validation';
 import {BASE_URL} from './../../components/Configs/Configs.js';
-import {bindActionCreators} from 'redux';
 import axios from 'axios';
 
 class PlaceOrder extends Component {
@@ -26,7 +25,6 @@ class PlaceOrder extends Component {
     this.setState({
       orderSummary : state.detail
     })
-    var headers=new Headers();
     var email = UTIL.getUserDetails();
     var id = UTIL.getUserIdDetails();
     axios.get(BASE_URL + '/api/fetchcard/' + id)
@@ -74,13 +72,10 @@ class PlaceOrder extends Component {
         "user_email" : UTIL.getUserDetails(),
         "property_unique_id" : this.state.orderSummary.id
       }
-      const headers = {
-              'Accept': 'application/json'
-            };
             fetch(`http://localhost:8080/api/book`, {
                method: 'POST',
                mode: 'cors',
-               headers: { ...headers,'Content-Type': 'application/json' },
+               headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
                body: JSON.stringify(details)
              }).then(response => {
                 console.log("Status Code : ",response);

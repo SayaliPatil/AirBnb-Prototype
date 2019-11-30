@@ -74,5 +74,21 @@ public class UserServiceImpl implements UserService{
         }
         return false;
     }
-
+	
+	@Override
+	public User checkUserVerified(String email) {
+		System.out.println("ID sent from body : " + email);
+		User user = null;
+		user = userRepository.findByEmail(email);
+        try {
+        	if(user != null && user.isVerified() && user.getOauth_flag()) {
+        		return user;
+        	}
+        }
+        catch (Exception e){
+            throw e;
+        }
+		return user;
+		
+	}
 }

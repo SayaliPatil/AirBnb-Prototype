@@ -81,7 +81,6 @@ class Home extends Component {
         })
     }
     submitSearch = (e) => {
-        var headers = new Headers();
         e.preventDefault();
         if(VALIDATION.startEndDateValidity(this.state.startdate,this.state.enddate)) {
                     const data = {

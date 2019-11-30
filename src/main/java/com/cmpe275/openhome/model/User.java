@@ -46,6 +46,8 @@ public class User implements Serializable{
 	
 	private String user_role;
 	
+	private Boolean oauth_flag;
+	
 	private String password;
 	
 	private boolean verified;

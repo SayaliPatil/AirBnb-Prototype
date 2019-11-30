@@ -24,10 +24,8 @@
 	margin-left: 600px;
 }
 .small-field1{
-	position: relative;
-	margin-left: -500px;
-	margin-right: -300px;
-	  height:40px;
+	margin-left: -200px;
+	height:40px;
 	  width: 200px;
 	  font-size:17px;
 	 border-radius: 1px;
@@ -39,9 +37,7 @@
 	 text-align: left;
 }
 .small-field2{
-	position: relative;
-	margin-left: -480px;
-	margin-right: -100px;
+	margin-left: -200px;
 	  height:40px;
 	  width: 200px;
 	  font-size:17px;
@@ -113,30 +109,40 @@
 	float:left;
 }
 .facebook-button {
-	background-color: #39559f;
 	width:310px;
-	color:white;
 	text-align:center;
 	font-size: 14px;
-  	width: 310px;
+  	width: 350px;
   	height:35px;
   	line-height: 30px;
   	margin-top: 0px;
-
+		margin-left: 500px;
+		position: fixed;
 }
 
-.google-button {
-	background-color: rgba(192,192,192,0.3);
-	color:black;
-	text-align:center;
-	padding:5px;
-	font-size: 14px;
-  width: 310px;
-  height: 40px;
+.google-button-login{
+	float: inherit;
+	font-size: 12px;
+	height: 55px;
+	width: 270px;
   line-height: 30px;
   margin-top: 10px;
+	margin-left: 5px;
+	padding-bottom: 100px;
 }
-
+.google-button-signup{
+	float: inherit;
+	font-size: 12px;
+	height: 55px;
+	width: 280px;
+  line-height: 30px;
+  margin-top: 10px;
+	margin-left: 10px;
+	padding-bottom: 100px;
+}
+.oauth-login{
+	margin-left: 50px;
+}
 .signup-footer {
 	color:black;
 	font-size: 10px;
@@ -144,7 +150,6 @@
 }
 
 .large-field {
-		position: relative;
 	  margin-left: 0px;
 	  height:40px;
 	  width: 400px;
@@ -183,7 +188,10 @@
 	margin-left: -10px;
 	margin-top: 50px;
 }
-
+.signup-table-class{
+	margin-left: 90px;
+	margin-top: 50px;
+}
 .facebook-button1{
 	background-color: #39559f;
 	width:310px;
@@ -226,6 +234,18 @@
 	margin-top: 10px;
 	font-size: 13px;
 }
+.signup-horizontal-line{
+	 width: 75%;
+   text-align: center;
+   border-bottom: 1px solid #D3D3D3;
+   border-bottom-width: thin;
+   line-height: 0.1em;
+   margin: 10px 0 20px;
+   margin-left: 45px;
+   background:#fff;
+   padding:0px;
+}
+
 .horizontal-line{
 	width: 80%;
    text-align: center;
