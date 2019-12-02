@@ -34,7 +34,13 @@ public class BookingService {
 	private static final String FETCH_BOOKING_DETAILS_EXCEPTION_MESSAGE = "No booking details found for the user";
 	public Booking saveBookingDetails(Booking booking) {
 		// TODO Auto-generated method stub
-		Booking book = bookingRepository.save(booking);
+		Booking book = null;
+		try {
+			book = bookingRepository.save(booking);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return book;
 	}
 	
@@ -47,7 +53,7 @@ public class BookingService {
 			book = (List<Booking>) query.getResultList();
 		}
 		catch(Exception exception) {
-			throw new CustomException(FETCH_BOOKING_DETAILS_EXCEPTION_MESSAGE);
+			throw new CustomException(FETCH_BOOKING_DETAILS_EXCEPTION_MESSAGE + exception.getMessage());
 		}
 		return book;
 	}

@@ -1,6 +1,9 @@
 package com.cmpe275.openhome.controller;
 
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +31,7 @@ import com.cmpe275.openhome.service.BookingService;
 import com.cmpe275.openhome.service.CheckInOutService;
 import com.cmpe275.openhome.service.EmailService;
 import com.cmpe275.openhome.service.UserService;
+import com.cmpe275.openhome.utils.DateUtility;
 import com.cmpe275.openhome.utils.EmailUtility;
 
 @RestController
@@ -48,10 +52,36 @@ public class CheckinCheckoutController {
     public ResponseEntity<?> booking(@Valid @RequestBody Booking booking) throws URISyntaxException {
     	System.out.println("Body sent : " +booking);
     	Optional<Booking> existingBooking = bookingRepository.findById(booking.getID());
+    	System.out.println("existingBooking : " +existingBooking.get());
     	if(existingBooking.get() == null ) {
     		return new ResponseEntity<>("{\"status\" : \"No confirmed booking found with given booking id.!!\"}", HttpStatus.BAD_REQUEST);
-    	}	
-    	Booking book = bookingService.saveBookingDetails(booking);
+    	}
+    	if(booking.isBooking_cancelled()) {
+    		long differenceInDays = DateUtility.dateDifference(DateUtility.todayDate(0), existingBooking.get().getCheck_in_date());
+    		
+    		checkinService.updatePropertyAvailibilty(booking.getProperty_unique_id() , DateUtility.todayDate(2));
+    	}
+    	else if(existingBooking.get().isUser_checked_in_flag() && existingBooking.get().getCheck_out_date().compareTo(booking.getUser_check_out_date()) > 0) {
+    		System.out.println("USER CHECK OUT DATE : " +booking.getUser_check_out_date().trim());
+    		System.out.println("ACTUAL CHECK OUT DATE : " +booking.getCheck_out_date());
+    		long differenceInDays = DateUtility.dateDifference(booking.getUser_check_out_date().trim(), existingBooking.get().getCheck_out_date());
+    		System.out.println("differenceInDays : " +differenceInDays);
+    		double perNightRent = existingBooking.get().getPrice() / existingBooking.get().getTotal_nights() ;
+    		double perDayFine = perNightRent * 0.3;
+    		System.out.println("perDayFine : " +perDayFine);
+    		double rentPaid = (perNightRent) * differenceInDays; 
+    		System.out.println("rentPaid : " +rentPaid);
+			if(differenceInDays >= 2) {
+				double totalFine = perDayFine * 2;
+				booking.setAmount_paid(existingBooking.get().getPrice() + totalFine - rentPaid);
+			}
+			else {
+				booking.setAmount_paid(existingBooking.get().getPrice() + perDayFine - rentPaid);
+			}
+			booking.setUser_check_out_date(DateUtility.todayDate(0));
+			checkinService.updatePropertyAvailibilty(booking.getProperty_unique_id() , booking.getUser_check_out_date());
+    	}
+    	bookingService.saveBookingDetails(booking);
     	if(booking.isUser_checked_in_flag() && !booking.isUser_checked_out_flag() && !booking.isBooking_cancelled()) {
     		checkinService.sendCheckinoutNotification(EmailUtility.createCheckInConfirmationMsg(), 
     					EmailUtility.createCheckInConfirmationMsgHost(), booking.getUser_email(), booking.getHost_email());
@@ -62,7 +92,7 @@ public class CheckinCheckoutController {
     				EmailUtility.createCheckOutConfirmationMsgHost(), booking.getUser_email(), booking.getHost_email());
 
     	}
-    	return ResponseEntity.ok(book);
+    	return new ResponseEntity<>("{\"status\" : \"User has been successfully checked in/out!!\"}", HttpStatus.OK);
     }
 }
     

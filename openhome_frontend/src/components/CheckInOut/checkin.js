@@ -16,6 +16,7 @@ class Checkin extends Component {
     }
     this.userCheckin = this.userCheckin.bind(this);
     this.userCheckout = this.userCheckout.bind(this);
+    this.userBookingCancel = this.userBookingCancel.bind(this);
   }
   componentDidMount() {
     var email = UTIL.getUserDetails();
@@ -46,13 +47,12 @@ class Checkin extends Component {
     console.log("CHECK IN DATE : " +data.check_in_date);
     console.log("CHECK OUT DATE : " +data.check_out_date);
     console.log("GET THE TIME : "+time);
-    console.log("COMPARE DATES :" +date[0] == data.check_in_date);
-    console.log("ONE DAY AFTER CHECK IN DATE :" +data.check_in_date + 1 );
+    // console.log("COMPARE DATES :" +date[0] == data.check_in_date);
     console.log("yesterday : " +value);
     if(data.booking_cancelled) {
       alert("User booking has been cancelled");
     }
-    else if((today[0] == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 3) ) {
+    else if((today[0] == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 4) ) {
         if(data.user_checked_in_flag) {
           alert("User already checked in");
         }
@@ -60,8 +60,11 @@ class Checkin extends Component {
           data.user_checked_in_flag = true;
           data.no_show = false;
           data.amount_paid = data.price;
-          this.updateBooking(data);
-          alert("User checked in successfully");
+          data.user_check_out_date = "";
+          console.log("DATA SENT : " +JSON.stringify(data));
+          this.updateBooking(data,function alertFunc(){
+             alert("User checked in successfully");
+          });
         }
       }
     else {
@@ -77,18 +80,34 @@ class Checkin extends Component {
       }
       else if(data.user_checked_in_flag && !data.user_checked_out_flag) {
         var date = new Date();
-        var today = date.toISOString().split('T');
+        var today = date.toISOString().split('T')[0];
         data.user_checked_out_flag = true;
-        data.user_check_out_date = today[0];
-        this.updateBooking(data);
-        alert("User checked out successfully");
+        data.user_check_out_date = today.toString();
+        console.log("TODAYS DATE : " +today);
+        this.updateBooking(data,function alertFunc(){
+           alert("User checked out successfully");
+        });
       }
       else {
         alert("Either user is not checked in or already checkout out");
       }
   }
 
-  updateBooking(data) {
+  userBookingCancel(data) {
+    if(data.booking_cancelled) {
+      alert("Your booking was already cancelled");
+    }
+    else if(data.user_checked_out_flag) {
+      alert("Your booking can not be cancelled.!! Already checked out.!!");
+    }
+    else {
+      data.booking_cancelled = true;
+      this.updateBooking(data,function alertFunc(){
+         alert("Your booking has been cancelled");
+      });
+    }
+  }
+  updateBooking(data, callback) {
     fetch(`http://localhost:8080/api/checkinout`, {
            method: 'POST',
            mode: 'cors',
@@ -102,6 +121,7 @@ class Checkin extends Component {
           }
         }).then(result => {
           console.log("Updating booking details Results:",result);
+          callback();
         })
     .catch(error => {
       console.log("Error : " + error);

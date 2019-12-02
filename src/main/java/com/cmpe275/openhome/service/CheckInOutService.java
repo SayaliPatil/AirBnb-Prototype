@@ -40,22 +40,22 @@ public class CheckInOutService extends QuartzJobBean{
 		// TODO Auto-generated method stub
 		logger.info("Executing Job with key {}", context.getJobDetail().getKey());
 		logger.info("Executing Job with key {}", context.getJobDetail().getDescription());
-		updateBookingAfterCheckin(context.getJobDetail().getDescription());
-	}
-	
-	private void updateBookingAfterCheckin(String jobType) {
-		List<Booking> bookingList = bookingRepository.findAll();
 		String today = DateUtility.todayDate(0);
 		String yesterday = DateUtility.todayDate(-1);
+		updateBookingAfterCheckinout(context.getJobDetail().getDescription() , today , yesterday);
+	}
+	
+	private void updateBookingAfterCheckinout(String jobType , String startDate , String endDate) {
+		List<Booking> bookingList = bookingRepository.findAll();
 		for(Booking booking : bookingList) {
-			if(jobType.equals("check-out") && booking.isUser_checked_in_flag() && !booking.isBooking_cancelled() && today.equals(booking.getCheck_out_date())) {
-				booking.setUser_check_out_date(today);
+			if(jobType.equals("check-out") && booking.isUser_checked_in_flag() && !booking.isBooking_cancelled() && startDate.equals(booking.getCheck_out_date())) {
+				booking.setUser_check_out_date(startDate);
 				booking.setUser_checked_out_flag(true);
 				sendCheckinoutNotification(EmailUtility.createCheckOutConfirmationMsg() , EmailUtility.createCheckOutConfirmationMsgHost(),
 						booking.getHost_email() , booking.getUser_email());
 				bookingService.saveBookingDetails(booking);
 			}
-			else if(jobType.equals("check-in") && yesterday.equals(booking.getCheck_in_date())) {
+			else if(jobType.equals("check-in") && endDate.equals(booking.getCheck_in_date())) {
 				if(!booking.isUser_checked_in_flag()) {
 					booking.setBooking_cancelled(true);
 					booking.setNo_show(true);
@@ -68,32 +68,29 @@ public class CheckInOutService extends QuartzJobBean{
 						booking.setAmount_paid(perDayFine);
 					}
 					sendCancellationNotification(EmailUtility.createCancellationConfirmationMsg() , EmailUtility.createCancellationConfirmationMsgHost(),
-								booking.getHost_email() , booking.getUser_email());
-					Property property = propertyService.getPropertyById(booking.getProperty_unique_id());
-					SimpleDateFormat simpleDF = new SimpleDateFormat("yyyy-MM-dd");
-					Date convertedCurrentDate = null;
-					try {
-						convertedCurrentDate = simpleDF.parse(today);
-						property.setBooked_flag(false);
-						property.setStartdate(convertedCurrentDate);
-						propertyService.savePropertyDetails(property);
-						bookingService.saveBookingDetails(booking);
-					} catch (ParseException exception) {
-						System.out.println(exception.getMessage());
-					}
+								booking.getUser_email() , booking.getHost_email());
+					bookingService.saveBookingDetails(booking);
+					updatePropertyAvailibilty(booking.getProperty_unique_id() , startDate);
 				}
 			}
 			
 		}
 	}
 	
-	public void sendCheckinoutNotification(String guestMessage , String hostMessage, String hostEmail,  String guestEmail) {
+	public void updatePropertyAvailibilty(Long id , String date) {
+		Property property = propertyService.getPropertyById(id);
+		property.setBooked_flag(false);
+		property.setStartdate(DateUtility.getDate(date));
+		propertyService.savePropertyDetails(property);
+	}
+	
+	public void sendCheckinoutNotification(String guestMessage , String hostMessage, String guestEmail,  String hostEmail) {
 		// TODO Auto-generated method stub
 		emailService.sendEmail(guestEmail, guestMessage, " Check-In/Check-out Confirmation with OpenHome.!!");
         emailService.sendEmail(hostEmail, hostMessage, " Check-In/Check-out Confirmation with OpenHome.!!");
 	}
 	
-	public void sendCancellationNotification(String guestMessage , String hostMessage, String hostEmail,  String guestEmail) {
+	public void sendCancellationNotification(String guestMessage , String hostMessage, String guestEmail,  String hostEmail) {
 		// TODO Auto-generated method stub
 		emailService.sendEmail(guestEmail, guestMessage, " Booking Cancelled with OpenHome.!!");
         emailService.sendEmail(hostEmail, hostMessage, " Booked property got cancelled.!!");

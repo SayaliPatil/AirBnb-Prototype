@@ -58,8 +58,7 @@ public class BookingController {
         	bookingService.updateBookedProperty(book);
         }
         catch(Exception e) {
-        	System.out.println("Exception during booking : " +e.getMessage());
-        	throw new CustomException(BOOKING_CONFIRMATION_EXCEPTION_MESSAGE); 
+        	throw new CustomException(BOOKING_CONFIRMATION_EXCEPTION_MESSAGE +e.getMessage()); 
         }
     	return ResponseEntity.ok(book);
     }
