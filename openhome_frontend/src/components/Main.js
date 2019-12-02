@@ -9,6 +9,7 @@ import VerifyAccount from './signup/verifyaccount';
 import PaymentDetails from './Payment/paymentDetails';
 import PlaceOrder from './Payment/placeOrder';
 import BookingSuccess from './Payment/bookingSuccess';
+import Checkin from './CheckInOut/checkin';
 
 class Main extends Component {
     render(){
@@ -22,6 +23,7 @@ class Main extends Component {
                 <Route path="/bookingSuccess" component={BookingSuccess}/>
                 <Route  exact path="/signup" render ={() => (<SignUp/>)}/>
     		        <Route  exact path="/login" render ={() => (<Login/>)}/>
+                <Route  exact path="/checkin" render ={() => (<Checkin/>)}/>
     		        <Route  path="/verifyaccount/:ID" render ={(match) => (<VerifyAccount {...match} />)} />
             </div>
         )

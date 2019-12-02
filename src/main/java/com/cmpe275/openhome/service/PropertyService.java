@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 import com.cmpe275.openhome.exception.CustomException;
+import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.PropertyRepository;
 
@@ -109,4 +110,8 @@ public class PropertyService {
 	    return propList;
 	}
 	
+	public void savePropertyDetails(Property prop) {
+		// TODO Auto-generated method stub
+		propertyRepository.save(prop);
+	}
 }

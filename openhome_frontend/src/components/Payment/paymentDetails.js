@@ -4,7 +4,6 @@ import {history} from "./../../utils/util";
 import * as UTIL from './../../utils/util';
 import {Redirect} from 'react-router';
 import * as VALIDATION from './../../utils/validation';
-import {bindActionCreators} from 'redux';
 
 class PaymentDetails extends Component {
   constructor(props){

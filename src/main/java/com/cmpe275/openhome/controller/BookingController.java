@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Booking;
-import com.cmpe275.openhome.model.Card;
 import com.cmpe275.openhome.model.User;
 import com.cmpe275.openhome.repository.BookingRepository;
 import com.cmpe275.openhome.service.BookingService;
@@ -55,7 +54,6 @@ public class BookingController {
     		return new ResponseEntity<>("{\"status\" : \"No user found with sent email id.!!\"}", HttpStatus.BAD_REQUEST);
     	}	
     	Booking book = bookingService.saveBookingDetails(booking);
-    	
         try {
         	bookingService.updateBookedProperty(book);
         }
@@ -67,10 +65,10 @@ public class BookingController {
     }
 	
     @ResponseBody
-    @RequestMapping(method=RequestMethod.GET, value = "/fetchBooking/{id}")
-    public ResponseEntity<?> getBookingDetails(@PathVariable Long id) {
-    	System.out.println("User ID send as a parm : " +id);
-    	List<Booking> book = bookingService.getBookingDetails(id);
+    @RequestMapping(method=RequestMethod.GET, value = "/fetchBooking/{email}")
+    public ResponseEntity<?> getBookingDetails(@PathVariable String email) {
+    	System.out.println("User ID send as a parm : " +email);
+    	List<Booking> book = bookingService.getBookingDetails(email);
     	return ResponseEntity.ok(book);
     }
     

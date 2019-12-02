@@ -44,34 +44,46 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ID;
 	
-	private String check_in_date;
-	
-	private String check_out_date;
-    
-    private double price;
-    
-    private String user_email;
+	private String user_email;
     
     private String host_email;
     
-    private Long property_id;
+	private String check_in_date;
+	
+	private String check_out_date;
+	
+	private Long property_id;
     
     private Long property_unique_id;
-   
+    
+    private double price;
+    
+    private int total_nights;
+
     private String availabilty_start_date;
     
     private String availabilty_end_date;
     
     private int beds;
     
-    @Temporal(TemporalType.TIMESTAMP)
+    private double amount_paid;
+	
+	private boolean user_checked_in_flag;
+	
+	private boolean user_checked_out_flag;
+	
+	private boolean no_show;
+	
+	private boolean booking_cancelled;
+	
+	private String user_check_out_date;
+	
+	@Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date created_at;
 	
 	@Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updated_at;
-	
-	private boolean user_checked_in_flag;
 	
 }

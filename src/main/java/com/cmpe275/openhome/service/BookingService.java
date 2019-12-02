@@ -34,16 +34,14 @@ public class BookingService {
 	private static final String FETCH_BOOKING_DETAILS_EXCEPTION_MESSAGE = "No booking details found for the user";
 	public Booking saveBookingDetails(Booking booking) {
 		// TODO Auto-generated method stub
-		System.out.println("card details : " +booking.getCheck_out_date());
 		Booking book = bookingRepository.save(booking);
 		return book;
 	}
 	
-	public List<Booking> getBookingDetails(Long id) {
-		System.out.println("booking details fetched: " +id);
-		Query query = entityManager.createQuery("from Booking as b WHERE (b.property_id =:id)");
-		query.setParameter("id", id);
-		System.out.println("QUERY GENEARTED: " +query.getFirstResult());
+	public List<Booking> getBookingDetails(String email) {
+		System.out.println("booking details fetched: " +email);
+		Query query = entityManager.createQuery("from Booking as b WHERE (b.user_email =:email)");
+		query.setParameter("email", email);
 		List<Booking> book = null;
 		try {
 			book = (List<Booking>) query.getResultList();

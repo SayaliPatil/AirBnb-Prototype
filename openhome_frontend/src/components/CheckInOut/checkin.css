@@ -1,0 +1,44 @@
+.checkin-class{
+    margin-top: 20px;
+    font-size:18px;
+    margin-left : 170px;
+    margin-right: 170px;
+    border-radius: 6px;
+    box-shadow: 0 0 70px 0 rgba(0,0,0,.1);
+    overflow: hidden;
+    position: relative;
+    height: 300px;
+    width : 70%;
+}
+.bookColor_dash_list {
+    background-color: white;
+    height: 250px;
+    width : 500px;
+    text-align : bottom;
+    /* margin-left : 20px; */
+    padding: 30px;
+}
+
+.booking-result-class {
+    margin-top : 40px;
+    margin-left  : 50px;
+    text-align : center;
+    font-size:  23px;
+    font-weight: bold;
+}
+.checkin{
+  margin-top: 50px;
+  margin-left: 900px;
+  position: fixed;
+}
+
+.checkout{
+  margin-top: 100px;
+  margin-left: 900px;
+  position: fixed;
+}
+.cancel {
+  margin-top: 150px;
+  margin-left: 900px;
+  position: fixed;
+}

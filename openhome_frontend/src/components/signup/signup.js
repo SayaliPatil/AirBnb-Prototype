@@ -28,7 +28,6 @@ class SignUp extends Component {
 	}
 	submitLogin = (e) => {
 		e.preventDefault();
-
 		if(VALIDATION.emailValidity(this.state.email)){
 				const data = {
 					first_name : this.state.firstName,
@@ -43,32 +42,7 @@ class SignUp extends Component {
 				else {
 					data.user_role = "Guest";
 				}
-				fetch(`http://localhost:8080/api/signup`, {
-					 method: 'POST',
-					 mode: 'cors',
-					 headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
-					 body: JSON.stringify(data)
-				 }).then(response => {
-					 console.log("Status Code : ",response);
-					 if(response.status==200) {
-							 this.setState({
-								 authFlag : true
-							 })
-							 alert("Verification mail has been sent. Please verify before login.!!")
-							 window.location.reload();
-					 }
-					 else if(response.status==302) {
-						 	alert("User is already registered with same email id");
-							window.location.reload();
-	 						this.setState({
-	 							authFlag : false
-	 						})
-					 }
-				})
-				.catch(error => {
-					console.log("Error : " + error);
-					alert("User registeration failed because of sever error")
-				});
+				this.signupHandler(data);
 			}
 	}
 	oauthLogin(response) {
@@ -85,34 +59,37 @@ class SignUp extends Component {
 					this.state.user_role = "Guest";
 				}
 				this.state.oauth_flag = true;
-				fetch(`http://localhost:8080/api/signup`, {
-					 method: 'POST',
-					 mode: 'cors',
-					 headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
-					 body: JSON.stringify(this.state)
-				 }).then(response => {
-					 console.log("Status Code : ",response);
-					 if(response.status==200) {
-							 this.setState({
-								 authFlag : true
-							 })
-							 alert("Verification mail has been sent. Please verify before login.!!")
-							 window.location.reload();
-					 }
-					 else if(response.status==302) {
-							alert("User is already registered with same email id");
-							window.location.reload();
-							this.setState({
-								authFlag : false
-							})
-					 }
-				})
-				.catch(error => {
-					console.log("Error : " + error);
-					alert("User registeration failed because of sever error")
-				});
+				this.signupHandler(this.state);
 	}
 
+	signupHandler(data) {
+			fetch(`http://localhost:8080/api/signup`, {
+				 method: 'POST',
+				 mode: 'cors',
+				 headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
+				 body: JSON.stringify(data)
+			 }).then(response => {
+				 console.log("Status Code : ",response);
+				 if(response.status==200) {
+						 this.setState({
+							 authFlag : true
+						 })
+						 alert("Verification mail has been sent. Please verify before login.!!")
+						 window.location.reload();
+				 }
+				 else if(response.status==302) {
+						alert("User is already registered with same email id");
+						window.location.reload();
+						this.setState({
+							authFlag : false
+						})
+				 }
+			})
+			.catch(error => {
+				console.log("Error : " + error);
+				alert("User registeration failed because of sever error")
+			});
+	}
 	render() {
 		const responseGoogle = (response) => {
 		            console.log("Response received from google: " +JSON.stringify(response));

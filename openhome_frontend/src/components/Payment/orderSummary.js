@@ -4,7 +4,6 @@ import {history} from "./../../utils/util";
 import {Link} from 'react-router-dom';
 import * as UTIL from './../../utils/util';
 import * as VALIDATION from './../../utils/validation';
-import {bindActionCreators} from 'redux';
 
 class OrderSummary extends Component {
   constructor(props){
