@@ -17,6 +17,7 @@ class Checkin extends Component {
     this.userCheckin = this.userCheckin.bind(this);
     this.userCheckout = this.userCheckout.bind(this);
     this.userBookingCancel = this.userBookingCancel.bind(this);
+  
   }
   componentDidMount() {
     var email = UTIL.getUserDetails();
@@ -51,6 +52,9 @@ class Checkin extends Component {
     console.log("yesterday : " +value);
     if(data.booking_cancelled) {
       alert("User booking has been cancelled");
+    }
+    else if(data.user_checked_out_flag) {
+      alert("User already checked out");
     }
     else if((today[0] == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 4) ) {
         if(data.user_checked_in_flag) {
@@ -102,13 +106,35 @@ class Checkin extends Component {
     }
     else {
       data.booking_cancelled = true;
-      this.updateBooking(data,function alertFunc(){
+      this.cancelBooking(data,function alertFunc(){
          alert("Your booking has been cancelled");
       });
     }
   }
   updateBooking(data, callback) {
     fetch(`http://localhost:8080/api/checkinout`, {
+           method: 'POST',
+           mode: 'cors',
+           headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
+           body: JSON.stringify(data)
+         }).then(response => {
+            console.log("Status Code : ",response);
+            if(response.status==200) {
+             window.location.reload();
+            return response.json();
+          }
+        }).then(result => {
+          console.log("Updating booking details Results:",result);
+          callback();
+        })
+    .catch(error => {
+      console.log("Error : " + error);
+    });
+
+  }
+
+  cancelBooking(data, callback) {
+    fetch(`http://localhost:8080/api/cancelbooking`, {
            method: 'POST',
            mode: 'cors',
            headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

@@ -27,6 +27,7 @@ public class PropertyService {
 	private EntityManager entityManager;
 	
 	private static final String ERROR_IN_FETCHING_RESULT = "Error in fetching result";
+	private static final String FETCH_PROPERTY_DETAILS_EXCEPTION_MESSAGE = "No property details found for the host";
 	private List<Property> propList;
 	/**
 	 * Fetches all properties
@@ -113,5 +114,19 @@ public class PropertyService {
 	public void savePropertyDetails(Property prop) {
 		// TODO Auto-generated method stub
 		propertyRepository.save(prop);
+	}
+	
+	public List<Property> getPropertyDetails(String email) {
+		System.out.println("booking details fetched: " +email);
+		Query query = entityManager.createQuery("from Property as p WHERE (p.host_email =:email)");
+		query.setParameter("email", email);
+		List<Property> property = null;
+		try {
+			property = (List<Property>) query.getResultList();
+		}
+		catch(Exception exception) {
+			throw new CustomException(FETCH_PROPERTY_DETAILS_EXCEPTION_MESSAGE + exception.getMessage());
+		}
+		return property;
 	}
 }
