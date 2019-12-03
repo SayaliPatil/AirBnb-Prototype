@@ -1,0 +1,22 @@
+.header-main{
+ width: 100%;
+ background-color: #b35900;
+ color: black;
+}
+.image-style{
+  height: 30px;
+  width: 30px;
+  position: fixed;
+  margin-top:  5px;
+  margin-left: -1120px;
+}
+.brand {
+  margin-left: 80px;
+}
+.main-nav{
+  color: black;
+  font-size: 22px;
+}
+#basic-nav-dropdown {
+  margin-left: 100px;
+}

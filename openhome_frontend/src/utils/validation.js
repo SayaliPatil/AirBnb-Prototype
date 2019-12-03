@@ -208,10 +208,10 @@ export function emailValidity (email) {
 }
 
 export function startEndDateValidity (startDate , endDate) {
-       if ((Date.parse(endDate) >= Date.parse(startDate))) {
+       if ((Date.parse(endDate) > Date.parse(startDate))) {
            return true;
        }else{
-        alert("Start date should be less or equal to End date");
+        alert("Start date should not be greater or equal to End date");
         return false;
        }
 }

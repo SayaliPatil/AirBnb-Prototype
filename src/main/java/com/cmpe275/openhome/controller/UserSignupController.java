@@ -1,14 +1,12 @@
 package com.cmpe275.openhome.controller;
 
 import java.net.URISyntaxException;
-import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +36,6 @@ public class UserSignupController {
 	EmailService emailService;
 	
 	private static final String USER_VERIFICATION_EXCEPTION_MESSAGE = "User account verification failed";
-	private static final String USER_LOGIN_EXCEPTION_MESSAGE = "User login failed";
 	
     @PostMapping("/signup")
     @ResponseBody
@@ -50,7 +47,6 @@ public class UserSignupController {
     		return new ResponseEntity<>("{\"status\" : \"User with same email is already registered .!!\"}", HttpStatus.FOUND);
     	}
         userService.register(user);
-        System.out.println("user is registered and verification code is sent");
         String message = EmailUtility.createVerificationMsg(user.getID());
         emailService.sendEmail(user.getEmail(), message, " User Profile Verification");
         return new ResponseEntity<>("{\"status\" : \"User Registered Successfully.!!\"}", HttpStatus.OK);
@@ -71,7 +67,7 @@ public class UserSignupController {
     		return new ResponseEntity<>("{\"status\" : \"User entered wrong email or password..!!\"}", HttpStatus.BAD_REQUEST);
 		}
         System.out.println("User logged in successfully");
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.ok(existingUser);
     }
     
     @RequestMapping(value = "/verifyaccount", method = RequestMethod.GET)
@@ -91,4 +87,21 @@ public class UserSignupController {
 		}
 		return new ResponseEntity<>("{\"status\" : \"User could not be verified because of server error!!\"}", HttpStatus.SERVICE_UNAVAILABLE);
 	}
+    
+    @ResponseBody
+    @RequestMapping(method=RequestMethod.GET, value = "/oauthverified/{email}")
+    public ResponseEntity<?> verifyUserOauthAccount(@PathVariable String email) {
+    	System.out.println("User ID sent as a parmeter : " +email);
+    	if(userRepository.findByEmail(email) == null) {
+    		new ResponseEntity<>("{\"status\" : \"User is not registered with any oauth login!!\"}", HttpStatus.NOT_FOUND);
+    	}
+    	User verifiedUser = userService.checkUserVerified(email);
+    	System.out.println("verifiedUser : " +verifiedUser);
+    	if(verifiedUser == null) {
+    		new ResponseEntity<>("{\"status\" : \"User could not be verified because of bad request from user!!\"}", HttpStatus.BAD_REQUEST);
+    	}
+    	else
+    	 return ResponseEntity.ok(verifiedUser);
+    	return new ResponseEntity<>("{\"status\" : \"User could not be verified because of bad request from user!!\"}", HttpStatus.BAD_REQUEST);
+    }
 }

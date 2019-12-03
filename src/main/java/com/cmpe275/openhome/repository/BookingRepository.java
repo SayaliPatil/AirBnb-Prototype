@@ -9,7 +9,5 @@ import com.cmpe275.openhome.model.Booking;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long>{
-//	Booking findByUser_Email(String user_email);
-//	Booking findByHostEmail(String host_email);
-//	void save(Optional<Booking> booking);
+
 }

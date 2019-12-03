@@ -1,18 +1,17 @@
 
-.login-class{
+.login-div{
 	background-color: rgba(192,192,192,0.3);
 	background-repeat: repeat;
 	background-size: cover;
 	padding-top: 3%;
 	text-align: center;
-	height: 710px;
+	height: 900px;
 }
 .form-class{
 	background-color: white;
-	position: relative;
 	height:550px;
 	width:430px;
-	margin-left: 500px;
+	margin-left: 680px;
 	margin-top: 0px;
 
 }
@@ -22,12 +21,23 @@
 	height:550px;
 	width:580px;
 	margin-top: 50px;
-	margin-left: 400px;
+	margin-left: 600px;
 }
-.txt-field-small1{
-	position: relative;
-	margin-left: -500px;
-	margin-right: -300px;
+.small-field1{
+	margin-left: -200px;
+	height:40px;
+	  width: 200px;
+	  font-size:17px;
+	 border-radius: 1px;
+	 box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	 padding: 5px;
+	 margin-top: 20px;
+	 font-family:Serif;
+	 font-style: 12px;
+	 text-align: left;
+}
+.small-field2{
+	margin-left: -200px;
 	  height:40px;
 	  width: 200px;
 	  font-size:17px;
@@ -39,22 +49,7 @@
 	 font-style: 12px;
 	 text-align: left;
 }
-.txt-field-small2{
-	position: relative;
-	margin-left: -480px;
-	margin-right: -100px;
-	  height:40px;
-	  width: 200px;
-	  font-size:17px;
-	 border-radius: 1px;
-	 box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-	 padding: 5px;
-	 margin-top: 20px;
-	 font-family:Serif;
-	 font-style: 12px;
-	 text-align: left;
-}
-.txt-class {
+.txt-class-login {
 	  margin-left: 80px;
 	  height:40px;
 	  width: 310px;
@@ -75,6 +70,11 @@
 	margin-top: 10px;
 	font-family: sans-serif;
 
+}
+.header-login-class{
+	margin-left: 30px;
+	margin-top: 10px;
+	font-family: sans-serif;
 }
 .btn-primary {
 	background: #f49b42 none repeat scroll 0 0;
@@ -108,39 +108,48 @@
 	height:25px;
 	float:left;
 }
-.fb-button {
-	background-color: #39559f;
+.facebook-button {
 	width:310px;
-	color:white;
 	text-align:center;
 	font-size: 14px;
-  	width: 310px;
+  	width: 350px;
   	height:35px;
   	line-height: 30px;
   	margin-top: 0px;
-
+		margin-left: 500px;
+		position: fixed;
 }
 
-.google-button {
-	background-color: rgba(192,192,192,0.3);
-	color:black;
-	text-align:center;
-	padding:5px;
-	font-size: 14px;
-  width: 310px;
-  height: 40px;
+.google-button-login{
+	float: inherit;
+	font-size: 12px;
+	height: 55px;
+	width: 270px;
   line-height: 30px;
   margin-top: 10px;
+	margin-left: 5px;
+	padding-bottom: 100px;
 }
-
-.footer {
+.google-button-signup{
+	float: inherit;
+	font-size: 12px;
+	height: 55px;
+	width: 280px;
+  line-height: 30px;
+  margin-top: 10px;
+	margin-left: 10px;
+	padding-bottom: 100px;
+}
+.oauth-login{
+	margin-left: 50px;
+}
+.signup-footer {
 	color:black;
 	font-size: 10px;
 	margin-top: 10px;
 }
 
-.txt-field-lg {
-		position: relative;
+.large-field {
 	  margin-left: 0px;
 	  height:40px;
 	  width: 400px;
@@ -152,10 +161,10 @@
 	 font-family:Serif;
 	 text-align: left;
 }
-.header-img {
+.header-img-class {
 	margin-top :-100px;
 }
-.account-para {
+.account-class {
 	margin-top: -80px;
 }
 .home-logo1 {
@@ -175,12 +184,15 @@
   width: 40px;
 }
 
-.login-table{
+.login-table-class{
 	margin-left: -10px;
 	margin-top: 50px;
 }
-
-.fb-button1{
+.signup-table-class{
+	margin-left: 90px;
+	margin-top: 50px;
+}
+.facebook-button1{
 	background-color: #39559f;
 	width:310px;
 	color:white;
@@ -192,12 +204,12 @@
   	margin-top: 0px;
   	margin-left: 60px;
 }
-.forgot-pwd1 {
+.forgot-password {
 	position: absolute;
-	width: 110px;
+	width: 150px;
 	height: 200px;
-	margin-left: -120px;
-	margin-top: 10px;
+	margin-left: -135px;
+	margin-top: 30px;
 }
 .login{
 	margin-left: 60px;
@@ -216,19 +228,24 @@
   margin-left: 60px;
 }
 
-.header-login1 {
-	margin-left: 50px;
-	margin-top: 30px;
-	font-family: sans-serif;
-
-}
-
 .check-field1{
 	width: 150px;
 	margin-left: 50px;
 	margin-top: 10px;
 	font-size: 13px;
 }
+.signup-horizontal-line{
+	 width: 75%;
+   text-align: center;
+   border-bottom: 1px solid #D3D3D3;
+   border-bottom-width: thin;
+   line-height: 0.1em;
+   margin: 10px 0 20px;
+   margin-left: 45px;
+   background:#fff;
+   padding:0px;
+}
+
 .horizontal-line{
 	width: 80%;
    text-align: center;
@@ -246,4 +263,11 @@
   margin-top:-120px;
   height: 40px;
   width: 40px;
+}
+.signup-horizontal {
+  margin-top: -10px;
+	margin-left: 20px;
+  color: black;
+  height: 10px;
+  width: 95%;
 }

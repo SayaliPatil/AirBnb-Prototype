@@ -13,7 +13,7 @@
     height: 250px;
     width : 600px;
     margin-left : -90px;
-    text-align : bottom;   
+    text-align : bottom;
 }
 
 .backColor_dash_list {
@@ -53,4 +53,7 @@
     width : 400px;
   height : 250px;
   margin-left : 100px;
+}
+.property-result-headers{
+  margin-top: -200px;
 }

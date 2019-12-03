@@ -3,26 +3,33 @@ import {Redirect} from 'react-router';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './Booking.css';
+import PaymentDetails  from'./../Payment/paymentDetails.js';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Header from './../header/header.js';
+
 class Booking extends Component {
     constructor(props){
         super(props);
         this.state = {
             display : [],
-            redirectVar : ''
+            redirectVar : '',
+            selected: {},
         }
         this.submitBooking = this.submitBooking.bind(this);
-        // this.checkinChangeHandler = this.checkinChangeHandler.bind(this);
     }
     submitBooking = (e) => {
         console.log("Inside submitBooking");
         e.preventDefault();
         this.setState({
-            redirectVar : <Redirect to= "/paymentDetails"/>
+            redirectVar : true,
+
         })
-        this.props.history.push("/paymentDetails");
+        this.props.history.push({
+            pathname: '/placeOrder',
+            state: { detail: this.state.selected }
+        })
     }
 
     componentWillMount(){
@@ -36,6 +43,9 @@ class Booking extends Component {
                 this.setState({
                     display : this.state.display.concat(response.data)
                 });
+                this.setState({
+                  selected : response.data,
+                })
             }
             this.state.display.map(Item => {
                 this.setState({
@@ -66,20 +76,19 @@ class Booking extends Component {
                     description : Item.description
                 });
                 this.setState({
-                    startdate : Item.startdate
+                    startdate : this.props.location.state.detail.startdate
                 });
                 this.setState({
-                    enddate : Item.enddate
+                    enddate : this.props.location.state.detail.enddate
                 });
                 this.setState({
                     images : Item.images
                 });
             })
+
         });
     }
-
-    render() { 
-        
+    render() {
         if(this.state.images != undefined) {
             let imagesArray = this.state.images.split(";");
             var photoArray = imagesArray.map((value) => {
@@ -90,9 +99,13 @@ class Booking extends Component {
             })
         }else
             console.log("undefined images")
-        
-        return ( 
+            this.state.selected.userSelectedStartDate = this.props.location.state.detail.startdate;
+            this.state.selected.userSelectedEnddate = this.props.location.state.detail.enddate;
+            // this.state.selected.property_unique_id = this.props.location.state.detail.id
+            //
+        return (
             <div>
+                <Header/>
                 <div className="main_cont">
                 <div className="main-div5">
                 <div className="carousals">
@@ -134,14 +147,15 @@ class Booking extends Component {
                 <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="checkin">CheckIn</label>
-                <input onChange = {this.checkinChangeHandler} type="date" name="checkin" min={this.state.startdate} max={this.state.enddate} class="form-control txt1 hiett" id="checkin" placeholder="mm-dd-yyyy" required/>
+                <input onChange = {this.checkinChangeHandler} type="date" data-date="" data-date-format="DD MMMM YYYY" value={this.state.startdate} name="checkin" min={this.state.startdate} max={this.state.enddate} className="form-control txt1 hiett" id="checkin" placeholder="yyy-mm-dd" required/>
                 </div>
                 <div class="form-group col-md-6">
                 <label for="checkout">Check Out</label>
-                <input onChange = {this.checkoutChangeHandler} type="date" name="checkout" min={this.state.startdate} max={this.state.enddate} className="txt1 hiett form-control" id="checkout" placeholder="mm-dd-yyyy" required/>
+                <input onChange = {this.checkoutChangeHandler} type="date" data-date="" data-date-format="DD MMMM YYYY" value={this.state.enddate} name="checkout" min={this.state.startdate} max={this.state.enddate}  className="txt1 hiett form-control" id="checkout" placeholder="yyyy-mm-dd" required/>
                 </div>
                 </div>
-                <button className="hiett roundbutton btn btn-primary">Book Now</button>
+                <button className="hiett roundbutton btn btn-primary">
+                Book Now</button>
                 </form>
                 {/* <h2>Total</h2><p className="lowHeader">${this.state.price}</p> */}
                 <br/>

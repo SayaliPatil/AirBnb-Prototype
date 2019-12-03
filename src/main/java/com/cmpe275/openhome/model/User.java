@@ -3,15 +3,12 @@ package com.cmpe275.openhome.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,6 +46,8 @@ public class User implements Serializable{
 	
 	private String user_role;
 	
+	private Boolean oauth_flag;
+	
 	private String password;
 	
 	private boolean verified;
@@ -60,7 +59,4 @@ public class User implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updated_at;
-	
-//	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL })
-//	private List<Card> cardList;
 }

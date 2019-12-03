@@ -1,17 +1,22 @@
 package com.cmpe275.openhome.model;
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -39,19 +44,43 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ID;
 	
-	private String check_in_date;
-	
-	private String check_out_date;
-    
-    private double price;
-    
-    private String user_email;
+	private String user_email;
     
     private String host_email;
     
-    private Long property_id;
+	private String check_in_date;
+	
+	private String check_out_date;
+	
+	private Long property_id;
     
-    @Temporal(TemporalType.TIMESTAMP)
+    private Long property_unique_id;
+    
+    private double price;
+    
+    private int total_nights;
+
+    private String availabilty_start_date;
+    
+    private String availabilty_end_date;
+    
+    private int beds;
+    
+    private String headline;
+    
+    private double amount_paid;
+	
+	private boolean user_checked_in_flag;
+	
+	private boolean user_checked_out_flag;
+	
+	private boolean no_show;
+	
+	private boolean booking_cancelled;
+	
+	private String user_check_out_date;
+	
+	@Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date created_at;
 	
@@ -59,6 +88,4 @@ public class Booking {
     @LastModifiedDate
     private Date updated_at;
 	
-	private boolean user_checked_in_flag;
- 
 }

@@ -4,6 +4,9 @@ import axios from 'axios';
 import {Redirect} from 'react-router';
 import {Link} from 'react-router-dom';
 import './Home.css';
+import * as VALIDATION from './../../utils/validation';
+import Header from './../header/header.js';
+
 class Home extends Component {
     constructor(props){
     super(props);
@@ -80,47 +83,55 @@ class Home extends Component {
         })
     }
     submitSearch = (e) => {
-        var headers = new Headers();
         e.preventDefault();
-
-            const data = {
-                address : this.state.address,
-                startdate : this.state.startdate,
-                enddate : this.state.enddate,
-                wifi : this.state.wifi,
-                sharingtype : this.state.sharing_type,
-                proptype : this.state.prop_type,
-                description : this.state.description,
-                minprice : this.state.minprice,
-                maxprice : this.state.maxprice
-            }
-            console.log("data : ", data);
-            axios.post(`${BASE_URL}/api/results`, data)
-            .then(response => {
-                // this.setState({
-                //     listed:this.state.listed.concat(response.data)
-                // })
-                console.log("Prop details : " + JSON.stringify(response.data));
-                console.log("prop status : "+ JSON.stringify(response.status));
-                if(JSON.stringify(response.status) == 200){
-                    this.setState({
-                        redirectVar : <Redirect to= "/properties"/>
-                })
-            }
-        });
-
-
+        if(VALIDATION.startEndDateValidity(this.state.startdate,this.state.enddate)) {
+                    const data = {
+                        address : this.state.address,
+                        startdate : this.state.startdate,
+                        enddate : this.state.enddate,
+                        wifi : this.state.wifi,
+                        sharingtype : this.state.sharing_type,
+                        proptype : this.state.prop_type,
+                        description : this.state.description,
+                        minprice : this.state.minprice,
+                        maxprice : this.state.maxprice
+                    }
+                    console.log("data : ", data);
+                    axios.post(`${BASE_URL}/api/results`, data)
+                    .then(response => {
+                        // this.setState({
+                        //     listed:this.state.listed.concat(response.data)
+                        // })
+                        console.log("Prop details : " + JSON.stringify(response.data));
+                        console.log("prop status : "+ JSON.stringify(response.status));
+                        if(JSON.stringify(response.status) == 200){
+                          this.props.history.push({
+                              pathname: '/properties',
+                              state: { detail: this.state }
+                          })
+                        //     this.setState({
+                        //         redirectVar : <Redirect to= "/properties"/>
+                        // })
+                    }
+                });
+          }
+          else {
+            alert("Modify Property Search Criteria");
+          }
     }
 
     render() {
+      var date = new Date().toLocaleString( 'sv', { timeZoneName: 'short' } );
+      var minDate = date.split(" ")[0];
         return (
-            <div>
+            <div className = "user-header">
              {this.state.redirectVar}
+             <Header />
             <div className="bgnd">
                 <form className="form-inline1" onSubmit={this.submitSearch}>
                     <input onChange = {this.addressChangeHandler} className="start" type="text"  name="location" placeholder="Location?" required></input>
-                    <input onChange = {this.startdateChangeHandler} type="date" className="start" name="startdate" placeholder="MM/DD/YYYY" required/>
-                    <input onChange = {this.enddateChangeHandler} type="date" className="start" name="enddate" placeholder="MM/DD/YYYY" required/>
+                    <input onChange = {this.startdateChangeHandler} type="date" className="start" name="startdate" placeholder="MM/DD/YYYY" min={minDate} required/>
+                    <input onChange = {this.enddateChangeHandler} type="date" className="start" name="enddate" placeholder="MM/DD/YYYY" min={minDate} required/>
                     <div className="drop">
                     <div class="form-group1">
                         <select class="start"  onChange = {this.sharingChangeHandler}>
