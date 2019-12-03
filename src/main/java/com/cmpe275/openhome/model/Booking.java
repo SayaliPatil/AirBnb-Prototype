@@ -66,6 +66,8 @@ public class Booking {
     
     private int beds;
     
+    private String headline;
+    
     private double amount_paid;
 	
 	private boolean user_checked_in_flag;

@@ -72,6 +72,7 @@ class PlaceOrder extends Component {
         "user_email" : UTIL.getUserDetails(),
         "property_unique_id" : this.state.orderSummary.id,
         "total_nights" : total_nights,
+        "headline" : this.state.orderSummary.headline,
       }
             fetch(`http://localhost:8080/api/book`, {
                method: 'POST',

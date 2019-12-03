@@ -3,6 +3,8 @@ package com.cmpe275.openhome.controller;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.UserRepository;
 import com.cmpe275.openhome.service.BookingService;
+import com.cmpe275.openhome.service.DashboardService;
 import com.cmpe275.openhome.service.PropertyService;
 
 @RestController
@@ -36,12 +39,17 @@ public class DashboardController {
 	@Autowired
     private PropertyService propertyService;
 	
+	@Autowired
+	private EntityManager entityManager;
+	
+	@Autowired
+	private DashboardService dashboardService;
+	
 	@ResponseBody
     @RequestMapping(method=RequestMethod.GET, value = "/fetchUserDashBoard/{email}")
     public ResponseEntity<?> getUserDashboard(@PathVariable String email) {
-    	System.out.println("User ID send as a parm : " +email);
-    	List<Booking> book = bookingService.getBookingDetails(email);
-    	return ResponseEntity.ok(book);
+		System.out.println("User ID send as a parm : " +email);
+		return ResponseEntity.ok(dashboardService.getDashboardDetails(email));
     }
 	
 	@ResponseBody

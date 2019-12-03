@@ -76,7 +76,7 @@ public class BookingController {
     	return ResponseEntity.ok((List<Booking>)query.getResultList());
     }	
     
-    @PostMapping("/book/email")
+    @PostMapping("/booking/email")
     @ResponseBody
     public ResponseEntity<?> registration(@Valid @RequestBody Booking booking) throws URISyntaxException {
     	System.out.println("Body sent : " +booking);

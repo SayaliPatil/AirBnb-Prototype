@@ -10,6 +10,7 @@ import PaymentDetails from './Payment/paymentDetails';
 import PlaceOrder from './Payment/placeOrder';
 import BookingSuccess from './Payment/bookingSuccess';
 import Checkin from './CheckInOut/checkin';
+import UserDashboard from './dashboard/userDashboard';
 
 class Main extends Component {
     render(){
@@ -21,6 +22,7 @@ class Main extends Component {
                 <Route path="/paymentDetails" component={PaymentDetails}/>
                 <Route path="/placeOrder" component={PlaceOrder}/>
                 <Route path="/bookingSuccess" component={BookingSuccess}/>
+                <Route path="/userDashboard" component={UserDashboard}/>
                 <Route  exact path="/signup" render ={() => (<SignUp/>)}/>
     		        <Route  exact path="/login" render ={() => (<Login/>)}/>
                 <Route  exact path="/checkin" render ={() => (<Checkin/>)}/>
