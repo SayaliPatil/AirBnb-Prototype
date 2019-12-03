@@ -1,0 +1,30 @@
+.container
+{
+    border: solid;
+    background-color: #ffffff;
+    margin-top: 200px;
+    width: 100%;
+    min-height: 200px;
+
+}
+
+.GreyTabs
+{
+    text-align: left;
+    background-color: #dbdbdb;
+    min-height: 300px;
+}
+
+.tab-content
+{
+    text-align: left;
+}
+
+.drag-container
+{
+    border: solid;
+    background-color: #ffffff;
+    margin-top: 20px;
+    width: 100%;
+    min-height: 100px;
+}

@@ -7,6 +7,7 @@ import SignUp from './signup/signup.js';
 import Login from './login/login.js';
 import VerifyAccount from './signup/verifyaccount';
 import PaymentDetails from './Payment/paymentDetails';
+import ListProperty from "./PostProperty/ListProperty";
 
 
 class Main extends Component {
@@ -18,8 +19,9 @@ class Main extends Component {
                 <Route path="/booking" component={Booking}/>
                 <Route path="/paymentDetails" component={PaymentDetails}/>
                 <Route  exact path="/signup" render ={() => (<SignUp/>)}/>
-    		        <Route  exact path="/login" render ={() => (<Login/>)}/>
-    		        <Route  path="/verifyaccount/:ID" render ={(match) => (<VerifyAccount {...match} />)} />
+                <Route  exact path="/login" render ={() => (<Login/>)}/>
+                <Route  path="/verifyaccount/:ID" render ={(match) => (<VerifyAccount {...match} />)} />
+                <Route path="/postProperty" component={ListProperty}/>
             </div>
         )
     }
