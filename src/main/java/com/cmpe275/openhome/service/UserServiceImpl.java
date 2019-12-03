@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	EmailService emailService;
 	
-	private static final String DUPLICATE_USER_EXCEPTION_MESSAGE = "User already registered with same email address";
 	@Override
 	public void register(User user) {
 		// TODO Auto-generated method stub
@@ -42,13 +41,6 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		User user = null;
 		user = userRepository.findByEmail(email);
-//		try {
-//			user = userRepository.findByEmail(email);
-//			System.out.println("User details : " +user.getFirst_name());
-//		}
-//		catch(Exception exception) {
-//			throw new CustomException(DUPLICATE_USER_EXCEPTION_MESSAGE);
-//		}
 		return user;
 	}
 	
@@ -59,7 +51,6 @@ public class UserServiceImpl implements UserService{
             if(user != null && !user.get().isVerified()){
             	System.out.println("User found with id : " +user.get().getEmail());
                 user.get().setVerified(true);
-                System.out.println("User found with id is verified : " +user.get().isVerified());
                 userRepository.save(user.get());
                 emailService.sendEmail(user.get().getEmail(), EmailUtility.VERIFICATION_SUCCESS_MESSAGE,
                         "Successful Account Verification");

@@ -14,16 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Card;
-import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.model.User;
 import com.cmpe275.openhome.repository.CardRepository;
-import com.cmpe275.openhome.repository.UserRepository;
 import com.cmpe275.openhome.service.CardService;
 import com.cmpe275.openhome.service.EmailService;
 import com.cmpe275.openhome.service.UserService;

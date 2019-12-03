@@ -1,10 +1,7 @@
 package com.cmpe275.openhome.controller;
 
 import java.net.URISyntaxException;
-import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.cmpe275.openhome.exception.CustomException;
-import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.User;
 import com.cmpe275.openhome.repository.UserRepository;
 import com.cmpe275.openhome.service.EmailService;
@@ -40,7 +36,6 @@ public class UserSignupController {
 	EmailService emailService;
 	
 	private static final String USER_VERIFICATION_EXCEPTION_MESSAGE = "User account verification failed";
-	private static final String USER_LOGIN_EXCEPTION_MESSAGE = "User login failed";
 	
     @PostMapping("/signup")
     @ResponseBody
@@ -52,7 +47,6 @@ public class UserSignupController {
     		return new ResponseEntity<>("{\"status\" : \"User with same email is already registered .!!\"}", HttpStatus.FOUND);
     	}
         userService.register(user);
-        System.out.println("user is registered and verification code is sent");
         String message = EmailUtility.createVerificationMsg(user.getID());
         emailService.sendEmail(user.getEmail(), message, " User Profile Verification");
         return new ResponseEntity<>("{\"status\" : \"User Registered Successfully.!!\"}", HttpStatus.OK);

@@ -2,9 +2,9 @@ package com.cmpe275.openhome.controller;
 
 import java.net.URISyntaxException;
 import java.util.List;
-
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.User;
@@ -41,6 +40,9 @@ public class BookingController {
 	
 	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	private EntityManager entityManager;
 	
 	private static final String BOOKING_CONFIRMATION_EXCEPTION_MESSAGE = "Booking and property tables could not updated";
 	
@@ -67,9 +69,12 @@ public class BookingController {
     @RequestMapping(method=RequestMethod.GET, value = "/fetchBooking/{email}")
     public ResponseEntity<?> getBookingDetails(@PathVariable String email) {
     	System.out.println("User ID send as a parm : " +email);
-    	List<Booking> book = bookingService.getBookingDetails(email);
-    	return ResponseEntity.ok(book);
-    }
+    	Query query = entityManager.createQuery("from Booking as b WHERE (b.user_email =:email AND (b.booking_cancelled =:flag AND b.user_checked_out_flag =:checkflag))");	
+		query.setParameter("email",email);
+		query.setParameter("flag",false);
+		query.setParameter("checkflag", false);
+    	return ResponseEntity.ok((List<Booking>)query.getResultList());
+    }	
     
     @PostMapping("/book/email")
     @ResponseBody

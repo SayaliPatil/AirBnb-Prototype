@@ -1,8 +1,5 @@
 package com.cmpe275.openhome.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.quartz.JobExecutionContext;
@@ -85,13 +82,11 @@ public class CheckInOutService extends QuartzJobBean{
 	}
 	
 	public void sendCheckinoutNotification(String guestMessage , String hostMessage, String guestEmail,  String hostEmail) {
-		// TODO Auto-generated method stub
 		emailService.sendEmail(guestEmail, guestMessage, " Check-In/Check-out Confirmation with OpenHome.!!");
         emailService.sendEmail(hostEmail, hostMessage, " Check-In/Check-out Confirmation with OpenHome.!!");
 	}
 	
 	public void sendCancellationNotification(String guestMessage , String hostMessage, String guestEmail,  String hostEmail) {
-		// TODO Auto-generated method stub
 		emailService.sendEmail(guestEmail, guestMessage, " Booking Cancelled with OpenHome.!!");
         emailService.sendEmail(hostEmail, hostMessage, " Booked property got cancelled.!!");
 	}

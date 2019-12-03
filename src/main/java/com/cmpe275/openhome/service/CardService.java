@@ -4,26 +4,18 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Card;
-import com.cmpe275.openhome.model.Property;
-import com.cmpe275.openhome.model.User;
 import com.cmpe275.openhome.repository.CardRepository;
-import com.cmpe275.openhome.service.UserService;
+
 @Service
 public class CardService {
 	
 	@Autowired
     private CardRepository cardRepository;
-	
-	@Autowired
-    private UserService userService;
-	
-	
+
 	@Autowired
 	private EntityManager entityManager;
 	

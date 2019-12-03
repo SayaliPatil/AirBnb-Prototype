@@ -5,16 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Booking;
-import com.cmpe275.openhome.model.Card;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.BookingRepository;
 import com.cmpe275.openhome.repository.PropertyRepository;
@@ -81,7 +77,6 @@ public class BookingService {
 			updatedProperty.setSqft(prop.get().getSqft());
 			updatedProperty.setWifi(prop.get().getWifi());
 			if(book.getAvailabilty_start_date().equals(book.getCheck_in_date()) && book.getAvailabilty_end_date().equals(book.getCheck_out_date())) {
-				System.out.println("User entered same start and end date");
 				updatedProperty.setId(id);
 				updatedProperty.setBeds(prop.get().getBeds());
 				updatedProperty.setBooked_flag(true);
@@ -106,7 +101,6 @@ public class BookingService {
 			}
 			else if(book.getCheck_out_date().equals(book.getAvailabilty_end_date()) && book.getCheck_in_date().compareTo(book.getAvailabilty_start_date()) > 0 ) {
 				Date startDate = prop.get().getStartdate();
-				System.out.println("Start date : " +startDate);
 				updatedProperty.setId(id);
 				updatedProperty.setBeds(prop.get().getBeds());
 				updatedProperty.setBooked_flag(true);
@@ -123,7 +117,6 @@ public class BookingService {
 			else if(book.getCheck_in_date().compareTo(book.getAvailabilty_start_date()) > 0 && book.getAvailabilty_end_date().compareTo(book.getCheck_out_date()) > 0 ) {
 				Date startDate = prop.get().getStartdate();
 				Date endDate = prop.get().getEnddate();
-				
 				updatedProperty.setId(id);
 				updatedProperty.setBeds(prop.get().getBeds());
 				updatedProperty.setBooked_flag(true);
