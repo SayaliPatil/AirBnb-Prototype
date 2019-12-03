@@ -5,24 +5,24 @@
     background-position : center center;
     min-height: 100%;
     min-width: 1024px;
-    height: 100vh;
+    height: 122vh;
     width: 100%;
-    position: fixed;
+    margin-top: -300px;
     top: 0;
     left: 0;
-    bottom: 0; 
+    bottom: 0;
   }
 
   .form-inline1 {
-    position: relative;
-    margin-top : 200px;
+    position: fixed;
+    margin-top : 500px;
     margin-left: 200px;
   }
 
   .form-inline1 .start {
-    vertical-align: top; 
+    vertical-align: top;
     background-color: white;
-    width: 16%;
+    width: 25%;
     height:40px;
     margin-left: 40px;
   }
@@ -65,17 +65,17 @@
     padding-left: 10px;
 }
   .form-inline1 .start1 {
-    vertical-align: top; 
+    vertical-align: top;
     background-color: white;
-    width: 16%;
+    width: 25%;
     height:40px;
     margin-left: 280px;
   }
 
   .form-inline1 .start2 {
-    vertical-align: top; 
+    vertical-align: top;
     background-color: white;
-    width: 16%;
+    width: 25%;
     height:40px;
     margin-left: 520px;
   }
@@ -84,3 +84,10 @@
       margin-left: 350px;
       margin-top : 100px;
   }
+.slider{
+  width: 200px;
+  margin-left: -10px;
+}
+.slidetxt{
+  width: 400px;
+}

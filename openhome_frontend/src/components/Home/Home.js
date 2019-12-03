@@ -5,6 +5,8 @@ import {Redirect} from 'react-router';
 import {Link} from 'react-router-dom';
 import './Home.css';
 import * as VALIDATION from './../../utils/validation';
+import Header from './../header/header.js';
+
 class Home extends Component {
     constructor(props){
     super(props);
@@ -122,8 +124,9 @@ class Home extends Component {
       var date = new Date().toLocaleString( 'sv', { timeZoneName: 'short' } );
       var minDate = date.split(" ")[0];
         return (
-            <div>
+            <div className = "user-header">
              {this.state.redirectVar}
+             <Header />
             <div className="bgnd">
                 <form className="form-inline1" onSubmit={this.submitSearch}>
                     <input onChange = {this.addressChangeHandler} className="start" type="text"  name="location" placeholder="Location?" required></input>

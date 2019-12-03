@@ -1,79 +1,109 @@
 import React,{ Component } from 'react';
-import Nav from 'react-bootstrap/lib/Nav'
-import './../../images/home.css';
-import Navbar from 'react-bootstrap/lib/Navbar'
-import NavItem from 'react-bootstrap/lib/NavItem'
-import NavDropdown from 'react-bootstrap/lib/NavDropdown'
-import MenuItem  from 'react-bootstrap/lib/NavItem'
-import { connect } from 'react-redux';
+import './header.css';
+import  { NavbarBrand, Navbar, NavbarNav, NavItem, Dropdown,DropdownMenu,DropdownItem,DropdownToggle,NavbarToggler,Collapse } from 'mdbreact';
+import * as UTIL from './../../utils/util';
+import {history} from './../../utils/util';
+import { Route, Redirect,withRouter } from 'react-router-dom';
 import { Button} from 'react-bootstrap';
-import homeawaylogo from './../../images/HomeAway_logo.png';
-import homeicon from './../../images/homeicon.png';
-import Login from './../Signup/login';
-import OwnerLogin from './../Signup/ownerlogin';
 
 class Header extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      loginClicked:false,
-      ownerloginClicked: false
-    }
-    this.loginHandler=this.loginHandler.bind(this);
-    this.ownerloginHandler=this.ownerloginHandler.bind(this)
-  }
-loginHandler=(event)=> {
-  event.preventDefault();
-  this.state.loginClicked=true;
-  this.props.updateLogging(this.state.loginClicked);
-}
-ownerloginHandler=(event)=> {
-  event.preventDefault();
-  this.state.ownerloginClicked=true;
-  this.props.updateOwnerLogging(this.state.ownerloginClicked);
-}
-    render() {
-      {
-        this.state.loginClicked!=false?<Login/>:''
+    constructor(props){
+        super(props);
+        this.state = {
+        };
+        let currentUser = UTIL.getUserDetails();
       }
+
+  guestDashBoardHandler(data) {
+      if(UTIL.getUserRole() == 'Guest') {
+        history.push('/userDashboard');
+      }
+      else{
+        alert("Login first to view booking details");
+      }
+  }
+  guestCheckinHandler(data) {
+      if(UTIL.getUserRole() == 'Guest') {
+        history.push('/checkin');
+      }
+      else{
+        alert("Login first to check-in/check-out/cancel booking");
+      }
+  }
+  hostDashboardHandler() {
+      if(UTIL.getUserRole() == 'Host') {
+        history.push('/hostdashboard');
+      }
+      else {
+        alert("First Login as Owner")
+      }
+  }
+  postPropertyHandler() {
+    if(UTIL.getUserRole() == 'Host') {
+      history.push('/post');
+    }
+    else {
+      alert("First Login as Owner")
+    }
+  }
+  logoutHandler(){
+    alert("User logged out");
+    UTIL.deleteUserDetails();
+    history.push('/login');
+
+  }
+  buttonToggle() {
+    history.push('/home');
+    window.location.reload();
+  }
+  componentWillMount() {
+    this.setState({
+      currentuser: UTIL.getUserDetails()
+    })
+  this.currentUser = UTIL.getUserDetails();
+  }
+    render() {
+
         return (
+                <div className="header-main">
+                  <Navbar dark black expand="md" scrolling className="main-nav">
+                    {<NavbarToggler onClick = { this.onClick } />}
+                    <Collapse isOpen = { this.state.collapse } navbar>
+                    <NavbarBrand>
+                      <h1 onClick={()=> this.buttonToggle(this.currentUser)} className="brand"> OpenHome </h1>
+                    </NavbarBrand>
+                    <NavbarNav right>
 
-            <div className="header-div">
-            <Navbar inverse collapseOnSelect className="home-navbar">
-
-              <Navbar.Header>
-                <h1 className="logo-image"> HomeAway </h1>
-
-              </Navbar.Header>
-              <Navbar.Collapse>
-              <Nav pullRight>
-                  <NavDropdown eventKey={3} title="Help" id="basic-nav-dropdown">
-                    <MenuItem eventKey={3.1}>Visit Help Center</MenuItem>
-                    <MenuItem eventKey={3.2}>Travelers</MenuItem>
-                    <MenuItem eventKey={3.3}>How it works</MenuItem>
-                    <MenuItem eventKey={3.3}>Security Center</MenuItem>
-                  </NavDropdown>
-                  <NavItem eventKey={2} href="#">
-                      <Button className="header-btn">List Your Property</Button>
-                  </NavItem>
-                  <NavItem eventKey={4} href="#">
-                  <img className="logo-home" src={homeicon}/>
-                  </NavItem>
-                </Nav>
-                <Nav pullRight>
-                  <NavDropdown eventKey={3} title="Login" id="basic-nav-dropdown">
-                    <MenuItem eventKey={3.1} onClick={this.loginHandler} >Traveler Login </MenuItem>
-                    <MenuItem eventKey={3.2} onClick={this.ownerloginHandler} >Owner Login</MenuItem>
-                  </NavDropdown>
-                </Nav>
-
-              </Navbar.Collapse>
-            </Navbar>
-            </div>
+                    <NavItem>
+                        <Dropdown>
+                            <DropdownToggle nav caret id="basic-nav-dropdown" >{this.currentUser}</DropdownToggle>
+                                <DropdownMenu>
+                                  <DropdownItem href="#" onClick={() => this.guestCheckinHandler(this.currentUser)} >My Trips</DropdownItem>
+                                  <DropdownItem href="#" onClick={() => this.guestDashBoardHandler(this.currentUser)}>Guest Dashboard</DropdownItem>
+                                  <DropdownItem href="#" onClick={() => this.postPropertyHandler()} >Post property</DropdownItem>
+                                  <DropdownItem href="#" onClick={() => this.hostDashboardHandler(this.currentUser)} >Host Dashboard</DropdownItem>
+                                  <DropdownItem href="/login" onClick={() => this.logoutHandler()} >Logout</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                    </NavItem>
+                      <NavItem>
+                        <Dropdown>
+                          <DropdownToggle nav caret  id="basic-nav-dropdown">Help</DropdownToggle>
+                              <DropdownMenu>
+                                <DropdownItem href="#">Online Chat</DropdownItem>
+                                <DropdownItem href="#">Raise Ticket</DropdownItem>
+                                <DropdownItem href="#">Cancellation</DropdownItem>
+                                <DropdownItem href="#">Email Us</DropdownItem>
+                                <DropdownItem href="#">Career</DropdownItem>
+                              </DropdownMenu>
+                            </Dropdown>
+                      </NavItem>
+                      </NavbarNav>
+                    </Collapse>
+                  </Navbar>
+                </div>
         );
     }
 }
-
-
 
 export default Header;

@@ -66,7 +66,7 @@ class Login extends Component {
 	 				 }
           }).then(result => {
             console.log("Login details Results:",result);
-						UTIL.saveServerToken(result.email, result.id);
+						UTIL.saveUserDetails(result);
           })
 			.catch(error => {
 				console.log("Error : " + error);
@@ -83,7 +83,7 @@ class Login extends Component {
         if(response.status == 200)  {
 					alert("user logged in successfully");
 					console.log("Response from server : " +response);
-					UTIL.saveServerToken(response.data.email, response.data.id);
+					UTIL.saveUserDetails(response.data);
 					history.push('/home');
 					window.location.reload();
         }

@@ -7,6 +7,7 @@ import * as UTIL from './../../utils/util';
 import * as VALIDATION from './../../utils/validation';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import axios from 'axios';
+import Header from './../header/header.js';
 
 class PlaceOrder extends Component {
   constructor(props){
@@ -129,6 +130,7 @@ class PlaceOrder extends Component {
     console.log("Order summary : " + this.state.orderSummary.property_unique_id);
     return (
             <div className = "add-payment-main">
+            <Header/>
                 <h1 className ="confirm-header"> Confirm and Pay </h1>
                 <OrderSummary order = {this.state.orderSummary}/>
                 <PaymentDetails/>

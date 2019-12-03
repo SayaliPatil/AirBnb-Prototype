@@ -7,18 +7,29 @@ import * as VALIDATION from './../../utils/validation';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import Header from './../header/header.js';
 
 class Checkin extends Component {
   constructor(props){
     super(props);
     this.state = {
       bookingDetails : [],
+      current : 1,
+      itemsPerPage : 2,
+      activePage: 1,
     }
     this.userCheckin = this.userCheckin.bind(this);
     this.userCheckout = this.userCheckout.bind(this);
     this.userBookingCancel = this.userBookingCancel.bind(this);
-  
+    this.clickHandler = this.clickHandler.bind(this);
   }
+
+  clickHandler(event) {
+      this.setState({
+          current: Number(event.target.id)
+      });
+    }
+
   componentDidMount() {
     var email = UTIL.getUserDetails();
     if(email) {
@@ -156,7 +167,28 @@ class Checkin extends Component {
   }
 
   render() {
-            let bookingInfo = this.state.bookingDetails.map(bookingItem => {
+    const { current, itemsPerPage } = this.state;
+    const indexOfLastPage = current * itemsPerPage;
+    const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+    const currentTodos = this.state.bookingDetails.slice(indexOfFirstPage, indexOfLastPage);
+    console.log("Number of properties : " + this.state.bookingDetails.length);
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(this.state.bookingDetails.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    }
+    const showPageNumbers1 = pageNumbers.map(number => {
+        return (
+          <li class="page-item active"
+            key={number}
+            id={number}
+            onClick={this.clickHandler}
+            className="nums"
+          >
+      {number}
+          </li>
+        );
+      });
+            let bookingInfo = currentTodos.map(bookingItem => {
                 return (
                     <div className="checkin-class">
                     <div class="row">
@@ -186,12 +218,21 @@ class Checkin extends Component {
     console.log("Booking details on success page : " +this.state.bookingDetails);
     return (
               <div>
+                <Header/>
                   <div className="booking-result-class">
                       <h>{this.state.bookingDetails.length}
                           {this.state.bookingDetails.length <= 1 ? " RESULT " : " RESULTS "}  FOUND
                       </h></div>
                       <div>
                           {bookingInfo}
+                      </div>
+                      <br/>
+                      <div className="prop_pagi">
+                      <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                      {showPageNumbers1}
+                      </ul>
+                      </nav>
                       </div>
                   <div></div>
               </div>

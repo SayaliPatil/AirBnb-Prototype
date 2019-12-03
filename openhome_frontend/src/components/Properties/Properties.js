@@ -4,6 +4,8 @@ import './Properties.css';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Header from './../header/header.js';
+
 class Properties extends Component {
     constructor(props) {
         super(props);
@@ -107,6 +109,7 @@ class Properties extends Component {
     return (
         <div>
         {this.state.redirectVar}
+        <Header/>
             <div className="noresult">
                 <h>{this.state.propertiesList.length} RESULTS FOUND</h></div>
                 <div className="prop_pagi">

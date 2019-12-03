@@ -1,8 +1,5 @@
 // Add utility methods
 import { createBrowserHistory } from 'history';
-import error_icon from './../images/error_icon.jpg';
-import info_icon from './../images/info_icon.png';
-// import success_icon from './../images/success_icon.jpg';
 export const history = createBrowserHistory();
 
 const headers = {
@@ -10,11 +7,11 @@ const headers = {
     'Content-Type': 'application/json'
 };
 
-export const saveServerToken = (userdata, servertoken, type) => {
-    console.log("saveServerToken",userdata);
-        localStorage.setItem('currentUser',JSON.stringify(userdata));
-        localStorage.setItem('ID',JSON.stringify(servertoken));
-        // localStorage.setItem('userServertoken',servertoken);
+export const saveUserDetails = (data, type) => {
+    console.log("user details : ",data);
+        localStorage.setItem('currentUser',JSON.stringify(data.email));
+        localStorage.setItem('ID',JSON.stringify(data.id));
+        localStorage.setItem('role',JSON.stringify(data.user_role));
 };
 
 export const getUserDetails=()=>{
@@ -25,15 +22,16 @@ export const getUserDetails=()=>{
   else{
     return null;
   }
-
 }
-export const getServerTokenDetails=()=> {
-	if(localStorage.userServertoken) {
-		return (localStorage.userServertoken);
-	}
-	else {
-		return null;
-	}
+
+export const getUserRole=()=>{
+  if(localStorage.role){
+    var userrole = JSON.parse(localStorage.role);
+    return (userrole?userrole:null);
+  }
+  else{
+    return null;
+  }
 }
 
 export const getUserIdDetails=()=> {
@@ -45,10 +43,8 @@ export const getUserIdDetails=()=> {
 	}
 }
 
-export const deleteServerToken = () => {
-    localStorage.removeItem('currentUser');
-      alert("user will be logged out");
-      history.push('/');
+export const deleteUserDetails = () => {
+    localStorage.clear();
 };
 
 export const getUserHTTPHeader = function(){

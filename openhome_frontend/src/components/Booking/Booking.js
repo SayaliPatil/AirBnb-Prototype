@@ -7,6 +7,8 @@ import PaymentDetails  from'./../Payment/paymentDetails.js';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Header from './../header/header.js';
+
 class Booking extends Component {
     constructor(props){
         super(props);
@@ -103,6 +105,7 @@ class Booking extends Component {
             //
         return (
             <div>
+                <Header/>
                 <div className="main_cont">
                 <div className="main-div5">
                 <div className="carousals">

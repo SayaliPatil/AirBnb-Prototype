@@ -8,6 +8,7 @@ import * as VALIDATION from './../../utils/validation';
 import {BASE_URL} from './../../components/Configs/Configs.js';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import Header from './../header/header.js';
 
 class UserDashboard extends Component {
   constructor(props){
@@ -113,6 +114,7 @@ class UserDashboard extends Component {
     console.log("User booking details on dasboard page : " +this.state.bookingDetails);
     return (
               <div>
+              <Header/>
                   <img className = "dashboard-image-class" src = "http://wowk.sd38.bc.ca/sites/wowk.sd38.bc.ca/files/pac/feature-images/2015/12/team_celebration_pc_3655.png"/>
                   <div className="dashboard-header">
                       <h> Guest dashboard
