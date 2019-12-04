@@ -69,7 +69,7 @@ class OrderSummary extends Component {
                 <br></br>
               <tr>
                 <td>Total (USD)</td>
-                <th className="txt-field-price"> $ {(this.props.order.price) * (this.props.order.beds) * total_nights} </th>
+                <th className="txt-field-price"> $ {(this.props.order.price) * total_nights} </th>
               </tr>
               <tr>
                 <td> Includes taxes and fees </td>
