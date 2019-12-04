@@ -8,6 +8,7 @@ import Pricing from "./Pricing";
 import axios from "axios";
 // import cookies from "react-cookies";
 import Redirect from "react-router-dom/es/Redirect";
+import * as UTIL from "../../utils/util";
 
 class ListProperty extends Component {
     constructor(props)
@@ -15,6 +16,8 @@ class ListProperty extends Component {
         super(props);
 
         this.state = {
+            // "host_email" : UTIL.getUserDetails()
+            "host_email" : "dharmadheeraj.chintala@sjsu.edu"
         }
 
         this.submit = this.submit.bind(this);
@@ -24,7 +27,7 @@ class ListProperty extends Component {
     async addFormData(formData) {
 
         formData.append('data',JSON.stringify(this.state));
-        console.log(`Appended formdatat ${formData}`);
+        console.log(`Appended form data ${formData}`);
         return formData;
     }
 
@@ -52,7 +55,7 @@ class ListProperty extends Component {
         }
 
 
-        axios.post('http://localhost:8080/uploadFile', test2)
+        axios.post('http://localhost:8080/uploadProperty', test2)
             .then((result) => {
                 alert("Sending property");
                 if(result.status === 200 && result.data === 'Successfully uploaded Property') {

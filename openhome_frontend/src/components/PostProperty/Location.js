@@ -35,10 +35,11 @@ constructor(props)
 
     handleSave = (e) =>
     {
+        let address = '';
         for (const [key, value] of Object.entries(this.state)) {
-            // console.log(`There are ${key} ${value}`);
-            this.props.setProps(key,value);
+            address += value + ",";
         }
+        this.props.setProps("address",address);
     }
     render()
     {
