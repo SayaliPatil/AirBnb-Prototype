@@ -27,8 +27,8 @@ class Main extends Component {
                 <Route path="/userDashboard" component={UserDashboard}/>
                 <Route  exact path="/signup" render ={() => (<SignUp/>)}/>
                 <Route  exact path="/login" render ={() => (<Login/>)}/>
+                <Route  exact path="/checkin" render ={() => (<Checkin/>)}/>
                 <Route  path="/verifyaccount/:ID" render ={(match) => (<VerifyAccount {...match} />)} />
-                <Route path="/postProperty" component={ListProperty}/>
                 <Route path="/postProperty" component={ListProperty}/>
             </div>
         )
