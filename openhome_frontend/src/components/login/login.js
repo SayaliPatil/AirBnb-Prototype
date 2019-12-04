@@ -47,7 +47,9 @@ class Login extends Component {
 	 							 authFlag : true
 	 						 })
 	 						 alert("User logged in successfully");
-                return response.json();
+							 history.push('/home');
+		 					window.location.reload();
+              return response.json();
             }
 						else if(response.status==404) {
 	 						alert("User not registered, Please sign up");
