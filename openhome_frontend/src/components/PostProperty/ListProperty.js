@@ -9,6 +9,7 @@ import axios from "axios";
 // import cookies from "react-cookies";
 import Redirect from "react-router-dom/es/Redirect";
 import * as UTIL from "../../utils/util";
+import {BASE_URL} from "../Configs/Configs";
 
 class ListProperty extends Component {
     constructor(props)
@@ -17,7 +18,8 @@ class ListProperty extends Component {
 
         this.state = {
             // "host_email" : UTIL.getUserDetails()
-            "host_email" : "dharmadheeraj.chintala@sjsu.edu"
+            "host_email" : "dharmadheeraj.chintala@sjsu.edu",
+
         }
 
         this.submit = this.submit.bind(this);
@@ -55,12 +57,16 @@ class ListProperty extends Component {
         }
 
 
-        axios.post('http://localhost:8080/uploadProperty', test2)
+        axios.post(BASE_URL + '/uploadProperty', test2)
             .then((result) => {
-                alert("Sending property");
-                if(result.status === 200 && result.data === 'Successfully uploaded Property') {
+                // alert("Sending property");
+                if(result.status === 200) {
                     alert('Property Uploaded Successfully');
                     this.setState({uploaded : true});
+                }
+                else
+                {
+                    alert('Error while uploading property');
                 }
             });
 

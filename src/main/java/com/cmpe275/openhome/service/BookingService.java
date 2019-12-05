@@ -151,4 +151,12 @@ public class BookingService {
 			}
 		}
 	}
+	
+	public List<Booking> getBookingByProperty(Long property_id){
+		return bookingRepository.findByPropertyId(property_id);
+	}
+	
+	public Optional<Booking> getBookingById(Long booking_id) {
+		return bookingRepository.findById(booking_id);
+	}
 }

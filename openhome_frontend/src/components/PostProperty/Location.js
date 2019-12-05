@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import {States} from '../Configs/Configs';
+import {zipCodeValidity,stateValidity,cityValidity,phoneNumberValidity} from "../../utils/validation"
 
 class Location extends Component {
 constructor(props)
@@ -35,11 +36,14 @@ constructor(props)
 
     handleSave = (e) =>
     {
-        let address = '';
-        for (const [key, value] of Object.entries(this.state)) {
-            address += value + ",";
+        if(zipCodeValidity(this.state.zip) && cityValidity(this.state.city)) {
+            let address = '';
+            for (const [key, value] of Object.entries(this.state)) {
+                address += value + ",";
+            }
+            this.props.setProps("address", address);
         }
-        this.props.setProps("address",address);
+
     }
     render()
     {

@@ -14,6 +14,7 @@ import BookingSuccess from './Payment/bookingSuccess';
 import Checkin from './CheckInOut/checkin';
 import UserDashboard from './dashboard/userDashboard';
 import UserBillingSummary from './dashboard/userBillingSummary';
+import EditProperty from "./EditProperty/EditProperty";
 
 class Main extends Component {
     render(){
@@ -32,6 +33,8 @@ class Main extends Component {
                 <Route  path="/verifyaccount/:ID" render ={(match) => (<VerifyAccount {...match} />)} />
                 <Route path="/postProperty" component={ListProperty}/>
                 <Route path="/userBillingSummary" component={UserBillingSummary}/>
+                <Route path="/editProperty/:id" component={EditProperty}/>
+
             </div>
         )
     }

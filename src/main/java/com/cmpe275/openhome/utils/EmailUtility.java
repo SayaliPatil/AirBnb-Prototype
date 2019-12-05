@@ -74,7 +74,21 @@ public class EmailUtility {
 	public static String createCancellationConfirmationMsgHost() {
 		String cancellationMessageHost = "Your booked property has been cancelled !!!" 
                 + "\n\nRegards\nTeam OpenHome";
-        System.out.println("checkoutMessage : " +cancellationMessageHost);
+        System.out.println("cancellationMessage : " +cancellationMessageHost);
         return cancellationMessageHost;
+	}
+	
+	public static String createPropertyDeleteMessageHost() {
+		String deleteMessageHost = "Your booked has been deleted Successfully" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("deleteMessageHost : " +deleteMessageHost);
+        return deleteMessageHost;
+	}
+	
+	public static String createPropertyUpdateMessageHost() {
+		String updateMessageHost = "Your booked has been updated Successfully" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("deleteMessageHost : " +updateMessageHost);
+        return updateMessageHost;
 	}
 }

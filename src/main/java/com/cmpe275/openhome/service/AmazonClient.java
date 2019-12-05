@@ -46,7 +46,7 @@ public class AmazonClient {
         try {
             File file = convertMultiPartToFile(multipartFile);
             String fileName = generateFileName(multipartFile);
-            fileUrl = endpointUrl + "/" + bucketName + "/" + fileName + ";";
+            fileUrl = "https://" + bucketName + ".s3.amazonaws.com/" + fileName + ";";
             uploadFileTos3bucket(fileName, file);
             file.delete();
         } catch (Exception e) {
