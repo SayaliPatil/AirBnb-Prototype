@@ -50,6 +50,27 @@ class EditProperty extends Component{
         }
     }
 
+    deleteProperty = (e)  => {
+        console.log("Inside delete Property");
+        var data = {
+            id: this.state.property_id
+        }
+        axios.post(BASE_URL + '/deleteProperty', data)
+            .then((result) => {
+                if (result.status === 200) {
+                    alert('Property deleted Successfully');
+                    this.props.history.push({
+                        pathname: '/editDashboard'
+                    })
+                }
+                else
+                {
+                    alert('Property delete failed. Please Retry');
+                    e.preventDefault();
+                }
+            });
+    }
+
     checkbox = (e) =>
     {
         // alert("checkbox clicked");
@@ -265,7 +286,7 @@ class EditProperty extends Component{
                             </button>
                             <br />
                             <button type="button" className="btn btn-danger"
-                                    onClick={(e) => this.submit(e)}>Delete Property
+                                    onClick={(e) => this.deleteProperty(e)}>Delete Property
                             </button>
                         {/*</form>*/}
                         <br/>

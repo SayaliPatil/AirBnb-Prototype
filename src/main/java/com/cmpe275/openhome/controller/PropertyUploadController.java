@@ -89,9 +89,10 @@ public class PropertyUploadController {
     	}  
     }
     
-    @RequestMapping(method=RequestMethod.DELETE, value = "/deleteProperty")
+    @RequestMapping(method=RequestMethod.POST, value = "/deleteProperty")
     public ResponseEntity<Property> deleteProperty(@RequestBody Property data) throws ParseException{
     	try {
+    		System.out.println("hgjv");
     		Property deleted  = propertyUploadService.deleteProperty(data);
 	        String deleteMessage = EmailUtility.createPropertyDeleteMessageHost();
 	        emailService.sendEmail(deleted.getHost_email(), deleteMessage, " Property Deleted!!");

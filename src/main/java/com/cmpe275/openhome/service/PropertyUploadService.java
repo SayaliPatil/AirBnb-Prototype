@@ -184,9 +184,10 @@ public class PropertyUploadService {
 	}
 	
 	public Property deleteProperty(Property prop) {
+		System.out.println("Delete property initiated for :" + prop.getId());
 		Optional<Property> to_be_deleted = propertyRepository.findById(prop.getId());
 		to_be_deleted.get().set_deleted(true);
-		return propertyRepository.save(prop);
+		return propertyRepository.save(to_be_deleted.get());
 	}
 }
 
