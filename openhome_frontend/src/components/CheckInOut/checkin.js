@@ -49,25 +49,33 @@ class Checkin extends Component {
     }
   }
   userCheckin(data) {
+    var timezonedDate = new Date();
+    var dateInUTC = new Date(timezonedDate.toUTCString());
+    dateInUTC.setHours(dateInUTC.getHours()-8);
+    var utcDate = new Date(dateInUTC);
+    var pdtDate = utcDate.toISOString().split("T")[0];
+    console.log("utcDate : " +pdtDate);
+
+
     var date = new Date();
     var today = date.toISOString().split('T');
     var time = date.getHours();
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     var value = yesterday.toISOString().split('T');
-    console.log("TODAYS DATE : " +date[0]);
+    console.log("TODAYS DATE : " +today[0]);
     console.log("CHECK IN DATE : " +data.check_in_date);
     console.log("CHECK OUT DATE : " +data.check_out_date);
     console.log("GET THE TIME : "+time);
     // console.log("COMPARE DATES :" +date[0] == data.check_in_date);
-    console.log("yesterday : " +value);
+    console.log("yesterday : " +value[0]);
     if(data.booking_cancelled) {
       alert("User booking has been cancelled");
     }
     else if(data.user_checked_out_flag) {
       alert("User already checked out");
     }
-    else if((today[0] == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 4) ) {
+    else if((pdtDate == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 3) ) {
         if(data.user_checked_in_flag) {
           alert("User already checked in");
         }
@@ -201,7 +209,7 @@ class Checkin extends Component {
                       <ul class="list-inline">
                         <li>Booking ID : {bookingItem.id}</li>
                         <br></br>
-                        <li>Property ID : { bookingItem.property_id}</li>
+                        <li>Property ID : { bookingItem.propertyId}</li>
                         <br></br>
                         <li>Total Bill for Stay: $ {bookingItem.price}</li>
                         <br></br>

@@ -52,7 +52,8 @@ public class Booking {
 	
 	private String check_out_date;
 	
-	private Long property_id;
+	@Column(name = "property_id")
+	private Long propertyId;
     
     private Long property_unique_id;
     

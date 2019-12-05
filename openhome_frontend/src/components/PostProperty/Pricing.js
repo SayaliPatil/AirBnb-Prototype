@@ -8,8 +8,8 @@ class Pricing extends Component{
         super(props);
 
         this.state = {
-            startDate : '',
-            endDate : '',
+            startdate : '',
+            enddate : '',
             availabledays : [],
             weekendprice : '',
             weekdayprice : ''
@@ -20,7 +20,7 @@ class Pricing extends Component{
     }
 
     validateForm() {
-        return this.state.startDate.length > 0 && this.state.endDate.length > 0 && this.state.availabledays.length > 0
+        return this.state.startdate.length > 0 && this.state.enddate.length > 0 && this.state.availabledays.length > 0
             && this.state.weekdayprice.length > 0 && this.state.weekendprice.length > 0;
     }
 
@@ -40,13 +40,24 @@ class Pricing extends Component{
         const target = e.target;
         if(target.checked)
             this.state.availabledays.push(target.name);
+        else
+        {
+            let index = this.state.availabledays.indexOf(target.name);
+            if (index > -1) {
+                this.state.availabledays.splice(index, 1);
+            }
+        }
     }
 
     handleSave = (e) =>
     {
         for (const [key, value] of Object.entries(this.state)) {
             // console.log(`There are ${key} ${value}`);
-            this.props.setProps(key,value);
+            if(key !== "availabledays")
+                this.props.setProps(key,value);
+            else {
+                this.props.setProps(key,value.join(";"));
+            }
         }
     }
 
@@ -58,10 +69,10 @@ class Pricing extends Component{
                 <hr></hr>
                 <div className="form-row">
                     <div className="col-4"><label>From</label>
-                        <input type="date" name='startDate' className="form-control form-control-lg" placeholder="From Date" onChange={this.handleChange}/>
+                        <input type="date" name='startdate' className="form-control form-control-lg" placeholder="From Date" onChange={this.handleChange}/>
                     </div>
                     <div className="col-4"><label>To</label>
-                        <input type="date" name='endDate' className="form-control form-control-lg" placeholder="To Date" onChange={this.handleChange}/>
+                        <input type="date" name='enddate' className="form-control form-control-lg" placeholder="To Date" onChange={this.handleChange}/>
                     </div>
                 </div>
                 <div className="form-group">What days of the week is the property available?</div>

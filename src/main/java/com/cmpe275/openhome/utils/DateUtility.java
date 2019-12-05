@@ -15,6 +15,13 @@ public class DateUtility {
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String DATE_PARSING_EXCEPTION_MESSAGE = "Date passed in string format can not be parsed ";
 	
+	
+	public static String getStringDate(Date passedDate) { 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        String strDate = dateFormat.format(passedDate);  
+        System.out.println("Converted String: " + strDate);  
+		return strDate;
+	}
 	public static String todayDate(int offset) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("US/Pacific"));
@@ -67,6 +74,45 @@ public class DateUtility {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			throw new CustomException(DATE_PARSING_EXCEPTION_MESSAGE + e.getMessage()); 
+		}
+	}
+	
+	public static String findMonth(int m) {
+		if(m == 0) {
+			return "January";
+		}
+		else if(m == 1) {
+			return "February";
+		}
+		else if(m == 2) {
+			return "March";
+		}
+		else if(m == 3) {
+			return "April";
+		}
+		else if(m == 4) {
+			return "May";
+		}
+		else if(m == 5) {
+			return "June";
+		}
+		else if(m == 6) {
+			return "July";
+		}
+		else if(m == 7) {
+			return "August";
+		}
+		else if(m == 8) {
+			return "September";
+		}
+		else if(m == 9) {
+			return "October";
+		}
+		else if(m == 10) {
+			return "November";
+		}
+		else  {
+			return "December";
 		}
 	}
 	

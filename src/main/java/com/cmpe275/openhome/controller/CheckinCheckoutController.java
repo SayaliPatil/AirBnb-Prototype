@@ -58,9 +58,10 @@ public class CheckinCheckoutController {
 				booking.setAmount_paid(existingBooking.get().getPrice() + perDayFine - rentPaid);
 			}
 			booking.setUser_check_out_date(DateUtility.todayDate(0));
-			checkinService.updatePropertyAvailibilty(booking.getProperty_unique_id() , booking.getUser_check_out_date());
+//			checkinService.updatePropertyAvailibilty(booking.getProperty_unique_id() , booking.getUser_check_out_date());
     	}
     	bookingService.saveBookingDetails(booking);
+    	checkinService.updateAccountDetails(booking, booking.getID(), -1 * booking.getAmount_paid(), booking.getAmount_paid());
     	if(booking.isUser_checked_in_flag() && !booking.isUser_checked_out_flag() && !booking.isBooking_cancelled()) {
     		checkinService.sendCheckinoutNotification(EmailUtility.createCheckInConfirmationMsg(), 
     					EmailUtility.createCheckInConfirmationMsgHost(), booking.getUser_email(), booking.getHost_email());

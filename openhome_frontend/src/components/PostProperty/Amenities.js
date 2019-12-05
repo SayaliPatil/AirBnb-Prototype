@@ -74,8 +74,8 @@ class Amenities extends Component{
                         <label>Free Wifi</label>
                         <select className="form-control form-control-lg" name="wifi" onChange={this.handleChange}>
                             <option value="">Select Option</option>
-                            <option value="na">Not Available</option>
-                            <option value="free">Available (Free)</option>
+                            <option value="no">Not Available</option>
+                            <option value="yes">Available (Free)</option>
                         </select>
                     </div>
                 </div>

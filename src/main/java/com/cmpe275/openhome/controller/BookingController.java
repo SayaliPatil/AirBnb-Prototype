@@ -56,12 +56,12 @@ public class BookingController {
     		return new ResponseEntity<>("{\"status\" : \"No user found with sent email id.!!\"}", HttpStatus.BAD_REQUEST);
     	}	
     	Booking book = bookingService.saveBookingDetails(booking);
-        try {
-        	bookingService.updateBookedProperty(book);
-        }
-        catch(Exception e) {
-        	throw new CustomException(BOOKING_CONFIRMATION_EXCEPTION_MESSAGE +e.getMessage()); 
-        }
+//        try {
+//        	bookingService.updateBookedProperty(book);
+//        }
+//        catch(Exception e) {
+//        	throw new CustomException(BOOKING_CONFIRMATION_EXCEPTION_MESSAGE +e.getMessage()); 
+//        }
     	return ResponseEntity.ok(book);
     }
 	

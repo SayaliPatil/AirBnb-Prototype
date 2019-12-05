@@ -65,16 +65,31 @@ public class EmailUtility {
 	}
 	
 	public static String createCancellationConfirmationMsg() {
-		String cancellationMessage = "Thank you.!! Your booking has been cancelled with OpenHome !!!" 
+		String cancellationMessage = "Thank you.!! Your booking has been cancelled with OpenHome !!! \n \nYou might be charged as per the cancellation policy..!" 
                 + "\n\nRegards\nTeam OpenHome";
         System.out.println("cancellationMessage : " +cancellationMessage);
         return cancellationMessage;
 	}
 	
 	public static String createCancellationConfirmationMsgHost() {
-		String cancellationMessageHost = "Your booked property has been cancelled !!!" 
+		String cancellationMessageHost = "Unfortunately, your booked property has been cancelled !!!" 
                 + "\n\nRegards\nTeam OpenHome";
-        System.out.println("checkoutMessage : " +cancellationMessageHost);
+        System.out.println("cancellationMessageHost : " +cancellationMessageHost);
         return cancellationMessageHost;
 	}
+	
+	public static String createHostInitiatedCancellationConfirmationMsgGuest() {
+		String cancellationMessage = "Unfortunately, your booking has been cancelled with OpenHome by Host!!!\n \nRefund has been initiated successfully..!" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("cancellationMessage : " +cancellationMessage);
+        return cancellationMessage;
+	}
+	
+	public static String createHostInitiatedCancellationConfirmationMsgHost() {
+		String cancellationMessageHost = "You have successfully cancelled your booking!!!\n \nYou might be charged as per the cancellation policy..!" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("cancellationMessageHost : " +cancellationMessageHost);
+        return cancellationMessageHost;
+	}
+	
 }
