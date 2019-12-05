@@ -184,7 +184,8 @@ public class PropertyUploadService {
 	}
 	
 	public Property deleteProperty(Property prop) {
-		prop.set_deleted(true);
+		Optional<Property> to_be_deleted = propertyRepository.findById(prop.getId());
+		to_be_deleted.get().set_deleted(true);
 		return propertyRepository.save(prop);
 	}
 }

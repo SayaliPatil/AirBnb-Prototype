@@ -78,18 +78,29 @@ public class PropertyUploadController {
     
     @RequestMapping(method=RequestMethod.PATCH, value = "/updateProperty")
     public ResponseEntity<Property> updateProperty(@RequestBody Property data) throws ParseException{
-        Property updated = propertyUploadService.updateProperty(data);
-        String updatePropertyHost = EmailUtility.createPropertyUpdateMessageHost();
-        emailService.sendEmail(updated.getHost_email(), updatePropertyHost, "Property Updated!!");
-    	return ResponseEntity.ok(data);
+    	try {
+    		Property updated = propertyUploadService.updateProperty(data);
+    		String updatePropertyHost = EmailUtility.createPropertyUpdateMessageHost();
+            emailService.sendEmail(updated.getHost_email(), updatePropertyHost, "Property Updated!!");
+            return ResponseEntity.ok(updated);
+    	}
+    	catch (Exception e){
+    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);  
+    	}  
     }
     
     @RequestMapping(method=RequestMethod.DELETE, value = "/deleteProperty")
     public ResponseEntity<Property> deleteProperty(@RequestBody Property data) throws ParseException{
-        Property deleted  = propertyUploadService.deleteProperty(data);
-        String deleteMessage = EmailUtility.createPropertyDeleteMessageHost();
-        emailService.sendEmail(deleted.getHost_email(), deleteMessage, " Property Deleted!!");
-    	return ResponseEntity.ok(data);
+    	try {
+    		Property deleted  = propertyUploadService.deleteProperty(data);
+	        String deleteMessage = EmailUtility.createPropertyDeleteMessageHost();
+	        emailService.sendEmail(deleted.getHost_email(), deleteMessage, " Property Deleted!!");
+	    	return ResponseEntity.ok(deleted);
+    	}
+    	catch (Exception e){
+    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);  
+    	}  
+       
     }
     
     

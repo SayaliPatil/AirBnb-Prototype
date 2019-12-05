@@ -34,7 +34,6 @@ class Main extends Component {
                 <Route path="/postProperty" component={ListProperty}/>
                 <Route path="/userBillingSummary" component={UserBillingSummary}/>
                 <Route path="/editProperty/:id" component={EditProperty}/>
-
             </div>
         )
     }

@@ -180,7 +180,7 @@ class EditProperty extends Component{
                     </div>
 
                     <div className="list-owner">
-                        <form onSubmit={this.updateProperty}>
+                        {/*<form onSubmit={this.updateProperty}>*/}
                         <h2>${this.state.price}</h2><p>per night</p>
                             <div className="form-row">
                                 <div className="form-group col-lg-6">
@@ -259,10 +259,15 @@ class EditProperty extends Component{
                                     </div>
                                 </div>
                             </div>
-                            <button className="hiett roundbutton btn btn-primary">
+                            <button className="hiett roundbutton btn btn-primary"
+                                    onClick={(e) => this.updateProperty(e)}>
                                 Edit Property
                             </button>
-                        </form>
+                            <br />
+                            <button type="button" className="btn btn-danger"
+                                    onClick={(e) => this.submit(e)}>Delete Property
+                            </button>
+                        {/*</form>*/}
                         <br/>
                     </div>
                 </div>
