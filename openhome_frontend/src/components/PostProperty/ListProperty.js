@@ -10,10 +10,7 @@ import {Link} from 'react-router-dom';
 // import cookies from "react-cookies";
 import Redirect from "react-router-dom/es/Redirect";
 import * as UTIL from "../../utils/util";
-<<<<<<< HEAD
-=======
 import Header from './../header/header.js';
->>>>>>> surabhibranch
 
 class ListProperty extends Component {
     constructor(props)
@@ -21,13 +18,9 @@ class ListProperty extends Component {
         super(props);
 
         this.state = {
-<<<<<<< HEAD
-            // "host_email" : UTIL.getUserDetails()
-            "host_email" : "dharmadheeraj.chintala@sjsu.edu"
-=======
+
             "host_email" : UTIL.getUserDetails()
             // "host_email" : "dharmadheeraj.chintala@sjsu.edu"
->>>>>>> surabhibranch
         }
 
         this.submit = this.submit.bind(this);
