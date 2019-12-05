@@ -49,13 +49,21 @@ class Checkin extends Component {
     }
   }
   userCheckin(data) {
+    var timezonedDate = new Date();
+    var dateInUTC = new Date(timezonedDate.toUTCString());
+    dateInUTC.setHours(dateInUTC.getHours()-8);
+    var utcDate = new Date(dateInUTC);
+    var pdtDate = utcDate.toISOString().split("T")[0];
+    console.log("utcDate : " +pdtDate);
+
+
     var date = new Date();
     var today = date.toISOString().split('T');
     var time = date.getHours();
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     var value = yesterday.toISOString().split('T');
-    console.log("TODAYS DATE : " +date[0]);
+    console.log("TODAYS DATE : " +today[0]);
     console.log("CHECK IN DATE : " +data.check_in_date);
     console.log("CHECK OUT DATE : " +data.check_out_date);
     console.log("GET THE TIME : "+time);
@@ -67,7 +75,7 @@ class Checkin extends Component {
     else if(data.user_checked_out_flag) {
       alert("User already checked out");
     }
-    else if((today[0] == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 4) ) {
+    else if((pdtDate == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 4) ) {
         if(data.user_checked_in_flag) {
           alert("User already checked in");
         }

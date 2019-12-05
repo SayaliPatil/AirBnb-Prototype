@@ -44,8 +44,8 @@ class OrderSummary extends Component {
     return (
       <div className= "order-summary">
             <table className="static-border">
-                <tr className= "headline-class">
-                    <td > {this.props.order.description}</td>
+                <tr>
+                    <td className= "headline-class"> {this.props.order.description}</td>
                     <td> <img src={value} className="order-summary-photo"/> </td>
                 </tr>
                 <br></br>
@@ -69,7 +69,7 @@ class OrderSummary extends Component {
                 <br></br>
               <tr>
                 <td>Total (USD)</td>
-                <th className="txt-field-price"> $ {(this.props.order.price) * (this.props.order.beds) * total_nights} </th>
+                <th className="txt-field-price"> $ {(this.props.order.price) * total_nights} </th>
               </tr>
               <tr>
                 <td> Includes taxes and fees </td>

@@ -2,6 +2,7 @@ package com.cmpe275.openhome.service;
 
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.PropertyRepository;
+import com.cmpe275.openhome.utils.DateUtility;
 
 import org.hibernate.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class PropertyService {
 
 	@Autowired
 	private EntityManager entityManager;
+	
+	@Autowired
+	private BookingService bookingService;
 	
 	private static final String ERROR_IN_FETCHING_RESULT = "Error in fetching result";
 	private static final String FETCH_PROPERTY_DETAILS_EXCEPTION_MESSAGE = "No property details found for the host";
@@ -101,6 +106,7 @@ public class PropertyService {
 		
 
 	    System.out.printf("minprice :", query.getParameterValue("minprice"));
+	    
 	    try {
 			propList = (List<Property>)query.getResultList();
 			System.out.printf("inside getAllResults "+propList);
@@ -108,7 +114,16 @@ public class PropertyService {
 	        System.out.println("Here! Inside getAllResults");
 	        throw new CustomException(ERROR_IN_FETCHING_RESULT);
 	    }
-	    return propList;
+	    List<Property> temp = new ArrayList<>();
+	    for(Property property : propList) {
+	    	boolean flag = bookingService.getBookingDetailsById(property , DateUtility.getStringDate(prop.getStartdate()), DateUtility.getStringDate(prop.getEnddate()) );
+	    	System.out.println("FLAG : " +flag);
+	    	if(!flag) {
+	    		temp.add(property);
+	    	}
+	    }
+	    System.out.println("TEMP LIST : " +temp);
+	    return temp;
 	}
 	
 	public void savePropertyDetails(Property prop) {
@@ -129,4 +144,9 @@ public class PropertyService {
 		}
 		return property;
 	}
+	
+//	public List<Property> findNotBookedProperty(Property prop, Date startDate, Date endDate) {
+//		List<Booking> booking = bookingService.getBookingDetailsById(prop);
+//		return null;
+//	}
 }

@@ -14,6 +14,7 @@ import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.BookingRepository;
 import com.cmpe275.openhome.repository.PropertyRepository;
+import com.cmpe275.openhome.utils.DateUtility;
 
 @Service
 public class BookingService {
@@ -52,6 +53,24 @@ public class BookingService {
 			throw new CustomException(FETCH_BOOKING_DETAILS_EXCEPTION_MESSAGE + exception.getMessage());
 		}
 		return book;
+	}
+	
+	public boolean getBookingDetailsById(Property prop , String startDate , String endDate) {
+		System.out.println("booking details fetched: " +prop.getId());
+		Query query = entityManager.createQuery("from Booking as b WHERE (b.property_id =:id AND b.check_in_date >= :startDate AND b.check_out_date >= :endDate)");
+		query.setParameter("id", prop.getId());
+		query.setParameter("startDate", startDate);
+		query.setParameter("endDate", endDate);
+		
+		List<Booking> book = null;
+		try {
+			book = (List<Booking>) query.getResultList();
+			System.out.println("BOOK : " +book.size());
+		}
+		catch(Exception exception) {
+			throw new CustomException(FETCH_BOOKING_DETAILS_EXCEPTION_MESSAGE + exception.getMessage());
+		}
+		return book.size() == 0 ? false : true;
 	}
 	
 	public void updateBookedProperty(Booking book) throws ParseException, InterruptedException {
