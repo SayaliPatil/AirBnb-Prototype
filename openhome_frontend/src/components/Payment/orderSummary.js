@@ -44,8 +44,8 @@ class OrderSummary extends Component {
     return (
       <div className= "order-summary">
             <table className="static-border">
-                <tr className= "headline-class">
-                    <td > {this.props.order.description}</td>
+                <tr>
+                    <td className= "headline-class"> {this.props.order.description}</td>
                     <td> <img src={value} className="order-summary-photo"/> </td>
                 </tr>
                 <br></br>

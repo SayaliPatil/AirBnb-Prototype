@@ -37,6 +37,10 @@ public class AmazonClient {
 	    private void initializeAmazon() {
 	       BasicAWSCredentials awsCreds = new BasicAWSCredentials(this.accessKey, this.secretKey);
 	       this.s3client = AmazonS3ClientBuilder.standard()
+<<<<<<< HEAD
+=======
+	    		   					.enableForceGlobalBucketAccess()
+>>>>>>> surabhibranch
 	                               .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
 	                               .build();
 	}
@@ -46,7 +50,11 @@ public class AmazonClient {
         try {
             File file = convertMultiPartToFile(multipartFile);
             String fileName = generateFileName(multipartFile);
+<<<<<<< HEAD
             fileUrl = endpointUrl + "/" + bucketName + "/" + fileName + ";";
+=======
+            fileUrl = "https://" + bucketName + ".s3.amazonaws.com/" + fileName + ";";
+>>>>>>> surabhibranch
             uploadFileTos3bucket(fileName, file);
             file.delete();
         } catch (Exception e) {

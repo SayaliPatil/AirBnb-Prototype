@@ -74,18 +74,10 @@ public class CheckInOutService extends QuartzJobBean{
 					sendCancellationNotification(EmailUtility.createCancellationConfirmationMsg() , EmailUtility.createCancellationConfirmationMsgHost(),
 								booking.getUser_email() , booking.getHost_email());
 					bookingService.saveBookingDetails(booking);
-					updatePropertyAvailibilty(booking.getProperty_unique_id() , startDate);
 				}
 			}
 			
 		}
-	}
-	
-	public void updatePropertyAvailibilty(Long id , String date) {
-		Property property = propertyService.getPropertyById(id);
-		property.setBooked_flag(false);
-		property.setStartdate(DateUtility.getDate(date));
-		propertyService.savePropertyDetails(property);
 	}
 	
 	public void sendCheckinoutNotification(String guestMessage , String hostMessage, String guestEmail,  String hostEmail) {

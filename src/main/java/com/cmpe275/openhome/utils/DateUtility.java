@@ -15,6 +15,13 @@ public class DateUtility {
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String DATE_PARSING_EXCEPTION_MESSAGE = "Date passed in string format can not be parsed ";
 	
+	
+	public static String getStringDate(Date passedDate) { 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        String strDate = dateFormat.format(passedDate);  
+        System.out.println("Converted String: " + strDate);  
+		return strDate;
+	}
 	public static String todayDate(int offset) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("US/Pacific"));

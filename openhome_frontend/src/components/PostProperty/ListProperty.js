@@ -6,9 +6,14 @@ import Amenities from "./Amenities";
 import AddPhotos from "./AddPhotos";
 import Pricing from "./Pricing";
 import axios from "axios";
+import {Link} from 'react-router-dom';
 // import cookies from "react-cookies";
 import Redirect from "react-router-dom/es/Redirect";
 import * as UTIL from "../../utils/util";
+<<<<<<< HEAD
+=======
+import Header from './../header/header.js';
+>>>>>>> surabhibranch
 
 class ListProperty extends Component {
     constructor(props)
@@ -16,8 +21,13 @@ class ListProperty extends Component {
         super(props);
 
         this.state = {
+<<<<<<< HEAD
             // "host_email" : UTIL.getUserDetails()
             "host_email" : "dharmadheeraj.chintala@sjsu.edu"
+=======
+            "host_email" : UTIL.getUserDetails()
+            // "host_email" : "dharmadheeraj.chintala@sjsu.edu"
+>>>>>>> surabhibranch
         }
 
         this.submit = this.submit.bind(this);
@@ -71,6 +81,7 @@ class ListProperty extends Component {
 
        return (
                     <div>
+                    <Header/>
                         <div className="d-flex flex-column">
                             <div className="container">
                                 <div className="row">
@@ -115,13 +126,16 @@ class ListProperty extends Component {
                                                 <input type="checkbox" name="vehicle1" value="Bike"/> I hereby
                                                 acknowledge
                                                 that I have read, understand and agree to
-                                                the terms of this leasing relating to Homeaway and
+                                                the terms of this leasing relating to OpenHome and
                                                 payment of my services. <br></br>
                                                 <button type="button" className="btn btn-primary"
                                                         onClick={(e) => this.submit(e)}>Submit the Property
                                                 </button>
+                                                <br/>
                                             </div>
                                         </div>
+                                        <br/>
+                                        <Link to='/home' className="return-back"><u>Go to HomePage </u></Link>
                                     </div>
                                 </div>
                             </div>
