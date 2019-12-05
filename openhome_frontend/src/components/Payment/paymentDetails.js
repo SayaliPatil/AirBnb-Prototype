@@ -4,6 +4,7 @@ import {history} from "./../../utils/util";
 import * as UTIL from './../../utils/util';
 import {Redirect} from 'react-router';
 import * as VALIDATION from './../../utils/validation';
+import {BASE_URL} from './../../components/Configs/Configs.js';
 
 class PaymentDetails extends Component {
   constructor(props){
@@ -52,7 +53,7 @@ class PaymentDetails extends Component {
                zip : data.zip,
                userID : UTIL.getUserIdDetails()
             }
-            fetch(`http://localhost:8080/api/addcard`, {
+            fetch(`${BASE_URL}/api/addcard`, {
     					 method: 'POST',
     					 mode: 'cors',
     					 headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

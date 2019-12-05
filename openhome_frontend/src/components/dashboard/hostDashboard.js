@@ -31,7 +31,7 @@ class HostDashboard extends Component {
           month : this.state.month,
           id : this.state.propertySelected,
         }
-        fetch(`http://localhost:8080/api/user/fetchHostDashBoard/`, {
+        fetch(`${BASE_URL}/api/user/fetchHostDashBoard/`, {
            method: 'POST',
            mode: 'cors',
            headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
