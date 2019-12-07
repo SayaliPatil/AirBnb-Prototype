@@ -17,11 +17,11 @@ export const saveUserDetails = (data, type) => {
 
 export const getUserDetails=()=>{
   if(localStorage.currentUser){
-    var userdetail = JSON.parse(localStorage.currentUser);
     return (userdetail?userdetail:null);
   }
-  else{
-    return null;
+  else{    var userdetail = JSON.parse(localStorage.currentUser);
+
+      return null;
   }
 }
 
