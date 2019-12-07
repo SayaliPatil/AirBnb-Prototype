@@ -2,7 +2,7 @@ package com.cmpe275.openhome.utils;
 
 public class EmailUtility {
 	
-	public static final String URL = "http://localhost:3000";
+	public static final String URL = "http://ec2-3-92-30-172.compute-1.amazonaws.com:3000";
 	public static String URL_PREFIX = URL+"/verifyaccount/";
 	public static final String VERIFICATION_SUCCESS_MESSAGE = "Congratulations.!! Account verified successfully";
 	
@@ -90,6 +90,26 @@ public class EmailUtility {
                 + "\n\nRegards\nTeam OpenHome";
         System.out.println("cancellationMessageHost : " +cancellationMessageHost);
         return cancellationMessageHost;
+	}
+	public static String propertyDeleteMessageHost() {
+		String deleteMessageHost = "Your property has been deleted Successfully" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("deleteMessageHost : " +deleteMessageHost);
+        return deleteMessageHost;
+	}
+	
+	public static String propertyUpdateMessageHost() {
+		String updateMessageHost = "Your property has been updated Successfully" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("deleteMessageHost : " +updateMessageHost);
+        return updateMessageHost;
+	}
+	
+	public static String propertyPostMessageHost() {
+		String postMessageHost = "Your property has been posted Successfully" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("deleteMessageHost : " +postMessageHost);
+        return postMessageHost;
 	}
 	
 }

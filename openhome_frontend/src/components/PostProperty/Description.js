@@ -75,7 +75,8 @@ class Description extends Component {
                             <option value="Appartment">Appartment</option>
                             <option value="Villa">Villa</option>
                             <option value="House">House</option>
-                        </select>
+                	    <option value="Condo">Condo</option>       
+			</select>
                     </div>
                     <div className="form-group col-lg-6">
                         <label>Sharing Type</label>

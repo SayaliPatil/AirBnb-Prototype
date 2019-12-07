@@ -22,7 +22,7 @@ import com.cmpe275.openhome.utils.EmailUtility;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 public class CheckinCheckoutController {
 	@Autowired
 	private BookingRepository bookingRepository;

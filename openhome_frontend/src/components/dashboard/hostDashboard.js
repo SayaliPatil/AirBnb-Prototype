@@ -31,7 +31,7 @@ class HostDashboard extends Component {
           month : this.state.month,
           id : this.state.propertySelected,
         }
-        fetch(`http://localhost:8080/api/user/fetchHostDashBoard/`, {
+        fetch(`${BASE_URL}/api/user/fetchHostDashBoard/`, {
            method: 'POST',
            mode: 'cors',
            headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
@@ -180,7 +180,6 @@ cancelProperty(data){
                           <option value="December">December</option>
                     </select>
                   <h5 className = "host-dashboard-header"> Total money earned from Property {this.state.propertySelected} : {sum} </h5>
-                  <Link to='/userDashboard' className="return-back"><u>Go to User Dashboard </u></Link>
               </div>
 
           </div>

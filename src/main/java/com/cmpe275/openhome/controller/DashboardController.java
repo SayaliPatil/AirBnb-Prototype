@@ -29,7 +29,7 @@ import com.cmpe275.openhome.service.PropertyService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 public class DashboardController {
 
 	@Autowired

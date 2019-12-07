@@ -49,7 +49,7 @@ class Header extends Component {
 
   editPropertyHandler() {
     if(UTIL.getUserRole() == 'Host') {
-      history.push('/editProperty');
+      history.push('/editDashboard');
     }
     else {
       alert("First Login as Owner")
@@ -70,6 +70,7 @@ class Header extends Component {
       currentuser: UTIL.getUserDetails()
     })
   this.currentUser = UTIL.getUserDetails();
+this.firstName = UTIL.getUserFirstName();
   }
     render() {
 
@@ -82,7 +83,9 @@ class Header extends Component {
                       <h1 onClick={()=> this.buttonToggle(this.currentUser)} className="brand"> OpenHome </h1>
                     </NavbarBrand>
                     <NavbarNav right>
-
+		    <NavItem>
+                      <DropdownToggle nav caret id="basic-nav-dropdown" >{this.firstName}</DropdownToggle>
+                    </NavItem>	
                     <NavItem>
                         <Dropdown>
                             <DropdownToggle nav caret id="basic-nav-dropdown" >Guest</DropdownToggle>
@@ -113,3 +116,4 @@ class Header extends Component {
 }
 
 export default Header;
+

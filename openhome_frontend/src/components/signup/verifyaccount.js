@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import axios from 'axios';
 import { Route, Redirect,withRouter } from 'react-router-dom';
 import * as UTIL from './../../utils/util';
+import {BASE_URL} from './../../components/Configs/Configs.js';
 
 class VerifyAccount extends Component {
 
@@ -10,7 +11,7 @@ class VerifyAccount extends Component {
             'Accept': 'application/json'
           };
     console.log(data);
-    fetch(`http://localhost:8080/api/verifyaccount?ID=${data}`, {
+    fetch(`${BASE_URL}/api/verifyaccount?ID=${data}`, {
              method: 'GET',
              mode: 'cors',
              headers: { ...headers,'Content-Type': 'application/json' }
