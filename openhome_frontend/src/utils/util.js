@@ -12,11 +12,21 @@ export const saveUserDetails = (data, type) => {
         localStorage.setItem('currentUser',JSON.stringify(data.email));
         localStorage.setItem('ID',JSON.stringify(data.id));
         localStorage.setItem('role',JSON.stringify(data.user_role));
+        localStorage.setItem('first_name',JSON.stringify(data.first_name));
 };
 
 export const getUserDetails=()=>{
   if(localStorage.currentUser){
     var userdetail = JSON.parse(localStorage.currentUser);
+    return (userdetail?userdetail:null);
+  }
+  else{
+    return null;
+  }
+}
+export const getUserFirstName=()=>{
+  if(localStorage.first_name){
+    var userdetail = JSON.parse(localStorage.first_name);
     return (userdetail?userdetail:null);
   }
   else{

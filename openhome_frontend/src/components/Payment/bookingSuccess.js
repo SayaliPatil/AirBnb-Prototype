@@ -24,7 +24,7 @@ class BookingSuccess extends Component {
 
   }
   componentDidMount() {
-          fetch(`http://localhost:8080/api/booking/email`, {
+          fetch(`${BASE_URL}/api/booking/email`, {
              method: 'POST',
              mode: 'cors',
              headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

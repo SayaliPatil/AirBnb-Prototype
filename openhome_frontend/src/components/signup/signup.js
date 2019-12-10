@@ -7,6 +7,7 @@ import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import * as UTIL from './../../utils/util';
 import * as VALIDATION from './../../utils/validation';
+import {BASE_URL} from './../../components/Configs/Configs.js';
 
 class SignUp extends Component {
 	constructor(props) {
@@ -63,7 +64,7 @@ class SignUp extends Component {
 	}
 
 	signupHandler(data) {
-			fetch(`http://localhost:8080/api/signup`, {
+			fetch(`${BASE_URL}/api/signup`, {
 				 method: 'POST',
 				 mode: 'cors',
 				 headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

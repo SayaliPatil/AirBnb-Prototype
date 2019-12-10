@@ -54,7 +54,6 @@ class OrderSummary extends Component {
                   <td> <img src={imageURL} className="photo-class"/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.props.order.beds} &nbsp;&nbsp;{this.props.order.beds <= 1 ? "Guest" : "Guests"}  </td>
                 </tr>
                 <br></br>
-                <br></br>
                 <tr className = "date-class">
                   <td> <img src="http://icons.iconarchive.com/icons/icons8/windows-8/512/Business-Overtime-icon.png" className="photo-class"/>  &nbsp;&nbsp;&nbsp;{this.props.order.userSelectedStartDate.split("T")[0]}
                   &nbsp;&nbsp;&nbsp;<img src="https://dejpknyizje2n.cloudfront.net/svgcustom/clipart/preview/arrow-pointing-right-or-left-up-or-down-2617-13878-300x300.png" className="arrow-class"/></td> <td>&nbsp;&nbsp;{this.props.order.userSelectedEnddate.split("T")[0]} </td>

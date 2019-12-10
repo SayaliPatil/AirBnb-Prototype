@@ -68,7 +68,7 @@ public class PropertyService {
 		//Query query = entityManager.createQuery("from Property as p WHERE p.startdate <= startdate AND p.enddate >= enddate");
 //		Query query = entityManager.createQuery("from Property as p WHERE UPPER(p.address) LIKE CONCAT('%',UPPER(:address),'%') AND p.startdate <= :startdate AND p.enddate >= :enddate");
 	
-		Query query = entityManager.createQuery("from Property as p WHERE (UPPER(p.address) LIKE CONCAT('%',UPPER(:address),'%')) AND (p.booked_flag =:flag) AND (p.startdate <= :startdate) AND (p.enddate >= :enddate) AND (:description is null OR (UPPER(p.description) LIKE CONCAT('%',UPPER(:description),'%'))) AND (:wifi is null OR p.wifi =:wifi) AND (:proptype is null OR p.proptype =:proptype) AND (:sharingtype is null OR p.sharingtype =:sharingtype) AND (:minprice is null OR p.price >= :minprice) AND (:maxprice is null OR p.price <= :maxprice)");	
+		Query query = entityManager.createQuery("from Property as p WHERE (UPPER(p.address) LIKE CONCAT('%',UPPER(:address),'%')) AND (p.is_deleted = false)AND (p.booked_flag =:flag) AND (p.startdate <= :startdate) AND (p.enddate >= :enddate) AND (:description is null OR (UPPER(p.description) LIKE CONCAT('%',UPPER(:description),'%'))) AND (:wifi is null OR p.wifi =:wifi) AND (:proptype is null OR p.proptype =:proptype) AND (:sharingtype is null OR p.sharingtype =:sharingtype) AND (:minprice is null OR p.price >= :minprice) AND (:maxprice is null OR p.price <= :maxprice)");	
 		query.setParameter("address",prop.getAddress());
 		query.setParameter("flag",false);
 		query.setParameter("enddate",prop.getEnddate(), TemporalType.TIMESTAMP);
@@ -133,7 +133,7 @@ public class PropertyService {
 	
 	public List<Property> getPropertyDetails(String email) {
 		System.out.println("booking details fetched: " +email);
-		Query query = entityManager.createQuery("from Property as p WHERE (p.host_email =:email)");
+		Query query = entityManager.createQuery("from Property as p WHERE (p.host_email =:email AND p.is_deleted = false)");
 		query.setParameter("email", email);
 		List<Property> property = null;
 		try {

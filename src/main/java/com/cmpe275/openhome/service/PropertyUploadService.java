@@ -24,7 +24,6 @@ import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.PropertyRepository;
 import com.cmpe275.openhome.utils.DateUtility;
-import com.cmpe275.openhome.utils.EmailUtility;
 
 @Service
 public class PropertyUploadService {
@@ -43,13 +42,11 @@ public class PropertyUploadService {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private CheckInOutService checkInOutService;
-	
 	private static final String ERROR_IN_UPLOADING_PROPERTY = "Error in Uploading property";
 	private static final String FETCH_PROPERTY_DETAILS_EXCEPTION_MESSAGE = "No property details found for the host";
 	
 	public Property uploadProperty(Property prop) {
+		prop.setPrice(prop.getWeekdayprice());
 		return propertyRepository.save(prop);
 	}
 	
@@ -111,7 +108,7 @@ public class PropertyUploadService {
 		
 		previous.get().setAvailabledays(data.getAvailabledays());
 		previous.get().setEnddate(data.getEnddate());
-		previous.get().setStartdate(data.getEnddate());
+		previous.get().setStartdate(data.getStartdate());
 		previous.get().setWeekdayprice(data.getWeekdayprice());
 		previous.get().setWeekendprice(data.getWeekendprice());
 		
@@ -176,20 +173,34 @@ public class PropertyUploadService {
 		    }
 		    System.out.println("guestCompensation : " +guestCompensation);
 		    System.out.println("hostPenalty : " +hostPenalty);
-		    
 		    account.setGuestAccountBalance(guestCompensation);
 	    	account.setHostAccountBalance(-hostPenalty);
 	    	
 	    	accountService.saveAccountDetails(account);
-	    	
-	    	booking.get().setAmount_paid(booking.get().getPrice() - guestCompensation);
+		  
 		    booking.get().setBooking_cancelled(true);
-		    checkInOutService.sendCancellationNotification(EmailUtility.createHostInitiatedCancellationConfirmationMsgGuest() , EmailUtility.createHostInitiatedCancellationConfirmationMsgHost(),
-		    		booking.get().getUser_email() , booking.get().getHost_email());
 		    bookingService.saveBookingDetails(booking.get());
 		}
 	}
+	
+	public Property deleteProperty(Property prop) throws ParseException {
+		System.out.println("Delete property initiated for :" + prop.getId());
+		Optional<Property> to_be_deleted = propertyRepository.findById(prop.getId());
+		to_be_deleted.get().set_deleted(true);
+		
+		List<Booking> bookings = bookingService.getBookingByProperty(prop.getId());
+		System.out.println("Found bookings:"+ bookings.size());
+		Set<Long> cancel = new HashSet<Long>();
+		
+		System.out.println("Finishied checking all bookings");
+			
+			for(Long booking_id : cancel) {
+				cancelbooking(booking_id);
+			}
+		return propertyRepository.save(to_be_deleted.get());
+	}
 }
+
 
 
 

@@ -131,7 +131,7 @@ class Checkin extends Component {
     }
   }
   updateBooking(data, callback) {
-    fetch(`http://localhost:8080/api/checkinout`, {
+    fetch(`${BASE_URL}/api/checkinout`, {
            method: 'POST',
            mode: 'cors',
            headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
@@ -153,7 +153,7 @@ class Checkin extends Component {
   }
 
   cancelBooking(data, callback) {
-    fetch(`http://localhost:8080/api/cancelbooking`, {
+    fetch(`${BASE_URL}/api/cancelbooking`, {
            method: 'POST',
            mode: 'cors',
            headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

@@ -35,7 +35,7 @@ class Login extends Component {
 		}
 		if(VALIDATION.fieldValidity("Password",this.state.password) && VALIDATION.emailValidity(this.state.email)){
 
-			fetch(`http://localhost:8080/api/login`, {
+			fetch(`${BASE_URL}/api/login`, {
              method: 'POST',
              mode: 'cors',
              headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

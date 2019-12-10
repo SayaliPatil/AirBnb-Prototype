@@ -12,6 +12,7 @@ class Header extends Component {
         this.state = {
         };
         let currentUser = UTIL.getUserDetails();
+        let first_name = UTIL.getUserFirstName();
       }
 
   guestDashBoardHandler(data) {
@@ -49,7 +50,7 @@ class Header extends Component {
 
   editPropertyHandler() {
     if(UTIL.getUserRole() == 'Host') {
-      history.push('/editProperty');
+      history.push('/editDashboard');
     }
     else {
       alert("First Login as Owner")
@@ -70,9 +71,10 @@ class Header extends Component {
       currentuser: UTIL.getUserDetails()
     })
   this.currentUser = UTIL.getUserDetails();
+  this.firstName = UTIL.getUserFirstName();
   }
     render() {
-
+ console.log("this.firstName : " +this.firstName);
         return (
                 <div className="header-main">
                   <Navbar dark black expand="md" scrolling className="main-nav">
@@ -82,7 +84,9 @@ class Header extends Component {
                       <h1 onClick={()=> this.buttonToggle(this.currentUser)} className="brand"> OpenHome </h1>
                     </NavbarBrand>
                     <NavbarNav right>
-
+                    <NavItem>
+                      <DropdownToggle nav caret id="basic-nav-dropdown" >{this.firstName}</DropdownToggle>
+                    </NavItem>
                     <NavItem>
                         <Dropdown>
                             <DropdownToggle nav caret id="basic-nav-dropdown" >Guest</DropdownToggle>

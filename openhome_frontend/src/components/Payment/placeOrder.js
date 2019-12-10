@@ -75,7 +75,7 @@ class PlaceOrder extends Component {
         "total_nights" : total_nights,
         "headline" : this.state.orderSummary.headline,
       }
-            fetch(`http://localhost:8080/api/book`, {
+            fetch(`${BASE_URL}/api/book`, {
                method: 'POST',
                mode: 'cors',
                headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

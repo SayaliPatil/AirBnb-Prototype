@@ -32,7 +32,7 @@ class UserDashboard extends Component {
 			month : this.state.month,
       id : ''
 		}
-    fetch(`http://localhost:8080/api/user/fetchBillingDetails/`, {
+    fetch(`${BASE_URL}/api/user/fetchBillingDetails/`, {
        method: 'POST',
        mode: 'cors',
        headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

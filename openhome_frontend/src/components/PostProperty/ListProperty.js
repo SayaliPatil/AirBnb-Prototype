@@ -6,11 +6,11 @@ import Amenities from "./Amenities";
 import AddPhotos from "./AddPhotos";
 import Pricing from "./Pricing";
 import axios from "axios";
-import {Link} from 'react-router-dom';
 // import cookies from "react-cookies";
 import Redirect from "react-router-dom/es/Redirect";
 import * as UTIL from "../../utils/util";
-import Header from './../header/header.js';
+import {BASE_URL} from "../Configs/Configs";
+import {Link} from 'react-router-dom';
 
 class ListProperty extends Component {
     constructor(props)
@@ -18,8 +18,9 @@ class ListProperty extends Component {
         super(props);
 
         this.state = {
-            "host_email" : UTIL.getUserDetails()
-            // "host_email" : "dharmadheeraj.chintala@sjsu.edu"
+             "host_email" : UTIL.getUserDetails()
+            //"host_email" : "dharmadheeraj.chintala@sjsu.edu",
+
         }
 
         this.submit = this.submit.bind(this);
@@ -57,12 +58,16 @@ class ListProperty extends Component {
         }
 
 
-        axios.post('http://localhost:8080/uploadProperty', test2)
+        axios.post(BASE_URL + '/uploadProperty', test2)
             .then((result) => {
-                alert("Sending property");
-                if(result.status === 200 && result.data === 'Successfully uploaded Property') {
+                // alert("Sending property");
+                if(result.status === 200) {
                     alert('Property Uploaded Successfully');
                     this.setState({uploaded : true});
+                }
+                else
+                {
+                    alert('Error while uploading property');
                 }
             });
 
@@ -73,7 +78,6 @@ class ListProperty extends Component {
 
        return (
                     <div>
-                    <Header/>
                         <div className="d-flex flex-column">
                             <div className="container">
                                 <div className="row">
@@ -123,12 +127,11 @@ class ListProperty extends Component {
                                                 <button type="button" className="btn btn-primary"
                                                         onClick={(e) => this.submit(e)}>Submit the Property
                                                 </button>
-                                                <br/>
                                             </div>
                                         </div>
-                                        <br/>
-                                        <Link to='/home' className="return-back"><u>Go to HomePage </u></Link>
                                     </div>
+                                    <br/>
+                                    <Link to='/home' ><u>Go to HomePage </u></Link>
                                 </div>
                             </div>
                         </div>
@@ -138,3 +141,4 @@ class ListProperty extends Component {
 }
 
 export default ListProperty;
+
