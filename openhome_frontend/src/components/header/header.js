@@ -67,11 +67,11 @@ class Header extends Component {
     window.location.reload();
   }
   componentWillMount() {
-    this.setState({
-      currentuser: UTIL.getUserDetails()
-    })
-  this.currentUser = UTIL.getUserDetails();
-  this.firstName = UTIL.getUserFirstName();
+  //   this.setState({
+  //     currentuser: UTIL.getUserDetails()
+  //   })
+  // this.currentUser = UTIL.getUserDetails();
+  // this.firstName = UTIL.getUserFirstName();
   }
     render() {
  console.log("this.firstName : " +this.firstName);
@@ -81,11 +81,11 @@ class Header extends Component {
                     {<NavbarToggler onClick = { this.onClick } />}
                     <Collapse isOpen = { this.state.collapse } navbar>
                     <NavbarBrand>
-                      <h1 onClick={()=> this.buttonToggle(this.currentUser)} className="brand"> OpenHome </h1>
+                      {/*<h1 onClick={()=> this.buttonToggle(this.currentUser)} className="brand"> OpenHome </h1>*/}
                     </NavbarBrand>
                     <NavbarNav right>
                     <NavItem>
-                      <DropdownToggle nav caret id="basic-nav-dropdown" >{this.firstName}</DropdownToggle>
+                      {/*<DropdownToggle nav caret id="basic-nav-dropdown" >{this.firstName}</DropdownToggle>*/}
                     </NavItem>
                     <NavItem>
                         <Dropdown>

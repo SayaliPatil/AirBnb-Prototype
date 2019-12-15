@@ -62,6 +62,10 @@ public class Booking {
     
     private Long property_unique_id;
     
+    private int weekdayprice;
+    
+    private int weekendprice;
+    
     private double price;
     
     private int total_nights;

@@ -89,6 +89,7 @@ class Booking extends Component {
         });
     }
     render() {
+        console.log()
         if(this.state.images != undefined) {
             let imagesArray = this.state.images.split(";");
             var photoArray = imagesArray.map((value) => {
