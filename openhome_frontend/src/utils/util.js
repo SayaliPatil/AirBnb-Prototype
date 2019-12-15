@@ -16,28 +16,39 @@ export const saveUserDetails = (data, type) => {
 };
 
 export const getUserDetails=()=>{
+    console.log("currentUSer:",localStorage.currentUser);
   if(localStorage.currentUser){
     var userdetail = JSON.parse(localStorage.currentUser);
     return (userdetail?userdetail:null);
   }
   else{
-    return null;
+      return null;
   }
 }
-export const getUserFirstName=()=>{
-  if(localStorage.first_name){
-    var userdetail = JSON.parse(localStorage.first_name);
-    return (userdetail?userdetail:null);
+// export const getUserFirstName=()=>{
+//   if(localStorage.first_name){
+//     var userdetail = JSON.parse(localStorage.first_name);
+//     return (userdetail?userdetail:null);
+//   }
+//   else{
+//     return null;
+//   }
+// }
+
+export const getUserRole=()=>{
+  if(localStorage.role){
+    var userrole = JSON.parse(localStorage.role);
+    return (userrole?userrole:null);
   }
   else{
     return null;
   }
 }
 
-export const getUserRole=()=>{
-  if(localStorage.role){
-    var userrole = JSON.parse(localStorage.role);
-    return (userrole?userrole:null);
+export const getUserFirstName=()=>{
+  if(localStorage.first_name){
+    var userdetail = JSON.parse(localStorage.first_name);
+    return (userdetail?userdetail:null);
   }
   else{
     return null;

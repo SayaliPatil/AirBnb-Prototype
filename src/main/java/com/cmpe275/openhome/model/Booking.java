@@ -44,6 +44,11 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ID;
 	
+
+	public Long getID() {
+		return ID;
+	}
+
 	private String user_email;
     
     private String host_email;
@@ -56,6 +61,10 @@ public class Booking {
 	private Long propertyId;
     
     private Long property_unique_id;
+    
+    private int weekdayprice;
+    
+    private int weekendprice;
     
     private double price;
     

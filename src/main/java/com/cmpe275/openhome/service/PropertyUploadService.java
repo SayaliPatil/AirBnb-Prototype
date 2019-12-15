@@ -50,6 +50,7 @@ public class PropertyUploadService {
 		return propertyRepository.save(prop);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public Property updateProperty(Property data) throws ParseException {
 		
 		System.out.println("id:" + data.getId());
@@ -62,18 +63,10 @@ public class PropertyUploadService {
 		String[] days = data.getAvailabledays().toLowerCase().split(";");
 		List<String> daysList = Arrays.asList(days);
 	
-		boolean sDate = false,eDate = false,weeks = false;
 		
 		Long id = data.getId();
 		Optional<Property> previous = propertyRepository.findById(id);
 		
-		if(previous != null)
-		{
-			if(previous.get().getStartdate() != data.getStartdate())
-					sDate = true;
-			if(previous.get().getEnddate() != data.getEnddate())
-					eDate = true;
-		}
 		
 		List<Booking> bookings = bookingService.getBookingByProperty(id);
 		System.out.println("Found bookings:"+ bookings.size());
@@ -92,6 +85,7 @@ public class PropertyUploadService {
 				if(daysList.indexOf(simpleDateformat.format(temp).toLowerCase()) < 0)
 					cancel.add(booking.getID());
 				i++;
+				temp.setDate(temp.getDate()+1);
 			}
 			
 			if(checkinDate.before(data.getStartdate()) || checkoutDate.after(data.getEnddate()))
@@ -148,12 +142,25 @@ public class PropertyUploadService {
 		    
 		    if(booking.get().isUser_checked_in_flag())
 		    {
-		    	System.out.println("User checked in flaf : ");
-		    	double perDayPrice = booking.get().getPrice() / booking.get().getTotal_nights();
-		    	System.out.println("perDayPrice : "+perDayPrice);
-		    	hostPenalty = (perDayPrice * checkoutDiff) * 0.15;
+		    	System.out.println("User checked in flag : ");
+		    	double rem = booking.get().getPrice();
 		    	
-		    	guestCompensation = (perDayPrice * checkoutDiff) + hostPenalty; 
+		    	SimpleDateFormat daynumber = new SimpleDateFormat("u");
+    			Date temp = checkinDate;
+    			
+    			while(temp.before(today))
+    			{
+    				 if(Integer.parseInt(daynumber.format(temp)) < 6)
+    					 rem -= booking.get().getWeekdayprice();
+    				 else
+    					 rem -= booking.get().getWeekendprice();
+    				temp.setDate(temp.getDate()+1);
+    			}
+    			
+		    	System.out.println("remaining amount : "+rem);
+		    	hostPenalty = rem * 1.15;
+		    	
+		    	guestCompensation = hostPenalty; 
 		    		
 		    }
 		    else
@@ -182,7 +189,6 @@ public class PropertyUploadService {
 		    bookingService.saveBookingDetails(booking.get());
 		}
 	}
-	
 	public Property deleteProperty(Property prop) throws ParseException {
 		System.out.println("Delete property initiated for :" + prop.getId());
 		Optional<Property> to_be_deleted = propertyRepository.findById(prop.getId());
@@ -200,7 +206,3 @@ public class PropertyUploadService {
 		return propertyRepository.save(to_be_deleted.get());
 	}
 }
-
-
-
-

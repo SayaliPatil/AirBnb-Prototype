@@ -55,7 +55,15 @@ class Header extends Component {
     // this.setState({
     //   timeClicked : true,
     // })
-    history.push('/timeAdvancement');
+    var email = UTIL.getUserDetails();
+    if(email == undefined || email == null || email.length == 0) {
+      history.push('/timeAdvancement');
+    }
+    else{
+      alert("Login first to advance the time");
+      history.push('/login');
+    }
+
     window.location.reload();
   }
 
@@ -109,7 +117,7 @@ renderFuntion() {
     }
   }
 render() {
- console.log("this.firstName : " +this.firstName);
+ console.log("this.currentUser : " +this.currentUser);
         return (
 
                 <div className="header-main">
@@ -146,7 +154,8 @@ render() {
                             </Dropdown>
                       </NavItem>
                       <NavItem>
-                            <Button type="button" className="btn btn-secondary timeadvance" onClick={() => this.timeAdvancementClickHandler(this.currentUser)}>Time Advancement</Button>
+                            {this.currentUser == null ? <Button type="button" className="btn btn-secondary timeadvance" onClick={() => this.props.history.push('/login')}>Login &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button> : ''}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Button type="button" className="btn btn-secondary timeadvance" onClick={() => this.timeAdvancementClickHandler(this.currentUser)}>Time Advancement</Button>
                             {this.state.timeClicked == true ? this.renderFuntion() : ''}
                       </NavItem>
 
