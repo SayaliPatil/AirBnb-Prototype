@@ -40,6 +40,9 @@ public class PropertyUploadService {
 	private AccountService accountService;
 	
 	@Autowired
+	private TimeSet time;
+	
+	@Autowired
 	private UserService userService;
 	
 	private static final String ERROR_IN_UPLOADING_PROPERTY = "Error in Uploading property";
@@ -125,7 +128,7 @@ public class PropertyUploadService {
 		{
 			Date checkinDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.get().getCheck_in_date());
 			Date checkoutDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.get().getCheck_out_date());
-			Date today = Calendar.getInstance().getTime();
+			Date today = time.getDate();
 			if(today.getHours() >= 15)
 				today.setDate(today.getDate() + 1);
 			
