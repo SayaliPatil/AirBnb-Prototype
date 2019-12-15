@@ -47,11 +47,35 @@ class PlaceOrder extends Component {
     alert("Card has been selected successfully.!!")
   }
 
+  calculatePrice() {
+      return new Promise((resolve,reject) => {
+          let weekdayprice = this.state.orderSummary.weekdayprice;
+          let weekendprice = this.state.orderSummary.weekendprice;
+          console.log(weekdayprice + "weekday");
+          console.log(weekendprice + "weekend");
+          const startdate = new Date(this.state.orderSummary.userSelectedStartDate + " 15:00");
+          const enddate = new Date(this.state.orderSummary.userSelectedEnddate + " 15:00");
+          console.log("StartDate :", startdate);
+          let price = 0;
+          for (var d = startdate; d < enddate; d.setDate(d.getDate() + 1)) {
+              if(d.getDay() < 6)
+                  price += weekdayprice;
+              else
+                  price += weekendprice;
+          }
+          if(price > 0)
+              resolve(price);
+          else
+              reject(null);
 
-  clickHandler=(event)=> {
+      })
+  }
+
+
+  async clickHandler(event){
     event.preventDefault();
-    var start = new Date(this.state.orderSummary.userSelectedStartDate );
-    var end = new Date(this.state.orderSummary.userSelectedEnddate);
+    var start = new Date(this.state.orderSummary.userSelectedStartDate);
+    var end = new Date(this.state.orderSummary.userSelectedEnddate );
     var total_nights = (end.getTime() - start.getTime()) / (1000 * 3600 * 24);
     console.log("total_nights : " +total_nights);
     if(total_nights == 0) {
@@ -60,42 +84,46 @@ class PlaceOrder extends Component {
       })
     }
     if(this.state.cardSelected) {
-      var details={
+        let price = await this.calculatePrice();
+        alert("price" + price);
+        var details={
         "propertyId":localStorage.getItem("propid"),
         "check_in_date":this.state.orderSummary.userSelectedStartDate,
         "check_out_date":this.state.orderSummary.userSelectedEnddate,
         "availabilty_start_date" : this.state.orderSummary.startdate.split("T")[0],
         "availabilty_end_date" : this.state.orderSummary.enddate.split("T")[0],
         "host_email":this.state.orderSummary.host_email,
-        "price":this.state.orderSummary.weekdayprice * total_nights,
+        "price":price,
+        "weekdayprice": this.state.orderSummary.weekdayprice,
+        "weekendprice": this.state.orderSummary.weekendprice,
         "beds":this.state.orderSummary.beds,
         "user_checked_in_flag" : false,
         "user_email" : UTIL.getUserDetails(),
         "property_unique_id" : this.state.orderSummary.id,
         "total_nights" : total_nights,
         "headline" : this.state.orderSummary.headline,
-      }
-            fetch(`${BASE_URL}/api/book`, {
-               method: 'POST',
-               mode: 'cors',
-               headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
-               body: JSON.stringify(details)
-             }).then(response => {
-                console.log("Status Code : ",response);
-                if(response.status==200) {
-                  return response.json();
-              }
-            }).then(result => {
-              console.log("Booking Results:",result);
-                  this.setState({
-                    bookingDetails:result,
-                  });
-                  this.props.history.push({
-                      pathname: '/bookingSuccess',
-                      state: { bookingDetails: result }
-                  })
-                  alert("Property booked successfully.!!")
-            })
+        }
+            // fetch(`${BASE_URL}/api/book`, {
+            //    method: 'POST',
+            //    mode: 'cors',
+            //    headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
+            //    body: JSON.stringify(details)
+            //  }).then(response => {
+            //     console.log("Status Code : ",response);
+            //     if(response.status==200) {
+            //       return response.json();
+            //   }
+            // }).then(result => {
+            //   console.log("Booking Results:",result);
+            //       this.setState({
+            //         bookingDetails:result,
+            //       });
+            //       this.props.history.push({
+            //           pathname: '/bookingSuccess',
+            //           state: { bookingDetails: result }
+            //       })
+            //       alert("Property booked successfully.!!")
+            // })
           }
     else {
       alert("Please select a saved card or add a card to pay");
@@ -104,7 +132,7 @@ class PlaceOrder extends Component {
   render() {
     var email = UTIL.getUserDetails();
     if(email == undefined || email == null || email.length == 0) {
-      alert("Login to book property");
+      alert(email);
       this.props.history.push('/login');
     }
         let fetchCard = this.state.cardDetails.map(cardItem => {
