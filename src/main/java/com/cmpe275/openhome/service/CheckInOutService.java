@@ -1,5 +1,9 @@
 package com.cmpe275.openhome.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.quartz.JobExecutionContext;
@@ -44,12 +48,26 @@ public class CheckInOutService extends QuartzJobBean{
 		// TODO Auto-generated method stub
 		logger.info("Executing Job with key {}", context.getJobDetail().getKey());
 		logger.info("Executing Job with key {}", context.getJobDetail().getDescription());
-		String today = DateUtility.todayDate(0);
-		String yesterday = DateUtility.todayDate(-1);
+		System.out.println("Start date in execute internal : " +context.getJobDetail().getJobDataMap().getString("startdate"));
+		String today = context.getJobDetail().getJobDataMap().getString("startdate").split(" ")[0];
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = sdf.parse(today);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, -1);
+		String yesterday = DateUtility.getStringDate(calendar.getTime());
+		System.out.println("Yesterday value in execute internal : " +yesterday);
 		updateBookingAfterCheckinout(context.getJobDetail().getDescription() , today , yesterday);
 	}
 	
 	private void updateBookingAfterCheckinout(String jobType , String startDate , String endDate) {
+		System.out.println("startDate : " +startDate);
 		List<Booking> bookingList = bookingRepository.findAll();
 		for(Booking booking : bookingList) {
 			if(jobType.equals("check-out") && booking.isUser_checked_in_flag() && !booking.isBooking_cancelled() && startDate.equals(booking.getCheck_out_date())) {
@@ -60,7 +78,7 @@ public class CheckInOutService extends QuartzJobBean{
 				bookingService.saveBookingDetails(booking);
 			}
 			else if(jobType.equals("check-in") && endDate.equals(booking.getCheck_in_date())) {
-				if(!booking.isUser_checked_in_flag()) {
+				if(!booking.isUser_checked_in_flag() && !booking.isBooking_cancelled()) {
 					booking.setBooking_cancelled(true);
 					booking.setNo_show(true);
 					double perDayFine = (booking.getPrice() / booking.getTotal_nights()) * 0.3;

@@ -2,7 +2,7 @@ package com.cmpe275.openhome.utils;
 
 public class EmailUtility {
 	
-	public static final String URL = "http://ec2-3-92-30-172.compute-1.amazonaws.com:3000";
+	public static final String URL = "https://cmpe275-openhome.herokuapp.com";
 	public static String URL_PREFIX = URL+"/verifyaccount/";
 	public static final String VERIFICATION_SUCCESS_MESSAGE = "Congratulations.!! Account verified successfully";
 	

@@ -16,11 +16,11 @@ import java.time.ZoneId;
 @NonNull
 @EntityListeners(AuditingEntityListener.class)
 public class JobScheduleRequest {
-	
-    private LocalDateTime dateTime;
 
     private ZoneId timeZone;
     
     private String jobType;
+    
+    private String setDate;
 	
 }
