@@ -29,9 +29,10 @@ class UserDashboard extends Component {
     this.state.monthSelected = true;
     const data = {
 			email : UTIL.getUserDetails(),
-			month : this.state.month
+			month : this.state.month,
+      id : ''
 		}
-    fetch(`http://localhost:8080/api/user/fetchBillingDetails/`, {
+    fetch(`${BASE_URL}/api/user/fetchBillingDetails/`, {
        method: 'POST',
        mode: 'cors',
        headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

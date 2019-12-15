@@ -108,7 +108,7 @@ public class PropertyUploadService {
 		
 		previous.get().setAvailabledays(data.getAvailabledays());
 		previous.get().setEnddate(data.getEnddate());
-		previous.get().setStartdate(data.getEnddate());
+		previous.get().setStartdate(data.getStartdate());
 		previous.get().setWeekdayprice(data.getWeekdayprice());
 		previous.get().setWeekendprice(data.getWeekendprice());
 		
@@ -182,16 +182,20 @@ public class PropertyUploadService {
 		    bookingService.saveBookingDetails(booking.get());
 		}
 	}
-	
-	public Property deleteProperty(Property prop) {
+	public Property deleteProperty(Property prop) throws ParseException {
 		System.out.println("Delete property initiated for :" + prop.getId());
 		Optional<Property> to_be_deleted = propertyRepository.findById(prop.getId());
 		to_be_deleted.get().set_deleted(true);
+		
+		List<Booking> bookings = bookingService.getBookingByProperty(prop.getId());
+		System.out.println("Found bookings:"+ bookings.size());
+		Set<Long> cancel = new HashSet<Long>();
+		
+		System.out.println("Finishied checking all bookings");
+			
+			for(Long booking_id : cancel) {
+				cancelbooking(booking_id);
+			}
 		return propertyRepository.save(to_be_deleted.get());
 	}
 }
-
-
-
-
-

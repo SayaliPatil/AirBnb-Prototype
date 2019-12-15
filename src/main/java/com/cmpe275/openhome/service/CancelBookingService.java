@@ -20,7 +20,6 @@ public class CancelBookingService {
 		long timeDifference = DateUtility.timeDifference(booking.getCheck_in_date() + " 15:00:00");
 		if(!booking.isUser_checked_in_flag() && timeDifference > 1440) {
 			booking.setAmount_paid(0);
-			checkInOutService.updatePropertyAvailibilty(booking.getProperty_unique_id() , DateUtility.todayDate(0));
 		}
 		else if((!booking.isUser_checked_in_flag() && timeDifference <= 1440)) {
 			double perDayFine = (booking.getPrice() / booking.getTotal_nights()) * 0.3;
@@ -31,7 +30,6 @@ public class CancelBookingService {
 			else {
 				booking.setAmount_paid(perDayFine);
 			}
-			checkInOutService.updatePropertyAvailibilty(booking.getProperty_unique_id() , DateUtility.todayDate(2));
 		}
 		else if(booking.isUser_checked_in_flag()) {
 			long dayDifference = DateUtility.dateDifference(DateUtility.todayDate(0) , booking.getCheck_out_date());
@@ -48,8 +46,6 @@ public class CancelBookingService {
 				booking.setAmount_paid(booking.getPrice() + perDayFine - rentPaid);
 			}
 			System.out.println("Total amount paid : " +booking.getAmount_paid());
-			
-			checkInOutService.updatePropertyAvailibilty(booking.getProperty_unique_id() , DateUtility.todayDate(2));
 		}
 		booking.setBooking_cancelled(true);
 		bookingService.saveBookingDetails(booking);

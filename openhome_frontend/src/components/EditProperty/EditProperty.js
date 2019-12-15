@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import axios from "axios";
 import {BASE_URL} from "../Configs/Configs";
-// import Header from "../header/header";
+import Header from "../header/header";
+
 import {startEndDateValidity} from "../../utils/validation";
 
 class EditProperty extends Component{
@@ -167,7 +168,7 @@ class EditProperty extends Component{
     {
         return (
             <div>
-                {/*<Header/>*/}
+                <Header/>
                 <div className="main_cont">
                     <div className="main-div5">
                         <div>

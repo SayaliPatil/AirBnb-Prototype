@@ -37,6 +37,7 @@ public class AmazonClient {
 	    private void initializeAmazon() {
 	       BasicAWSCredentials awsCreds = new BasicAWSCredentials(this.accessKey, this.secretKey);
 	       this.s3client = AmazonS3ClientBuilder.standard()
+	    		   					.enableForceGlobalBucketAccess()
 	                               .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
 	                               .build();
 	}

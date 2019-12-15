@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 public class PropertySearchController {
     
     @Autowired
@@ -42,7 +42,9 @@ public class PropertySearchController {
     @ResponseBody
     @PostMapping("/results")
     List<Property> getResults(@Valid @RequestBody Property prop) {
-    	return propertyService.getAllResults(prop);
+    	List<Property> property = propertyService.getAllResults(prop);
+    	System.out.println("PROPERTY : " +property);
+    	return property;
     }
      
 //    @ResponseBody

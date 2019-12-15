@@ -30,13 +30,17 @@ class Properties extends Component {
     // }
     componentDidMount(){
         console.log("photos : ", this.state.propertiesList[0]);
-        axios.get(`${BASE_URL}/api/allproperties`,)
-        .then((response) => {
-                console.log("inside componentDidMount of Properties :", JSON.stringify(response.data))
-                this.setState({
-                    propertiesList: response.data
-                })
-        });
+        console.log("photos : ", this.props.location.state.detail.listed[0]);
+        this.setState({
+            propertiesList: this.state.propertiesList.concat(this.props.location.state.detail.listed)
+        })
+        // axios.get(`${BASE_URL}/api/allproperties`,)
+        // .then((response) => {
+        //         console.log("inside componentDidMount of Properties :", JSON.stringify(response.data))
+        //         this.setState({
+        //             propertiesList: response.data
+        //         })
+        // });
         // var list = [
         //     {headline: "nice suit", address: 'san jose', startdate: 11/12/19, enddate: 11/12/19, price: 20},
         //     {headline: "beautiful place", address: 'san bruno', startdate: 11/12/19, enddate: 11/12/19, price: 20},
@@ -90,15 +94,14 @@ class Properties extends Component {
                     <img src={propertyItem.images.split(';').splice(0, 1).toString()} className="mediao"/>
                     </div>
                     <div class="col-sm-7" className="backColor_dash_list">
-                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.property_id)}>{propertyItem.headline}</Link></p>
+                    <p className="headline_list"><Link to="/booking" onClick = {this.showBooking.bind(this, propertyItem.id)}>{propertyItem.headline}</Link></p>
                     <ul class="list-inline">
                     <li>Address : {propertyItem.address}</li>
                     <li>StartDate : {this.props.location.state.detail.startdate}</li>
                     <li>EndDate : {this.props.location.state.detail.enddate}</li>
                     </ul>
-                    <br/>
                     <ul class="list-inline">
-                    <li>Price : ${propertyItem.price} per night</li>
+                    <li>Price : ${propertyItem.weekdayprice} per night</li>
                     </ul>
                     </div>
                     </div>

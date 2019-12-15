@@ -1,6 +1,8 @@
 .bgnd {
     /* Set rules to fill background */
     background-image: url("//csvcus.homeaway.com/rsrcs/stab-cms-resources/0.10.30/images/homepage/jumbotron/ptaHpNextHeroImage/large.jpg");
+    #background-image: url("https://skift.com/wp-content/uploads/2017/11/Trivago-Adds-HomeAway-Vacation-Rentals-.jpg");
+    #background-image : url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKmjpwL2ApjG0_rfV_jiDFd8DwIrzgLCqP1AGdBZ2enXrk2s_O&s");
     background-size: cover;
     background-position : center center;
     min-height: 100%;

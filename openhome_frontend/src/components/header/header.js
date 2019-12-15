@@ -12,6 +12,7 @@ class Header extends Component {
         this.state = {
         };
         let currentUser = UTIL.getUserDetails();
+        let first_name = UTIL.getUserFirstName();
       }
 
   guestDashBoardHandler(data) {
@@ -32,7 +33,7 @@ class Header extends Component {
   }
   hostDashboardHandler() {
       if(UTIL.getUserRole() == 'Host') {
-        history.push('/hostdashboard');
+        history.push('/hostDashboard');
       }
       else {
         alert("First Login as Owner")
@@ -40,7 +41,16 @@ class Header extends Component {
   }
   postPropertyHandler() {
     if(UTIL.getUserRole() == 'Host') {
-      history.push('/post');
+      history.push('/postProperty');
+    }
+    else {
+      alert("First Login as Owner")
+    }
+  }
+
+  editPropertyHandler() {
+    if(UTIL.getUserRole() == 'Host') {
+      history.push('/editDashboard');
     }
     else {
       alert("First Login as Owner")
@@ -61,9 +71,10 @@ class Header extends Component {
       currentuser: UTIL.getUserDetails()
     })
   this.currentUser = UTIL.getUserDetails();
+  this.firstName = UTIL.getUserFirstName();
   }
     render() {
-
+ console.log("this.firstName : " +this.firstName);
         return (
                 <div className="header-main">
                   <Navbar dark black expand="md" scrolling className="main-nav">
@@ -73,28 +84,27 @@ class Header extends Component {
                       <h1 onClick={()=> this.buttonToggle(this.currentUser)} className="brand"> OpenHome </h1>
                     </NavbarBrand>
                     <NavbarNav right>
-
+                    <NavItem>
+                      <DropdownToggle nav caret id="basic-nav-dropdown" >{this.firstName}</DropdownToggle>
+                    </NavItem>
                     <NavItem>
                         <Dropdown>
-                            <DropdownToggle nav caret id="basic-nav-dropdown" >{this.currentUser}</DropdownToggle>
+                            <DropdownToggle nav caret id="basic-nav-dropdown" >Guest</DropdownToggle>
                                 <DropdownMenu>
                                   <DropdownItem href="#" onClick={() => this.guestCheckinHandler(this.currentUser)} >My Trips</DropdownItem>
                                   <DropdownItem href="#" onClick={() => this.guestDashBoardHandler(this.currentUser)}>Guest Dashboard</DropdownItem>
-                                  <DropdownItem href="#" onClick={() => this.postPropertyHandler()} >Post property</DropdownItem>
-                                  <DropdownItem href="#" onClick={() => this.hostDashboardHandler(this.currentUser)} >Host Dashboard</DropdownItem>
                                   <DropdownItem href="/login" onClick={() => this.logoutHandler()} >Logout</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                     </NavItem>
                       <NavItem>
                         <Dropdown>
-                          <DropdownToggle nav caret  id="basic-nav-dropdown">Help</DropdownToggle>
+                          <DropdownToggle nav caret  id="basic-nav-dropdown">Host</DropdownToggle>
                               <DropdownMenu>
-                                <DropdownItem href="#">Online Chat</DropdownItem>
-                                <DropdownItem href="#">Raise Ticket</DropdownItem>
-                                <DropdownItem href="#">Cancellation</DropdownItem>
-                                <DropdownItem href="#">Email Us</DropdownItem>
-                                <DropdownItem href="#">Career</DropdownItem>
+                              <DropdownItem href="#" onClick={() => this.postPropertyHandler()} >Post property</DropdownItem>
+                              <DropdownItem href="#" onClick={() => this.editPropertyHandler(this.currentUser)} >Edit Property</DropdownItem>
+                              <DropdownItem href="#" onClick={() => this.hostDashboardHandler(this.currentUser)} >Host Dashboard</DropdownItem>
+                              <DropdownItem href="/login" onClick={() => this.logoutHandler()} >Logout</DropdownItem>
                               </DropdownMenu>
                             </Dropdown>
                       </NavItem>

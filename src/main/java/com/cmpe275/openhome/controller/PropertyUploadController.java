@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 public class PropertyUploadController {
 
 	@Autowired
@@ -73,6 +73,8 @@ public class PropertyUploadController {
     	}
         
         propertyUploadService.uploadProperty(prop);
+        String postPropertyHost = EmailUtility.propertyPostMessageHost();
+        emailService.sendEmail(prop.getHost_email(), postPropertyHost, "Property Posted!!");
     	return ResponseEntity.ok(prop);
     }
     
@@ -80,7 +82,7 @@ public class PropertyUploadController {
     public ResponseEntity<Property> updateProperty(@RequestBody Property data) throws ParseException{
     	try {
     		Property updated = propertyUploadService.updateProperty(data);
-    		String updatePropertyHost = EmailUtility.createPropertyUpdateMessageHost();
+    		String updatePropertyHost = EmailUtility.propertyUpdateMessageHost();
             emailService.sendEmail(updated.getHost_email(), updatePropertyHost, "Property Updated!!");
             return ResponseEntity.ok(updated);
     	}
@@ -94,7 +96,7 @@ public class PropertyUploadController {
     	try {
     		System.out.println("hgjv");
     		Property deleted  = propertyUploadService.deleteProperty(data);
-	        String deleteMessage = EmailUtility.createPropertyDeleteMessageHost();
+	        String deleteMessage = EmailUtility.propertyDeleteMessageHost();
 	        emailService.sendEmail(deleted.getHost_email(), deleteMessage, " Property Deleted!!");
 	    	return ResponseEntity.ok(deleted);
     	}
@@ -103,6 +105,4 @@ public class PropertyUploadController {
     	}  
        
     }
-    
-    
 }

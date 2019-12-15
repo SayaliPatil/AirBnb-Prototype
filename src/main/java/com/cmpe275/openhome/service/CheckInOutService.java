@@ -74,18 +74,11 @@ public class CheckInOutService extends QuartzJobBean{
 					sendCancellationNotification(EmailUtility.createCancellationConfirmationMsg() , EmailUtility.createCancellationConfirmationMsgHost(),
 								booking.getUser_email() , booking.getHost_email());
 					bookingService.saveBookingDetails(booking);
-					updatePropertyAvailibilty(booking.getProperty_unique_id() , startDate);
+					
 				}
 			}
 			
 		}
-	}
-	
-	public void updatePropertyAvailibilty(Long id , String date) {
-		Property property = propertyService.getPropertyById(id);
-		property.setBooked_flag(false);
-		property.setStartdate(DateUtility.getDate(date));
-		propertyService.savePropertyDetails(property);
 	}
 	
 	public void sendCheckinoutNotification(String guestMessage , String hostMessage, String guestEmail,  String hostEmail) {
@@ -99,7 +92,7 @@ public class CheckInOutService extends QuartzJobBean{
 	}
 	
 	public void updateAccountDetails(Booking booking, Long id , double guestAmount, double hostAmount) {
-		System.out.println("Booking details sent : " +booking.getAmount_paid());
+		System.out.println("Booking details sent to update account details: " +booking.getAmount_paid() + " " +id);
 		Account account = accountService.findAccountDetails(id);
 		if(account == null) {
 			System.out.println("Account details fetched : " +account);
@@ -107,7 +100,8 @@ public class CheckInOutService extends QuartzJobBean{
 			account.setBookingID(id);
 			account.setGuestID(userService.findByEmail(booking.getUser_email()).getID());
 			account.setHostID(userService.findByEmail(booking.getHost_email()).getID());
-			account.setPropertyID(booking.getProperty_unique_id());
+			account.setPropertyID(booking.getPropertyId());
+			System.out.println("Account details fetched after reading table: " +account);
 		}
 		account.setGuestAccountBalance(guestAmount);
 		account.setHostAccountBalance(hostAmount);

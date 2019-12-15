@@ -105,6 +105,9 @@ class Home extends Component {
                         console.log("Prop details : " + JSON.stringify(response.data));
                         console.log("prop status : "+ JSON.stringify(response.status));
                         if(JSON.stringify(response.status) == 200){
+                          this.setState({
+                              listed:this.state.listed.concat(response.data)
+                          })
                           this.props.history.push({
                               pathname: '/properties',
                               state: { detail: this.state }

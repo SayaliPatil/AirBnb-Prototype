@@ -68,14 +68,14 @@ class Checkin extends Component {
     console.log("CHECK OUT DATE : " +data.check_out_date);
     console.log("GET THE TIME : "+time);
     // console.log("COMPARE DATES :" +date[0] == data.check_in_date);
-    console.log("yesterday : " +value);
+    console.log("yesterday : " +value[0]);
     if(data.booking_cancelled) {
       alert("User booking has been cancelled");
     }
     else if(data.user_checked_out_flag) {
       alert("User already checked out");
     }
-    else if((pdtDate == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 4) ) {
+    else if((pdtDate == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 3) ) {
         if(data.user_checked_in_flag) {
           alert("User already checked in");
         }
@@ -131,7 +131,7 @@ class Checkin extends Component {
     }
   }
   updateBooking(data, callback) {
-    fetch(`http://localhost:8080/api/checkinout`, {
+    fetch(`${BASE_URL}/api/checkinout`, {
            method: 'POST',
            mode: 'cors',
            headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
@@ -153,7 +153,7 @@ class Checkin extends Component {
   }
 
   cancelBooking(data, callback) {
-    fetch(`http://localhost:8080/api/cancelbooking`, {
+    fetch(`${BASE_URL}/api/cancelbooking`, {
            method: 'POST',
            mode: 'cors',
            headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
@@ -209,7 +209,7 @@ class Checkin extends Component {
                       <ul class="list-inline">
                         <li>Booking ID : {bookingItem.id}</li>
                         <br></br>
-                        <li>Property ID : { bookingItem.property_id}</li>
+                        <li>Property ID : { bookingItem.propertyId}</li>
                         <br></br>
                         <li>Total Bill for Stay: $ {bookingItem.price}</li>
                         <br></br>

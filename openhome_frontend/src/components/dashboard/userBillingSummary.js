@@ -23,7 +23,7 @@ class UserBillingSummary extends Component {
     this.carddetail ={}
   }
   render() {
-    console.log("Props passed : " +this.props.location.state.detail)
+    // console.log("Props passed : " +this.props.location.state.detail)
     var sum = 0;
     return (
       <div >
@@ -48,7 +48,7 @@ class UserBillingSummary extends Component {
                                return(<tbody>
                                          <tr>
                                             <td >{booking.id}</td>
-                                            <td >{booking.property_id}</td>
+                                            <td >{booking.propertyId}</td>
                                             <td >{booking.check_in_date}</td>
                                             <td >{booking.check_out_date}</td>
                                             <td >{booking.amount_paid}</td></tr>

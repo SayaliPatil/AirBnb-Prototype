@@ -21,4 +21,5 @@ public class Filter implements Serializable{
 	
 	private String month;
 	
+	private Long id;
 }

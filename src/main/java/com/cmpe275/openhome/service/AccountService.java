@@ -42,7 +42,7 @@ public class AccountService {
 			throw new CustomException(FETCH_ACCOUNT_DETAILS_EXCEPTION_MESSAGE);
 		}
 		
-		return accountDetails.size() == 0 ? null : accountDetails.get(0);
+		return accountDetails.size() == 0 ? new Account() : accountDetails.get(0);
 	}
 
 }

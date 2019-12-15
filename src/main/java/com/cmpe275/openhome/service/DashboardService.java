@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cmpe275.openhome.exception.CustomException;
 import com.cmpe275.openhome.model.Booking;
+import com.cmpe275.openhome.model.Filter;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.BookingRepository;
 import com.cmpe275.openhome.repository.PropertyRepository;
@@ -48,10 +49,10 @@ public class DashboardService {
 		return book;
 	}
 	
-	public List<Booking> getMonthlyDashboardDetails(String email, String month) {
-		System.out.println("user dashboard details fetched: " +email + " for month : " +month);
+	public List<Booking> getMonthlyDashboardDetails(Filter filter) {
+		System.out.println("user dashboard details fetched: " +filter.getEmail() + " for month : " +filter.getMonth());
 		Query query = entityManager.createQuery("from Booking as b WHERE (b.user_email =:email AND b.check_in_date >=:input)");
-		query.setParameter("email",email);
+		query.setParameter("email",filter.getEmail());
 		query.setParameter("input",DateUtility.todayDate(-365));
 		List<Booking> booking = new ArrayList<>();
 		List<Booking> filteredBooking = new ArrayList<>();
@@ -59,7 +60,7 @@ public class DashboardService {
 			booking = (List<Booking>) query.getResultList();
 			for(Booking book : booking) {
 				String bookingMonth = DateUtility.findMonth(DateUtility.getDate(book.getCheck_in_date()).getMonth());
-				if(bookingMonth.equals(month.trim())) {
+				if(bookingMonth.equals(filter.getMonth().trim())) {
 					filteredBooking.add(book);
 				}
 			}
@@ -69,4 +70,34 @@ public class DashboardService {
 		}
 		return filteredBooking;
 	}
+	
+	public List<Booking> getHostDashboardDetails(Filter filter) {
+		System.out.println("user dashboard details fetched: " +filter.getEmail() + " for month : " +filter.getMonth());
+		Query query = entityManager.createQuery("from Booking as b WHERE (b.propertyId =:id AND b.check_in_date >=:input)");
+		query.setParameter("id",filter.getId());
+		query.setParameter("input",DateUtility.todayDate(-365));
+		List<Booking> booking = new ArrayList<>();
+		List<Booking> filteredBooking = new ArrayList<>();
+		try {
+			booking = (List<Booking>) query.getResultList();
+			if(!filter.getMonth().trim().isEmpty()) {
+				for(Booking book : booking) {
+					String bookingMonth = DateUtility.findMonth(DateUtility.getDate(book.getCheck_in_date()).getMonth());
+					if(bookingMonth.equals(filter.getMonth().trim())) {
+						filteredBooking.add(book);
+					}
+				}
+			}
+			else {
+				filteredBooking.addAll(booking);
+			}
+			
+		}
+		catch(Exception exception) {
+			throw new CustomException(FETCH_USER_BOOKING_DETAILS_EXCEPTION_MESSAGE + exception.getCause());
+		}
+		System.out.println("filteredBooking : " +filteredBooking);
+		return filteredBooking;
+	}
+	
 }

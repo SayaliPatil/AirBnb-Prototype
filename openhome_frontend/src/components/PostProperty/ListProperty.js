@@ -10,6 +10,7 @@ import axios from "axios";
 import Redirect from "react-router-dom/es/Redirect";
 import * as UTIL from "../../utils/util";
 import {BASE_URL} from "../Configs/Configs";
+import {Link} from 'react-router-dom';
 
 class ListProperty extends Component {
     constructor(props)
@@ -17,9 +18,8 @@ class ListProperty extends Component {
         super(props);
 
         this.state = {
-            // "host_email" : UTIL.getUserDetails()
-            "host_email" : "dharmadheeraj.chintala@sjsu.edu",
-
+             "host_email" : UTIL.getUserDetails()
+            //"host_email" : "dharmadheeraj.chintala@sjsu.edu",
         }
 
         this.submit = this.submit.bind(this);
@@ -121,7 +121,7 @@ class ListProperty extends Component {
                                                 <input type="checkbox" name="vehicle1" value="Bike"/> I hereby
                                                 acknowledge
                                                 that I have read, understand and agree to
-                                                the terms of this leasing relating to Homeaway and
+                                                the terms of this leasing relating to OpenHome and
                                                 payment of my services. <br></br>
                                                 <button type="button" className="btn btn-primary"
                                                         onClick={(e) => this.submit(e)}>Submit the Property
@@ -129,6 +129,8 @@ class ListProperty extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    <br/>
+                                    <Link to='/home' ><u>Go to HomePage </u></Link>
                                 </div>
                             </div>
                         </div>
@@ -138,3 +140,4 @@ class ListProperty extends Component {
 }
 
 export default ListProperty;
+

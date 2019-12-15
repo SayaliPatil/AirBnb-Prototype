@@ -61,13 +61,13 @@ class PlaceOrder extends Component {
     }
     if(this.state.cardSelected) {
       var details={
-        "property_id":localStorage.getItem("propid"),
+        "propertyId":localStorage.getItem("propid"),
         "check_in_date":this.state.orderSummary.userSelectedStartDate,
         "check_out_date":this.state.orderSummary.userSelectedEnddate,
         "availabilty_start_date" : this.state.orderSummary.startdate.split("T")[0],
         "availabilty_end_date" : this.state.orderSummary.enddate.split("T")[0],
         "host_email":this.state.orderSummary.host_email,
-        "price":this.state.orderSummary.price * total_nights,
+        "price":this.state.orderSummary.weekdayprice * total_nights,
         "beds":this.state.orderSummary.beds,
         "user_checked_in_flag" : false,
         "user_email" : UTIL.getUserDetails(),
@@ -75,7 +75,7 @@ class PlaceOrder extends Component {
         "total_nights" : total_nights,
         "headline" : this.state.orderSummary.headline,
       }
-            fetch(`http://localhost:8080/api/book`, {
+            fetch(`${BASE_URL}/api/book`, {
                method: 'POST',
                mode: 'cors',
                headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },

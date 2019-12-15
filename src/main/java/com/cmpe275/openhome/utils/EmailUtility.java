@@ -2,7 +2,7 @@ package com.cmpe275.openhome.utils;
 
 public class EmailUtility {
 	
-	public static final String URL = "http://localhost:3000";
+	public static final String URL = "http://ec2-3-92-30-172.compute-1.amazonaws.com:3000";
 	public static String URL_PREFIX = URL+"/verifyaccount/";
 	public static final String VERIFICATION_SUCCESS_MESSAGE = "Congratulations.!! Account verified successfully";
 	
@@ -65,15 +65,34 @@ public class EmailUtility {
 	}
 	
 	public static String createCancellationConfirmationMsg() {
-		String cancellationMessage = "Thank you.!! Your booking has been cancelled with OpenHome !!!" 
+		String cancellationMessage = "Thank you.!! Your booking has been cancelled with OpenHome !!! \n \nYou might be charged as per the cancellation policy..!" 
                 + "\n\nRegards\nTeam OpenHome";
         System.out.println("cancellationMessage : " +cancellationMessage);
         return cancellationMessage;
 	}
 	
 	public static String createCancellationConfirmationMsgHost() {
-		String cancellationMessageHost = "Your booked property has been cancelled !!!" 
+		String cancellationMessageHost = "Unfortunately, your booked property has been cancelled !!!" 
                 + "\n\nRegards\nTeam OpenHome";
+        System.out.println("cancellationMessageHost : " +cancellationMessageHost);
+        return cancellationMessageHost;
+	}
+	
+	public static String createHostInitiatedCancellationConfirmationMsgGuest() {
+		String cancellationMessage = "Unfortunately, your booking has been cancelled with OpenHome by Host!!!\n \nRefund has been initiated successfully..!" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("cancellationMessage : " +cancellationMessage);
+        return cancellationMessage;
+	}
+	
+	public static String createHostInitiatedCancellationConfirmationMsgHost() {
+		String cancellationMessageHost = "You have successfully cancelled your booking!!!\n \nYou might be charged as per the cancellation policy..!" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("cancellationMessageHost : " +cancellationMessageHost);
+        return cancellationMessageHost;
+	}
+	public static String propertyDeleteMessageHost() {
+		String deleteMessageHost = "Your property has been deleted Successfully" 
         System.out.println("cancellationMessage : " +cancellationMessageHost);
         return cancellationMessageHost;
 	}
@@ -85,10 +104,19 @@ public class EmailUtility {
         return deleteMessageHost;
 	}
 	
+	public static String propertyUpdateMessageHost() {
+		String updateMessageHost = "Your property has been updated Successfully" 
 	public static String createPropertyUpdateMessageHost() {
 		String updateMessageHost = "Your booked has been updated Successfully" 
                 + "\n\nRegards\nTeam OpenHome";
         System.out.println("deleteMessageHost : " +updateMessageHost);
         return updateMessageHost;
+    }
+	
+	public static String propertyPostMessageHost() {
+		String postMessageHost = "Your property has been posted Successfully" 
+                + "\n\nRegards\nTeam OpenHome";
+        System.out.println("deleteMessageHost : " +postMessageHost);
+        return postMessageHost;
 	}
 }

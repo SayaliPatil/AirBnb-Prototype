@@ -1,4 +1,5 @@
 export const BASE_URL = "http://localhost:8080";
+// export const BASE_URL = "http://3.92.30.172:8080";
 export const States = ["alabama",
     "Alaska",
     "Arizona",

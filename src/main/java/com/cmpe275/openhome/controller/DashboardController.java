@@ -29,7 +29,7 @@ import com.cmpe275.openhome.service.PropertyService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 public class DashboardController {
 
 	@Autowired
@@ -64,10 +64,18 @@ public class DashboardController {
 	
 	@PostMapping("/user/fetchBillingDetails")
     @ResponseBody
-    public ResponseEntity<?> cancel(@Valid @RequestBody Filter filter) throws URISyntaxException {
-		System.out.println("User ID send as a parm : " +filter.getEmail()+ " " +filter.getMonth());
-		return ResponseEntity.ok(dashboardService.getMonthlyDashboardDetails(filter.getEmail(), filter.getMonth()));
+    public ResponseEntity<?> fetchUserBillingDetails(@Valid @RequestBody Filter filter) throws URISyntaxException {
+		System.out.println("User ID send as a parm : " +filter.getEmail()+ " " +filter.getMonth() + " " +filter.getId());
+		return ResponseEntity.ok(dashboardService.getMonthlyDashboardDetails(filter));
     }
+	
+	@PostMapping("/user/fetchHostDashBoard")
+    @ResponseBody
+    public ResponseEntity<?> fetchHostBillingDetails(@Valid @RequestBody Filter filter) throws URISyntaxException {
+		System.out.println("User ID send as a parm : " +filter.getEmail()+ " " +filter.getMonth() + " " +filter.getId());
+		return ResponseEntity.ok(dashboardService.getHostDashboardDetails(filter));
+    }
+	
 //	@ResponseBody
 //    @RequestMapping(method=RequestMethod.GET, value = "/user/fetchBillingDetails/{email}")
 //    public ResponseEntity<?> getGuestMonthlyBillingInfo(@PathVariable String email) {

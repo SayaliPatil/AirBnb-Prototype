@@ -28,31 +28,49 @@
   color: #4F8198;
   font-weight: bold;
 }
+.host-dashboard-header{
+  margin-top : 20px;
+  margin-left  : 200px;
+  text-align : center;
+  font-size:  20px;
+  font-weight: bolder;
+  font-style: italic;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  color: #4F8198;
+  font-weight: bold;
+
+}
 .list-inline {
   margin-left: 10px;
   margin-top: 10px;
 }
 .checkin-successs-class {
-  margin-left: 800px;
-  margin-top: -200px;
+  margin-left: 700px;
+  margin-top: -100px;
   position: fixed;
+  width : 15%;
+  height : 15%;
 }
 .booking-cancel-class{
-  margin-left: 750px;
-  margin-top: -200px;
+  margin-left: 700px;
+  margin-top: -100px;
   position: fixed;
+  width : 15%;
+  height : 15%;
 }
 .booking-success-class{
-  margin-left: 820px;
-  margin-top: -200px;
+  margin-left: 700px;
+  margin-top: -100px;
   position: fixed;
-  width: 200px;
-  height: 200px;
+  width : 15%;
+  height : 15%;
 }
 .past-successs-class{
-  margin-left: 820px;
-  margin-top: -200px;
+  margin-left: 700px;
+  margin-top: -100px;
   position: fixed;
+  width : 15%;
+  height : 15%;
 }
 .date-class-dashboard {
   width: 500px;
@@ -77,7 +95,20 @@
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 14px;
-    margin-left: 1000px;
+    margin-left: 800px;
+}
+.property-id-dropdown {
+    width:10%;
+    padding: 5px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-left: 590px;
+    margin-top: 8px;
+    position: fixed;
 }
 thead.active{
   margin-top: 0px;
@@ -88,7 +119,7 @@ thead.active{
 }
 .guest-billing-info{
   margin-top: 10px;
-  height: 500px;
+  height: 800px;
   width:80%;
   margin-left: 110px;
   position: fixed;
@@ -115,4 +146,9 @@ thead.active{
 .dashboard_pagi{
     margin-left : 300px;
     margin-top: -50px;
+}
+.button{
+  margin-top: 50px;
+  margin-left: 900px;
+  position: fixed;
 }
