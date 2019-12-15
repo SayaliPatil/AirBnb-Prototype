@@ -182,7 +182,6 @@ public class PropertyUploadService {
 		    bookingService.saveBookingDetails(booking.get());
 		}
 	}
-	
 	public Property deleteProperty(Property prop) throws ParseException {
 		System.out.println("Delete property initiated for :" + prop.getId());
 		Optional<Property> to_be_deleted = propertyRepository.findById(prop.getId());
@@ -200,7 +199,3 @@ public class PropertyUploadService {
 		return propertyRepository.save(to_be_deleted.get());
 	}
 }
-
-
-
-

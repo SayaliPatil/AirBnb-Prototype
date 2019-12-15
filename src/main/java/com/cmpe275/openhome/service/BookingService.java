@@ -80,4 +80,12 @@ public class BookingService {
 		}
 		return book.size() == 0 ? false : true;
 	}
+	
+	public List<Booking> getBookingByProperty(Long property_id){
+		return bookingRepository.findByPropertyId(property_id);
+	}
+	
+	public Optional<Booking> getBookingById(Long booking_id) {
+		return bookingRepository.findById(booking_id);
+	}
 }

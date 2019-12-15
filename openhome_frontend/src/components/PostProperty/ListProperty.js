@@ -20,7 +20,6 @@ class ListProperty extends Component {
         this.state = {
              "host_email" : UTIL.getUserDetails()
             //"host_email" : "dharmadheeraj.chintala@sjsu.edu",
-
         }
 
         this.submit = this.submit.bind(this);
