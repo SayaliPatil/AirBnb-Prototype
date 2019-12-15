@@ -93,6 +93,12 @@ public class EmailUtility {
 	}
 	public static String propertyDeleteMessageHost() {
 		String deleteMessageHost = "Your property has been deleted Successfully" 
+        System.out.println("cancellationMessage : " +cancellationMessageHost);
+        return cancellationMessageHost;
+	}
+	
+	public static String createPropertyDeleteMessageHost() {
+		String deleteMessageHost = "Your booked has been deleted Successfully" 
                 + "\n\nRegards\nTeam OpenHome";
         System.out.println("deleteMessageHost : " +deleteMessageHost);
         return deleteMessageHost;
@@ -100,10 +106,12 @@ public class EmailUtility {
 	
 	public static String propertyUpdateMessageHost() {
 		String updateMessageHost = "Your property has been updated Successfully" 
+	public static String createPropertyUpdateMessageHost() {
+		String updateMessageHost = "Your booked has been updated Successfully" 
                 + "\n\nRegards\nTeam OpenHome";
         System.out.println("deleteMessageHost : " +updateMessageHost);
         return updateMessageHost;
-	}
+    }
 	
 	public static String propertyPostMessageHost() {
 		String postMessageHost = "Your property has been posted Successfully" 
@@ -111,5 +119,4 @@ public class EmailUtility {
         System.out.println("deleteMessageHost : " +postMessageHost);
         return postMessageHost;
 	}
-	
 }

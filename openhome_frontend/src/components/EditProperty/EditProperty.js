@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import axios from "axios";
 import {BASE_URL} from "../Configs/Configs";
 import Header from "../header/header";
+
 import {startEndDateValidity} from "../../utils/validation";
 
 class EditProperty extends Component{
