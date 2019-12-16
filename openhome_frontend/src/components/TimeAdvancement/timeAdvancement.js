@@ -10,95 +10,27 @@ import axios from 'axios';
 import PickyDateTime from 'react-picky-date-time';
 import Header from './../header/header.js';
 import { Button} from 'react-bootstrap';
+import DateTimePicker from 'react-datetime-picker';
+import './timeset.css'
 
 class TimeAdvancement extends Component {
   constructor(props){
     super(props);
     this.state = {
       showPickyDateTime: true,
-      date: '30',
-      month: '01',
-      year: '2000',
-      hour: '03',
-      minute: '10',
-      second: 0,
-      meridiem: 'PM',
-      dateTime: '',
-      dateInUTC: ''
+      date: new Date(),
     }
   }
-  onClose() {}
-
-  onYearPicked(res) {
-    const { year } = res;
-    this.setState({ year: year});
-  }
-
-  onMonthPicked(res) {
-    const { month, year } = res;
-    this.setState({ year: year, month: month});
-  }
-
-  onDatePicked(res) {
-    const { date, month, year } = res;
-    this.setState({ year: year, month: month, date: date });
-  }
-
-  onResetDate(res) {
-    let { date, month, year } = res;
-    this.setState({ year: year, month: month, date: date });
-  }
-
-  onResetDefaultDate(res) {
-    let { date, month, year } = res;
-    this.setState({ year: year, month: month, date: date });
-  }
-
-  onSecondChange(res) {
-    this.setState({ second: parseInt(res.value) });
-  }
-
-  onMinuteChange(res) {
-    this.setState({ minute: res.value });
-  }
-
-  onHourChange(res) {
-    this.setState({ hour: res.value });
-  }
-
-  onMeridiemChange(res) {
-    this.setState({ meridiem: res });
-  }
-
-  onResetTime(res) {
-    this.setState({
-      second: res.clockHandSecond.value,
-      minute: res.clockHandMinute.value,
-      hour: res.clockHandHour.value
-    });
-  }
-
-  onResetDefaultTime(res) {
-    this.setState({
-      second: res.clockHandSecond.value,
-      minute: res.clockHandMinute.value,
-      hour: res.clockHandHour.value
-    });
-  }
-
-  onClearTime(res) {
-    this.setState({
-      second: res.clockHandSecond.value,
-      minute: res.clockHandMinute.value,
-      hour: res.clockHandHour.value
-    });
-  }
+  onChange = date => {
+          this.setState({ date });
+          console.log("date:" + date);
+      }
 clickHandler() {
-  this.state.dateInUTC = this.state.year +"-" +this.state.month +"-"+ this.state.date +" " +this.state.hour +":" +this.state.minute +":"+this.state.second;
   const data = {
               	"timeZone" : "America/Los_Angeles",
               	"jobType" : "check-in",
-                "setDate" : this.state.dateInUTC,
+                "date" : this.state.date,
+                "setDate" : this.state.date,
               }
   fetch(`${BASE_URL}/scheduleCheckInOutJob`, {
          method: 'POST',
@@ -134,24 +66,12 @@ clickHandler() {
     return (
               <div style={{ margin: '0 auto', width: '80%' }}>
               <Header/>
-                    <div style={{ marginTop: '10px' }}>
-                    <PickyDateTime
-                        size="xs"
-                        mode={1}
-                        show={showPickyDateTime}
-                        locale="en-us"
-                        onClose={() => this.setState({ showPickyDateTime: false })}
-                        onYearPicked={res => this.onYearPicked(res)}
-                        onMonthPicked={res => this.onMonthPicked(res)}
-                        onDatePicked={res => this.onDatePicked(res)}
-                        onResetDate={res => this.onResetDate(res)}
-                        onSecondChange={res => this.onSecondChange(res)}
-                        onMinuteChange={res => this.onMinuteChange(res)}
-                        onHourChange={res => this.onHourChange(res)}
-                        onMeridiemChange={res => this.onMeridiemChange(res)}
-                        onResetTime={res => this.onResetTime(res)}
-                        onClearTime={res => this.onClearTime(res)}
-                    />
+                    <div style={{ marginTop: '10px'  , width: '100%'}}>
+                          <DateTimePicker
+                          onChange={this.onChange}
+                          value={this.state.date}
+                          format={"yyyy/MM/dd HH:mm:ss"}
+                      />
                     </div>
                     <Button type="button" className="btn btn-primary timebutton" onClick={() => this.clickHandler()}>Submit</Button>
                     <br/><br/>

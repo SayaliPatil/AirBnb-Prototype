@@ -23,7 +23,7 @@ import com.cmpe275.openhome.utils.EmailUtility;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 public class UserSignupController {
 
 	@Autowired

@@ -57,11 +57,12 @@ class Header extends Component {
     // })
     var email = UTIL.getUserDetails();
     if(email == undefined || email == null || email.length == 0) {
-      history.push('/timeAdvancement');
-    }
-    else{
       alert("Login first to advance the time");
       history.push('/login');
+
+    }
+    else{
+      history.push('/timeAdvancement');
     }
 
     window.location.reload();

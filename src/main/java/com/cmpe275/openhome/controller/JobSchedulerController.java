@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cmpe275.openhome.model.JobScheduleRequest;
 import com.cmpe275.openhome.model.JobScheduleResponse;
 import com.cmpe275.openhome.service.CheckInOutService;
+import com.cmpe275.openhome.service.TimeSet;
 import com.cmpe275.openhome.utils.DateUtility;
 
 import javax.validation.Valid;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -23,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 @RestController
@@ -31,11 +34,17 @@ public class JobSchedulerController {
 
     @Autowired
     private Scheduler scheduler;
-
+    
+    @Autowired
+    private TimeSet timeSet;
+    
     @PostMapping("/scheduleCheckInOutJob")
     public ResponseEntity<?> scheduleCheckInJob(@Valid @RequestBody JobScheduleRequest jobScheduleRequest) throws ParseException {
     	System.out.println("Request sent to checkin : " +jobScheduleRequest);
-    	String parsedTime = jobScheduleRequest.getSetDate().split(" ")[1];
+    	timeSet.setDate(jobScheduleRequest.getDate());
+    	System.out.println("Date set : " +timeSet.getDate());
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+    	String parsedTime = dateFormat.format(timeSet.getDate()).split(" ")[1];
     	String checkinTime = "03:00:00";
     	String checkoutTime = "11:00:00";
     	SimpleDateFormat sdformat = new SimpleDateFormat("HH:mm:ss");

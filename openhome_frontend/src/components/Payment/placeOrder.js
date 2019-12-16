@@ -103,27 +103,27 @@ class PlaceOrder extends Component {
         "total_nights" : total_nights,
         "headline" : this.state.orderSummary.headline,
         }
-            // fetch(`${BASE_URL}/api/book`, {
-            //    method: 'POST',
-            //    mode: 'cors',
-            //    headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
-            //    body: JSON.stringify(details)
-            //  }).then(response => {
-            //     console.log("Status Code : ",response);
-            //     if(response.status==200) {
-            //       return response.json();
-            //   }
-            // }).then(result => {
-            //   console.log("Booking Results:",result);
-            //       this.setState({
-            //         bookingDetails:result,
-            //       });
-            //       this.props.history.push({
-            //           pathname: '/bookingSuccess',
-            //           state: { bookingDetails: result }
-            //       })
-            //       alert("Property booked successfully.!!")
-            // })
+            fetch(`${BASE_URL}/api/book`, {
+               method: 'POST',
+               mode: 'cors',
+               headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
+               body: JSON.stringify(details)
+             }).then(response => {
+                console.log("Status Code : ",response);
+                if(response.status==200) {
+                  return response.json();
+              }
+            }).then(result => {
+              console.log("Booking Results:",result);
+                  this.setState({
+                    bookingDetails:result,
+                  });
+                  this.props.history.push({
+                      pathname: '/bookingSuccess',
+                      state: { bookingDetails: result }
+                  })
+                  alert("Property booked successfully.!!")
+            })
           }
     else {
       alert("Please select a saved card or add a card to pay");

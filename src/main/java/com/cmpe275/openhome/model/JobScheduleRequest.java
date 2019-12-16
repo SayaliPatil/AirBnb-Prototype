@@ -9,6 +9,7 @@ import lombok.NonNull;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,5 +23,7 @@ public class JobScheduleRequest {
     private String jobType;
     
     private String setDate;
+    
+    private Date date;
 	
 }
