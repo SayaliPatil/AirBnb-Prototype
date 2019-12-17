@@ -88,7 +88,7 @@ public class PropertyUploadService {
 				if(daysList.indexOf(simpleDateformat.format(temp).toLowerCase()) < 0)
 					cancel.add(booking.getID());
 				i++;
-				temp.setDate(temp.getDate()+1);
+//				temp.setDate(temp.getDate()+1);
 			}
 			
 			if(checkinDate.before(data.getStartdate()) || checkoutDate.after(data.getEnddate()))

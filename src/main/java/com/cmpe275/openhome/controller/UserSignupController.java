@@ -61,10 +61,13 @@ public class UserSignupController {
     		System.out.println("User does not exist");
     		return new ResponseEntity<>("{\"status\" : \"Cannot login. User is not registered, first sign up..!!\"}", HttpStatus.NOT_FOUND);
     	}
-    	boolean authorizedUser = userService.loginUser(user);
-    	if(!authorizedUser) {
-			System.out.println("User entered wrong email or password");
+    	String authorizationMessage = userService.loginUser(user);
+    	if(authorizationMessage.contains("Not authenticated")) {
     		return new ResponseEntity<>("{\"status\" : \"User entered wrong email or password..!!\"}", HttpStatus.BAD_REQUEST);
+    	}
+    	else if(authorizationMessage.contains("Not Verified")) {
+			System.out.println("User entered wrong email or password");
+			return new ResponseEntity<>("{\"status\" : \"User is not verified..!!\"}", HttpStatus.NOT_ACCEPTABLE);
 		}
         System.out.println("User logged in successfully");
         return ResponseEntity.ok(existingUser);
