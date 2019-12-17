@@ -66,6 +66,8 @@ public class Booking {
     
     private int weekendprice;
     
+    private int parkingprice;
+    
     private double price;
     
     private int total_nights;

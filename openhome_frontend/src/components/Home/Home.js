@@ -87,8 +87,8 @@ class Home extends Component {
         if(VALIDATION.startEndDateValidity(this.state.startdate,this.state.enddate)) {
                     const data = {
                         address : this.state.address,
-                        startdate : this.state.startdate,
-                        enddate : this.state.enddate,
+                        startdate : new Date(this.state.startdate + " 15:00"),
+                        enddate : new Date(this.state.enddate + " 11:00"),
                         wifi : this.state.wifi,
                         sharingtype : this.state.sharing_type,
                         proptype : this.state.prop_type,

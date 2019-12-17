@@ -147,6 +147,7 @@ class Booking extends Component {
 
                 <div className="list-owner">
                 <h2>${this.state.weekendprice}</h2><p>per night over weekend</p>
+                <h2>${this.state.weekdayprice}</h2><p>per night over weekday</p>
                 <form onSubmit={this.submitBooking}>
                 <div class="form-row">
                 <div class="form-group col-md-6">
