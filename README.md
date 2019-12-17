@@ -208,6 +208,27 @@
 
 ![](Documentation/images/GuestDashboard/GuestDashboard1.png)
 ![](Documentation/images/GuestDashboard/GuestDashboard2.png)
+
+#### Steps to run the application
+  - i) Access URL : "https://cmpe275-openhome.herokuapp.com/login"
+  - ii) Signup
+  - iii) Verify through the link sent to your email id.
+  - iv) Login with verified email id.
+  - v) In the header, click on "Host", through dropdown select "Post Property".
+  - vi) Property Post includes multiple pages.
+  - vii) Enter details on each page and click on "Save".
+  - viii) Navigate to different pages through left navbar.
+  - ix) On last page, click on "Submit property" to post the property.
+  - x) In the header, click on "Host", through dropdown select "Logout".
+  - xi) Login as guest.
+  - xii) Search for property to book
+  - xiii) Book property through normal flow
+  - xiv) In the header click on "Guest", through dropdown select "My trips" to checkin/checkout/cancel.
+  - xv) In the header click on "Guest", through dropdown select "Guest Dashboard" to view guest's dashboard.
+  - xvi) Click on month dropdown on dashboard page, to view monthly summary.
+  - xvii) In the header, click on "Time advancement" button to change the date and time.
+
+
 ## Team Members
 
 *	Chintala Dheeraj Dharma
