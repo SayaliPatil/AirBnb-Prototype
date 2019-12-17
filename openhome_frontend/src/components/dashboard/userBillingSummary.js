@@ -39,6 +39,7 @@ class UserBillingSummary extends Component {
                           <th>Booking Start Date</th>
                           <th>Booking End Date</th>
                           <th >Booking Amount</th>
+                          <th >Total Amount Paid</th>
                           </tr>
                         </thead>
                         {
@@ -51,6 +52,7 @@ class UserBillingSummary extends Component {
                                             <td >{booking.propertyId}</td>
                                             <td >{booking.check_in_date}</td>
                                             <td >{booking.check_out_date}</td>
+                                            <td >{booking.price * booking.total_nights}</td>
                                             <td >{booking.amount_paid}</td></tr>
                                       </tbody>);
                                     })  : ''

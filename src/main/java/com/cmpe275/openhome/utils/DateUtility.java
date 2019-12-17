@@ -8,21 +8,29 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import com.cmpe275.openhome.exception.CustomException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.cmpe275.openhome.exception.CustomException;
+import com.cmpe275.openhome.service.TimeSet;
+
+@Service
 public class DateUtility {
+	
+	@Autowired
+	private TimeSet timeSet;
 	
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String DATE_PARSING_EXCEPTION_MESSAGE = "Date passed in string format can not be parsed ";
 	
 	
-	public static String getStringDate(Date passedDate) { 
+	public String getStringDate(Date passedDate) { 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
         String strDate = dateFormat.format(passedDate);  
         System.out.println("Converted String: " + strDate);  
 		return strDate;
 	}
-	public static String todayDate(int offset) {
+	public String todayDate(int offset) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("US/Pacific"));
 		Calendar date = Calendar.getInstance();
@@ -30,7 +38,7 @@ public class DateUtility {
 		return dateFormat.format(date.getTime());
 	}
 	
-	public static Date getDate(String date) {
+	public Date getDate(String date) {
 		try {
 			return dateFormat.parse(date);
 		} catch (ParseException e) {
@@ -38,7 +46,7 @@ public class DateUtility {
 		}
 	}
 	
-	public static long dateDifference(String userCheckOut , String checkOut)  {
+	public long dateDifference(String userCheckOut , String checkOut)  {
 		Date startDate = null;
 		Date endDate = null;
 		long differenceInDays;
@@ -54,7 +62,7 @@ public class DateUtility {
 		return differenceInDays;
 	}
 	
-	public static long timeDifference(String userCheckinDate)  {
+	public long timeDifference(String userCheckinDate)  {
 		Date startDate = null;
 		Date endDate = null;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
@@ -63,13 +71,19 @@ public class DateUtility {
 		date.add(Calendar.DAY_OF_MONTH, 0);
 		System.out.println("userCheckinDate : " +userCheckinDate);
 		System.out.println("TODAY : "+todayDate(0));
-		
+		Date currentDateTime = timeSet.getDate();
+		System.out.println("currentDateTime before exception: " +currentDateTime);
+    	if(currentDateTime == null) {
+    		currentDateTime = Calendar.getInstance().getTime();
+    	}
+    	System.out.println("currentDateTime : " +currentDateTime);
 		try {
-			startDate = dateFormat.parse(dateFormat.format(date.getTime()));
+			startDate = dateFormat.parse(dateFormat.format(currentDateTime));
 			endDate = dateFormat.parse(userCheckinDate);
 			System.out.println("startDate : " +startDate);
 			System.out.println("endDate : " +endDate);
-			long difference = Math.abs(endDate.getTime() - startDate.getTime());
+			long difference = endDate.getTime() - startDate.getTime();
+			System.out.println("Time difference in minutes : " +difference);
 			return TimeUnit.MILLISECONDS.toMinutes(difference);  
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -77,7 +91,7 @@ public class DateUtility {
 		}
 	}
 	
-	public static String findMonth(int m) {
+	public String findMonth(int m) {
 		if(m == 0) {
 			return "January";
 		}

@@ -36,6 +36,9 @@ public class PropertyService {
 	@Autowired
 	private BookingService bookingService;
 	
+	@Autowired
+	private DateUtility dateUtility;
+	
 	private static final String ERROR_IN_FETCHING_RESULT = "Error in fetching result";
 	private static final String FETCH_PROPERTY_DETAILS_EXCEPTION_MESSAGE = "No property details found for the host";
 	private List<Property> propList;
@@ -170,7 +173,7 @@ public class PropertyService {
 	    }
 	    List<Property> temp = new ArrayList<>();
 	    for(Property property : propList) {
-	    	boolean flag = bookingService.getBookingDetailsById(property , DateUtility.getStringDate(prop.getStartdate()), DateUtility.getStringDate(prop.getEnddate()) );
+	    	boolean flag = bookingService.getBookingDetailsById(property , dateUtility.getStringDate(prop.getStartdate()), dateUtility.getStringDate(prop.getEnddate()) );
 	    	System.out.println("FLAG : " +flag);
 	    	if(!flag) {
 	    		temp.add(property);

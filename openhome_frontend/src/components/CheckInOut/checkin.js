@@ -75,7 +75,7 @@ class Checkin extends Component {
     else if(data.user_checked_out_flag) {
       alert("User already checked out");
     }
-    else if((pdtDate == data.check_in_date && time >= 15 && time <= 23) || (value[0] == data.check_in_date && time >= 0 && time <= 3) ) {
+    else if(time >= 15 && time <= 23 || time >= 0 && time <= 3 ) {
         if(data.user_checked_in_flag) {
           alert("User already checked in");
         }
@@ -86,7 +86,7 @@ class Checkin extends Component {
           data.user_check_out_date = "";
           console.log("DATA SENT : " +JSON.stringify(data));
           this.updateBooking(data,function alertFunc(){
-             alert("User checked in successfully");
+
           });
         }
       }
@@ -139,8 +139,12 @@ class Checkin extends Component {
          }).then(response => {
             console.log("Status Code : ",response);
             if(response.status==200) {
+              alert("User checked in successfully");
              window.location.reload();
             return response.json();
+          }
+          else if(response.status == 406) {
+            alert("User is not allowed to check-in");
           }
         }).then(result => {
           console.log("Updating booking details Results:",result);

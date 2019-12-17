@@ -55,46 +55,47 @@ public class JobSchedulerController {
 		long differenceCheckout = (checkinDatePassed.getTime() - actualCheckoutDate.getTime())/6000;
 		System.out.println("Checkin time difference : " +differenceCheckin);
 		System.out.println("Checkout time difference : " +differenceCheckout);
-		if(differenceCheckin < 0 && differenceCheckout < 0) {
-			return ResponseEntity.ok("Time advancement won't have affect on check in and check out");
-		}
-        try {
-            ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now().plusSeconds(10), jobScheduleRequest.getTimeZone());
-            System.out.println("ZonedDateTime : " +dateTime);
-            if(dateTime.isBefore(ZonedDateTime.now())) {
-            	JobScheduleResponse jobScheduleResponse = new JobScheduleResponse(false,
-                        "date time must be after current time", null);
-            	System.out.println("DATE IS BEFORE NOW");
-                return ResponseEntity.badRequest().body(jobScheduleResponse);
-            }
-            JobDetail jobDetail = buildJobDetail(jobScheduleRequest);
-            if(differenceCheckin > 0 && differenceCheckout < 0) {
-    			jobScheduleRequest.setJobType("check-in");
-    			jobDetail = buildJobDetail(jobScheduleRequest);
-                Trigger trigger = buildJobTrigger(jobDetail, dateTime);
-                System.out.println("Trigger time start date: " +trigger.getStartTime());
-                System.out.println("Trigger time fire date: " +trigger.getFinalFireTime());
-                scheduler.scheduleJob(jobDetail, trigger);
-    		}
-            
-            if(differenceCheckin > 0 && differenceCheckout > 0) {
-            	jobScheduleRequest.setJobType("check-in");
-    			jobDetail = buildJobDetail(jobScheduleRequest);
-                Trigger trigger = buildJobTrigger(jobDetail, dateTime);
-                scheduler.scheduleJob(jobDetail, trigger);
-    			jobScheduleRequest.setJobType("check-out");
-    			JobDetail jobDetail1 = buildJobDetail(jobScheduleRequest);
-    			ZonedDateTime dateTime1 = ZonedDateTime.of(LocalDateTime.now().plusSeconds(10), jobScheduleRequest.getTimeZone());
-    			System.out.println("ZonedDateTime : " +dateTime1);
-    			Trigger trigger1 = buildJobTrigger(jobDetail1, dateTime1);
-                scheduler.scheduleJob(jobDetail1, trigger1);
-    		}
-            JobScheduleResponse jobScheduleResponse = new JobScheduleResponse(true,
-                    jobDetail.getKey().getName(), "Job Scheduled Successfully!");
-            return ResponseEntity.ok(jobScheduleResponse);
-        } catch (SchedulerException ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-        }
+//		if(differenceCheckin < 0 && differenceCheckout < 0) {
+//			return ResponseEntity.ok("Time advancement won't have affect on check in and check out");
+//		}
+//        try {
+//            ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now().plusSeconds(10), jobScheduleRequest.getTimeZone());
+//            System.out.println("ZonedDateTime : " +dateTime);
+//            if(dateTime.isBefore(ZonedDateTime.now())) {
+//            	JobScheduleResponse jobScheduleResponse = new JobScheduleResponse(false,
+//                        "date time must be after current time", null);
+//            	System.out.println("DATE IS BEFORE NOW");
+//                return ResponseEntity.badRequest().body(jobScheduleResponse);
+//            }
+//            JobDetail jobDetail = buildJobDetail(jobScheduleRequest);
+//            if(differenceCheckin > 0 && differenceCheckout < 0) {
+//    			jobScheduleRequest.setJobType("check-in");
+//    			jobDetail = buildJobDetail(jobScheduleRequest);
+//                Trigger trigger = buildJobTrigger(jobDetail, dateTime);
+//                System.out.println("Trigger time start date: " +trigger.getStartTime());
+//                System.out.println("Trigger time fire date: " +trigger.getFinalFireTime());
+//                scheduler.scheduleJob(jobDetail, trigger);
+//    		}
+//            
+//            if(differenceCheckin > 0 && differenceCheckout > 0) {
+//            	jobScheduleRequest.setJobType("check-in");
+//    			jobDetail = buildJobDetail(jobScheduleRequest);
+//                Trigger trigger = buildJobTrigger(jobDetail, dateTime);
+//                scheduler.scheduleJob(jobDetail, trigger);
+//    			jobScheduleRequest.setJobType("check-out");
+//    			JobDetail jobDetail1 = buildJobDetail(jobScheduleRequest);
+//    			ZonedDateTime dateTime1 = ZonedDateTime.of(LocalDateTime.now().plusSeconds(10), jobScheduleRequest.getTimeZone());
+//    			System.out.println("ZonedDateTime : " +dateTime1);
+//    			Trigger trigger1 = buildJobTrigger(jobDetail1, dateTime1);
+//                scheduler.scheduleJob(jobDetail1, trigger1);
+//    		}
+//            JobScheduleResponse jobScheduleResponse = new JobScheduleResponse(true,
+//                    jobDetail.getKey().getName(), "Job Scheduled Successfully!");
+//            return ResponseEntity.ok(jobScheduleResponse);
+//        } catch (SchedulerException ex) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+//        }
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
     }
     
     private Trigger buildJobTrigger(JobDetail jobDetail, ZonedDateTime startAt) {

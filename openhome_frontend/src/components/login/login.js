@@ -54,14 +54,14 @@ class Login extends Component {
 						else if(response.status==404) {
 	 						alert("User not registered, Please sign up");
 	 						history.push('/signup');
-	 						// window.location.reload();
+	 						window.location.reload();
 	 						this.setState({
 	 							authFlag : false
 	 						})
 	 				 }
 	 				 else if(response.status==400) {
 	 					 alert("Please entered incorrect email and password");
-	 					 // window.location.reload();
+	 					 window.location.reload();
 	 					 this.setState({
 	 						 authFlag : false
 	 					 })
@@ -72,7 +72,7 @@ class Login extends Component {
           })
 			.catch(error => {
 				console.log("Error : " + error);
-				// window.location.reload();
+				window.location.reload();
 			});
 		}
 	}

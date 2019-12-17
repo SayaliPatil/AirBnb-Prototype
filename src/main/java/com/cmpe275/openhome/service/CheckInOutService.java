@@ -27,6 +27,9 @@ public class CheckInOutService extends QuartzJobBean{
     private BookingRepository bookingRepository;
 	
 	@Autowired
+    private CancelBookingService cancelBookingService;
+	
+	@Autowired
 	private BookingService bookingService;
 	
 	@Autowired
@@ -40,6 +43,12 @@ public class CheckInOutService extends QuartzJobBean{
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private DateUtility dateUtility;
+	
+	@Autowired
+	private TimeSet timeSet;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CheckInOutService.class);
 	
@@ -61,7 +70,7 @@ public class CheckInOutService extends QuartzJobBean{
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DATE, -1);
-		String yesterday = DateUtility.getStringDate(calendar.getTime());
+		String yesterday = dateUtility.getStringDate(calendar.getTime());
 		System.out.println("Yesterday value in execute internal : " +yesterday);
 		updateBookingAfterCheckinout(context.getJobDetail().getDescription() , today , yesterday);
 	}
@@ -81,18 +90,15 @@ public class CheckInOutService extends QuartzJobBean{
 				if(!booking.isUser_checked_in_flag() && !booking.isBooking_cancelled()) {
 					booking.setBooking_cancelled(true);
 					booking.setNo_show(true);
-					double perDayFine = (booking.getPrice() / booking.getTotal_nights()) * 0.3;
-					if(booking.getTotal_nights() >= 2) {
-						double totalFine = perDayFine * 2;
-						booking.setAmount_paid(totalFine);
-					}
-					else {
-						booking.setAmount_paid(perDayFine);
-					}
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(timeSet.getDate());
+					int firstDay = calendar.get(Calendar.DAY_OF_WEEK);
+					int secondDay = firstDay == 7 ? (firstDay + 1) % 7 : firstDay + 1;
+					double perDayFine = cancelBookingService.findPerDayFine(booking.getTotal_nights(), firstDay, secondDay, booking);
+					booking.setAmount_paid(perDayFine);
 					sendCancellationNotification(EmailUtility.createCancellationConfirmationMsg() , EmailUtility.createCancellationConfirmationMsgHost(),
 								booking.getUser_email() , booking.getHost_email());
 					bookingService.saveBookingDetails(booking);
-					
 				}
 			}
 			
@@ -112,15 +118,11 @@ public class CheckInOutService extends QuartzJobBean{
 	public void updateAccountDetails(Booking booking, Long id , double guestAmount, double hostAmount) {
 		System.out.println("Booking details sent to update account details: " +booking.getAmount_paid() + " " +id);
 		Account account = accountService.findAccountDetails(id);
-		if(account == null) {
-			System.out.println("Account details fetched : " +account);
-			account = new Account();
-			account.setBookingID(id);
-			account.setGuestID(userService.findByEmail(booking.getUser_email()).getID());
-			account.setHostID(userService.findByEmail(booking.getHost_email()).getID());
-			account.setPropertyID(booking.getPropertyId());
-			System.out.println("Account details fetched after reading table: " +account);
-		}
+		account.setBookingID(id);
+		account.setGuestID(userService.findByEmail(booking.getUser_email()).getID());
+		account.setHostID(userService.findByEmail(booking.getHost_email()).getID());
+		account.setPropertyID(booking.getPropertyId());
+		System.out.println("Account details fetched after reading table: " +account);
 		account.setGuestAccountBalance(guestAmount);
 		account.setHostAccountBalance(hostAmount);
 		accountService.saveAccountDetails(account);

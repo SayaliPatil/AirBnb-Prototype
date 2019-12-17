@@ -101,7 +101,8 @@ class Properties extends Component {
                     <li>EndDate : {this.props.location.state.detail.enddate}</li>
                     </ul>
                     <ul class="list-inline">
-                    <li>Price : ${propertyItem.weekdayprice} per night</li>
+                    <li>Price : ${propertyItem.weekdayprice} per weekday night</li>
+                    <li>Price : ${propertyItem.weekendprice} per weekend night</li>
                     </ul>
                     </div>
                     </div>

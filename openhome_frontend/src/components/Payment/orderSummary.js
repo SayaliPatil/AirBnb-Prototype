@@ -62,13 +62,17 @@ class OrderSummary extends Component {
                 <hr className= "arrow-horizontal"/>
                 <br></br>
                 <tr>
-                  <th> $ {(this.props.order.weekdayprice)} / night </th>
-                  <th> {total_nights > 1 ? total_nights + " nights" : total_nights + " night"}   </th>
+                  <th> Pricing details : </th>
+                </tr>
+                <tr>
+                  <th> $ {(this.props.order.weekdayprice)}</th>
+                  <th className="txt-field-price"> $ {(this.props.order.weekendprice)} </th>
+
                 </tr>
                 <br></br>
               <tr>
-                <td>Total (USD)</td>
-                <th className="txt-field-price"> $ {(this.props.order.weekdayprice) * total_nights} </th>
+                <td>Total Nights</td>
+                <th> {total_nights > 1 ? total_nights + " nights" : total_nights + " night"}   </th>
               </tr>
               <tr>
                 <td> Includes taxes and fees </td>

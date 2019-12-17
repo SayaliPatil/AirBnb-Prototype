@@ -174,8 +174,8 @@ td.headline-class{
 .order-summary{
   position: fixed;
   margin-top: 30px;
-  height:550px;
-  width: 420px;
+  height:600px;
+  width: 500px;
   margin-left:1000px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0);
   border: 1px solid #D3D3D3;
