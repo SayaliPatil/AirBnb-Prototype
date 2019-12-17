@@ -50,47 +50,47 @@
       - Property booking details on basis of selected month
 
 * Guest can signup with any email id
-      	* After signup guest will get a verification link
-      	* After clicking on the verification link, guest will be verified
-      	* After verification, guest will be able to search or book any property
-      * Property Search feature includes:
-      	* Property search includes following mandatory fields:
-      		- Location
-      		- Start Date
-          - End Date
-      	* Property search includes following optional fields:
-          - Sharing type
-            - Private room
-            - Entire place
-          - Property Type
-            - Apartment
-            - Condo
-            - Villa
-            - TownHouse
-          - Wifi Availability
+    * After signup guest will get a verification link
+    * After clicking on the verification link, guest will be verified
+      - After verification, guest will be able to search or book any property
+    * Property Search feature includes:
+      - Property search includes following mandatory fields:
+      	- Location
+      	- Start Date
+        - End Date
+      - Property search includes following optional fields:
+        - Sharing type
+          - Private room
+          - Entire place
+        - Property Type
+          - Apartment
+          - Condo
+          - Villa
+          - TownHouse
+        - Wifi Availability
           - Maximum and Minimum price
-      * Property Results page (Paginated):
-          - All properties as per the guest search query
-      * Property Detail page:
-          - Selected property by user
-      * Booking Page
-          - Card Registration
-            - Validity of credit card no
-            - Validity of CVV
-            - Validity of billing address
-          - Card Selection
-          - Confirm Booking
-      * Booking confirmation page:
-          - Summary of property booked by guest
-      * Guest dashboard
-          * All bookings (Paginated)
-            - Property booking details
-          * Month wise
-            - Property booking details on basis of selected month
-      * My trip
-          * All bookings that are yet to checked in or checked out by user (Paginated)
-            - Guest can click corresponding button for checkin/checkout
-            - Guest can click cancel button for cancel booking
+    * Property Results page (Paginated):
+        - All properties as per the guest search query
+    * Property Detail page:
+        - Selected property by user
+    * Booking Page
+        - Card Registration
+          - Validity of credit card no
+          - Validity of CVV
+          - Validity of billing address
+        - Card Selection
+        - Confirm Booking
+    * Booking confirmation page:
+        - Summary of property booked by guest
+    * Guest dashboard
+        - All bookings (Paginated)
+          - Property booking details
+        - Month wise
+          - Property booking details on basis of selected month
+    * My trip
+        - All bookings that are yet to checked in or checked out by user (Paginated)
+          - Guest can click corresponding button for checkin/checkout
+          - Guest can click cancel button for cancel booking
 
 * Time management
     * Time advancement
@@ -134,9 +134,7 @@
 	</tr>
     <tr>
 		<td>Deployment</td>
-		<td>AWS EC2</td>
-    <td>Deployment</td>
-		<td>Heroku</td>
+		<td>AWS EC2 , Heroku</td>
 	</tr>
 </tbody>
 </table>
@@ -208,7 +206,8 @@
 
 #### Guest Dashboard
 
-![](Documentation/images/GuestDashboard/TripDetails1.png)
+![](Documentation/images/GuestDashboard/GuestDashboard1.png)
+![](Documentation/images/GuestDashboard/GuestDashboard2.png)
 ## Team Members
 
 *	Chintala Dheeraj Dharma
