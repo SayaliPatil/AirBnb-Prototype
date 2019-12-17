@@ -102,6 +102,7 @@ class PlaceOrder extends Component {
         "property_unique_id" : this.state.orderSummary.id,
         "total_nights" : total_nights,
         "headline" : this.state.orderSummary.headline,
+        "parkingprice" : this.state.orderSummary.parkingprice
         }
             fetch(`${BASE_URL}/api/book`, {
                method: 'POST',
@@ -132,7 +133,7 @@ class PlaceOrder extends Component {
   render() {
     var email = UTIL.getUserDetails();
     if(email == undefined || email == null || email.length == 0) {
-      alert(email);
+      alert("Login before booking property");
       this.props.history.push('/login');
     }
         let fetchCard = this.state.cardDetails.map(cardItem => {

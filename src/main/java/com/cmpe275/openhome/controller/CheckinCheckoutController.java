@@ -64,9 +64,19 @@ public class CheckinCheckoutController {
     	System.out.println("Check in date of provided by user : " +dateUtility.getStringDate(currentDateTime));
     	int checkinDifference = existingBooking.get().getCheck_in_date().compareTo(dateUtility.getStringDate(currentDateTime));
     	System.out.println("Compare dates : " +checkinDifference);
-    	if(booking.isUser_checked_in_flag() && checkinDifference != 0 ) {
+    	if(booking.isUser_checked_in_flag() && checkinDifference == -1 && !(currentDateTime.getHours() >= 0 && currentDateTime.getHours() <= 3)) {
+    		System.out.println("TIME IS NOT BETWEEN 12 to 3 AM");
     		return new ResponseEntity<>("{\"status\" : \"user is not allowed to check in.!!\"}", HttpStatus.NOT_ACCEPTABLE);
     	}
+    	else if(booking.isUser_checked_in_flag() && checkinDifference != -1 && checkinDifference != 0 ) {
+    		System.out.println("USER SHOULD NOT BE ALLOWED TO CHECK IN");
+    		return new ResponseEntity<>("{\"status\" : \"user is not allowed to check in.!!\"}", HttpStatus.NOT_ACCEPTABLE);
+    	}
+    	else if(booking.isUser_checked_in_flag() && checkinDifference == 0 && !(currentDateTime.getHours() >= 15 && currentDateTime.getHours() <= 23)) {
+    		System.out.println("TIME IS NOT BETWEEN 3 to 11.59 PM");
+    		return new ResponseEntity<>("{\"status\" : \"user is not allowed to check in.!!\"}", HttpStatus.NOT_ACCEPTABLE);
+    	}
+    	
     	else if(booking.isUser_checked_in_flag() && !existingBooking.get().isUser_checked_out_flag()) {
     		long totalStay = dateUtility.dateDifference(dateUtility.getStringDate(currentDateTime) , booking.getCheck_out_date());
     		System.out.println("totalStay : " +totalStay);

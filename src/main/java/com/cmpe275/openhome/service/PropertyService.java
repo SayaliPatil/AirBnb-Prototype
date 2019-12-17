@@ -123,7 +123,7 @@ public class PropertyService {
 		query.setParameter("address",prop.getAddress());
 		query.setParameter("enddate",prop.getEnddate(), TemporalType.TIMESTAMP);
 		query.setParameter("startdate",prop.getStartdate(), TemporalType.TIMESTAMP);
-		
+		System.out.println("StartDate passed through property search page : " +prop.getStartdate());
 		for (int i = 0; i < days.size(); i++) {
             query.setParameter(i, days.get(i));
         }

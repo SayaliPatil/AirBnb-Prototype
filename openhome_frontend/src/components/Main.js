@@ -18,7 +18,6 @@ import UserBillingSummary from './dashboard/userBillingSummary';
 import EditDashboard from './EditProperty/editDashboard';
 import EditProperty from './EditProperty/EditProperty';
 import TimeAdvancement from './TimeAdvancement/timeAdvancement.js';
-import AdvanceTime from './TimeAdvancement/advanceTime.js';
 
 class Main extends Component {
     render(){
@@ -41,7 +40,6 @@ class Main extends Component {
                 <Route path="/editDashboard" component={EditDashboard}/>
                 <Route path="/editProperty/:id" component={EditProperty}/>
                 <Route path="/timeAdvancement" component={TimeAdvancement}/>
-                <Route path="/advanceTime" component={AdvanceTime}/>
             </div>
         )
     }

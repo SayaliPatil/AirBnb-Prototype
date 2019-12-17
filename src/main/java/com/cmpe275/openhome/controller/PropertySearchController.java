@@ -42,6 +42,7 @@ public class PropertySearchController {
     @ResponseBody
     @PostMapping("/results")
     List<Property> getResults(@Valid @RequestBody Property prop) {
+    	System.out.println("Property value passed :  " +prop);
     	List<Property> property = propertyService.getAllResults(prop);
     	System.out.println("PROPERTY : " +property);
     	return property;

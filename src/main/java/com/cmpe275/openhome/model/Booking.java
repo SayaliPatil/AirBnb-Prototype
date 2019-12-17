@@ -88,6 +88,8 @@ public class Booking {
 	
 	private boolean booking_cancelled;
 	
+	private int parkingprice;
+	
 	private String user_check_out_date;
 	
 	@Temporal(TemporalType.TIMESTAMP)
