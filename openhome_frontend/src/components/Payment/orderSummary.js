@@ -99,9 +99,14 @@ class OrderSummary extends Component {
                   <th> Pricing details : </th>
                 </tr>
                 <tr>
-                  <th> $ {(this.props.order.weekdayprice)}</th>
-                  <th className="txt-field-price"> $ {(this.props.order.weekendprice)} </th>
-
+                  <th> Weekday: $ {(this.props.order.weekdayprice)}</th>
+                  <th className="txt-field-price"> Weekend: $ {(this.props.order.weekendprice)} </th>
+                </tr>
+                <tr>
+                    <th> Parking price : </th>
+                </tr>
+                <tr>
+                    <th> $ {(this.props.order.parkingprice)} / day</th>
                 </tr>
                 <br></br>
               <tr>
@@ -110,7 +115,7 @@ class OrderSummary extends Component {
               </tr>
                 <tr>
                     <td>Total Price</td>
-                    <th> {this.state.totalprice}</th>
+                    <th> {this.state.totalprice}    (Including Praking)</th>
                 </tr>
               <tr>
                 <td> Includes taxes and fees </td>

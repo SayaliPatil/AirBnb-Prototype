@@ -43,7 +43,8 @@ constructor(props)
             }
             this.props.setProps("address", address);
         }
-
+        this.props.setProps("location",true);
+        alert("Location details Saved Successfully");
     }
     render()
     {

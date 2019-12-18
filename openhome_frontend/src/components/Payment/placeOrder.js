@@ -104,7 +104,6 @@ class PlaceOrder extends Component {
         "property_unique_id" : this.state.orderSummary.id,
         "total_nights" : total_nights,
         "headline" : this.state.orderSummary.headline,
-        "parkingprice" : this.state.orderSummary.parkingprice
         }
             fetch(`${BASE_URL}/api/book`, {
                method: 'POST',
