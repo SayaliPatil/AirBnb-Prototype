@@ -3,7 +3,7 @@
 # OpenHome
 
 > CMPE275 -Sec 01: Enterprise Application Development course team project
-> Fall 2019
+> [Fall 2019]
 
 ## Goal
 
