@@ -218,7 +218,7 @@
 ![](Documentation/images/GuestDashboard/GuestDashboard2.png)
 
 #### Steps to run the application
-  -  Access URL : "https://cmpe275-openhome.herokuapp.com/login"
+  -  Access URL : "https://cmpe275-openhome.herokuapp.com/home"
 	- Once search the property and you will get a shield in the browser to direct request from https to http.
 	- Click on "Load Unsafe Scripts" for testing the flow
   -  Signup
@@ -237,11 +237,3 @@
   -  In the header click on "Guest", through dropdown select "Guest Dashboard" to view guest's dashboard.
   -  Click on month dropdown on dashboard page, to view monthly summary.
   -  In the header, click on "Time advancement" button to change the date and time.
-
-
-## Team Members
-
-*	Chintala Dheeraj Dharma
-*	Manish Katturu  
-*	Sayali Patil
-*	Surabhi Sinha

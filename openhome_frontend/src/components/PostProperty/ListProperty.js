@@ -20,11 +20,11 @@ class ListProperty extends Component {
         this.state = {
              "host_email" : UTIL.getUserDetails(),
             //"host_email" : "dharmadheeraj.chintala@sjsu.edu",
-            "photos": false,
-            "ameneties": false,
-            "description": false,
-            "location": false,
-            "pricing": false
+            "photosPage": false,
+            "amenetiesPage": false,
+            "descriptionPage": false,
+            "locationPage": false,
+            "pricingPage": false
         }
 
         this.submit = this.submit.bind(this);
@@ -49,7 +49,7 @@ class ListProperty extends Component {
 
     async submit(e)
     {
-    if(this.state.pricing && this.state.description && this.state.photos && this.state.location && this.state.ameneties) {
+    if(this.state.pricingPage && this.state.descriptionPage && this.state.photosPage && this.state.locationPage && this.state.amenetiesPage) {
         let formData = new FormData();
 
         let test1 = await this.addFormData(formData);

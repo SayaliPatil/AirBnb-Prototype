@@ -75,6 +75,7 @@ cancelProperty(data){
     alert("Booking is already cancelled");
   }
   else if(this.state.status == 'CHECKED-IN' || this.state.status == 'FUTURE BOOKING') {
+      alert("Cancel booking initiated");
       //cancelProperty
       axios.get(BASE_URL + '/cancelProperty/' + data.id)
        .then((response) => {
@@ -82,6 +83,10 @@ cancelProperty(data){
           if(response.status == 200)
           {
               alert("Booking cancelled successfully");
+          }
+          else
+          {
+              alert("Cancel booking failed");
           }
       });
   }
@@ -110,6 +115,7 @@ cancelProperty(data){
                         <th>Booking Start Date</th>
                         <th>Booking End Date</th>
                         <th >Booking Amount</th>
+                        <th >Booking Penalty</th>
                         <th> Status </th>
                         <th> Management </th>
                         </tr>
@@ -130,7 +136,7 @@ cancelProperty(data){
                             }
                             else if(booking.booking_cancelled) {
                               this.state.status  = "CANCELLED";
-                              bookingAmount = booking.amount_paid;
+                              bookingAmount = booking.price;
                             }
                             else if(!booking.user_checked_in_flag && !booking.user_checked_out_flag && !booking.booking_cancelled) {
                               this.state.status  = "FUTURE BOOKING";
@@ -146,6 +152,7 @@ cancelProperty(data){
                                           <td >{booking.check_in_date}</td>
                                           <td >{booking.check_out_date}</td>
                                           <td >{bookingAmount}</td>
+                                          <td >{booking.host_penalty}</td>
                                           <td >{this.state.status }</td>
                                           <td><button onClick= {() => this.cancelProperty(booking)}>CANCEL</button></td>
                                           </tr>

@@ -25,7 +25,7 @@ class AddPhotos extends Component{
             // console.log(`There are ${key} ${value}`);
             this.props.setProps(key,value);
         }
-        this.props.setProps("photos",true);
+        this.props.setProps("photosPage",true);
         alert("Photos details Saved Successfully");
     }
 

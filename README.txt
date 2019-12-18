@@ -1,4 +1,7 @@
-Team Members
+# Team Project - OpenHome
+-----------------------------
+
+# Team Members
 
 *	Chintala Dheeraj Dharma (ID : 013760968, Email : dharmadheeraj.chintala@sjsu.edu)
 *	Manish Katturu  (ID : 013825201, Email : manish.katturu@sjsu.edu)
@@ -6,10 +9,11 @@ Team Members
 *	Surabhi Sinha (ID : 013704652, Email : surabhi.sinha@sjsu.edu)
 
 
-URL to access app:
-https://cmpe275-openhome.herokuapp.com/login
+# URL to access app:
 
-Instructions to run the application
+https://cmpe275-openhome.herokuapp.com/home
+
+# Instructions to run the application
   -  Signup
   -  Verify through the link sent to your email id.
   -  Login with verified email id.
@@ -29,3 +33,7 @@ Instructions to run the application
   -  Click on month dropdown on dashboard page, to view monthly summary.
   -  In the header, click on "Time advancement" button to change the date and time.
   -  In the header click on "Host", through dropdown select "Guest Dashboard" to view guest's dashboard.
+
+# Build Instructions
+  -  Open the java Application as Maven Project and build and run the project.
+  -  OPen the frontend React Application in openhome_frontend folder.Run "npm install && npm start"
