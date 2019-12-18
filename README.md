@@ -5,6 +5,13 @@
 > CMPE275 -Sec 01: Enterprise Application Development course team project
 > [Fall 2019]
 
+# Team Members 
+
+* Chintala Dheeraj Dharma( dharmadheeraj.chintala@sjsu.edu - 013760968)
+* Manish Katturu  (manish.katturu@sjsu.edu - 013825201)
+* Sayali Patil (sayali.patil@sjsu.edu - 013530439)
+* Surabhi Sinha (surabhi.sinha@sjsu.edu - 013704652)
+
 ## Goal
 
 * The goal of this project is to build an application that allows two types of user to login to the system. One is "Host" who can post their property to be booked by "Guest". Other is "Guest", who can search for property and can book for his/her required date.
