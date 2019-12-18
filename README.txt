@@ -1,4 +1,7 @@
-Team Members
+# Team Project - OpenHome
+-----------------------------
+
+# Team Members
 
 *	Chintala Dheeraj Dharma (ID : 013760968, Email : dharmadheeraj.chintala@sjsu.edu)
 *	Manish Katturu  (ID : 013825201, Email : manish.katturu@sjsu.edu)
@@ -6,10 +9,10 @@ Team Members
 *	Surabhi Sinha (ID : 013704652, Email : surabhi.sinha@sjsu.edu)
 
 
-URL to access app:
+# URL to access app:
 https://cmpe275-openhome.herokuapp.com/login
 
-Instructions to run the application
+# Instructions to run the application
   -  Signup
   -  Verify through the link sent to your email id.
   -  Login with verified email id.
