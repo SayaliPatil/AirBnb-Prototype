@@ -5,7 +5,7 @@
 > CMPE275 -Sec 01: Enterprise Application Development course team project
 > [Fall 2019]
 
-# Team Members 
+# Team Members
 
 * Chintala Dheeraj Dharma( dharmadheeraj.chintala@sjsu.edu - 013760968)
 * Manish Katturu  (manish.katturu@sjsu.edu - 013825201)
@@ -219,6 +219,8 @@
 
 #### Steps to run the application
   -  Access URL : "https://cmpe275-openhome.herokuapp.com/login"
+	- Once search the property and you will get a shield in the browser to direct request from https to http.
+	- Click on "Load Unsafe Scripts" for testing the flow
   -  Signup
   -  Verify through the link sent to your email id.
   -  Login with verified email id.
