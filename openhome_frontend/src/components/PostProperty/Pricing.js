@@ -59,7 +59,7 @@ class Pricing extends Component{
                 this.props.setProps(key,value.join(";"));
             }
         }
-        this.props.setProps("pricing",true);
+        this.props.setProps("pricingPage",true);
         alert("Pricing details Saved Successfully");
     }
 

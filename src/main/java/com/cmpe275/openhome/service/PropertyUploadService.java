@@ -129,7 +129,7 @@ public class PropertyUploadService {
 		account.setGuestID(userService.findByEmail(booking.get().getUser_email()).getID());
 		account.setHostID(userService.findByEmail(booking.get().getHost_email()).getID());
 		
-		if(booking != null)
+		if(booking != null && !booking.get().isBooking_cancelled())
 		{
 			Date checkinDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.get().getCheck_in_date());
 			Date checkoutDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.get().getCheck_out_date());
@@ -148,7 +148,7 @@ public class PropertyUploadService {
 		    System.out.println("diffInMillies" +diffInMillies);
 		    System.out.println("checkoutDiff : " +checkoutDiff);
 		    
-		    if(booking.get().isUser_checked_in_flag())
+		    if(booking.get().isUser_checked_in_flag() && checkinDate.before(today))
 		    {
 		    	System.out.println("User checked in flag : ");
 		    	double rem = booking.get().getPrice();
@@ -156,20 +156,20 @@ public class PropertyUploadService {
 		    	SimpleDateFormat daynumber = new SimpleDateFormat("u");
     			Date temp = checkinDate;
     			
-    			while(temp.before(today))
-    			{
-    				 if(Integer.parseInt(daynumber.format(temp)) < 6)
-    					 rem -= (booking.get().getWeekdayprice() + booking.get().getParkingprice());
-    				 else
-    					 rem -= (booking.get().getWeekendprice() + booking.get().getParkingprice());
-    				temp.setDate(temp.getDate()+1);
-    			}
-    			
-		    	System.out.println("remaining amount : "+rem);
-		    	hostPenalty = rem * 1.15;
-		    	
-		    	guestCompensation = hostPenalty; 
-		    		
+    				while(temp.before(today))
+    				{
+	       				 if(Integer.parseInt(daynumber.format(temp)) < 6)
+	       					 rem -= (booking.get().getWeekdayprice() + booking.get().getParkingprice());
+	       				 else
+	       					 rem -= (booking.get().getWeekendprice() + booking.get().getParkingprice());
+	       				temp.setDate(temp.getDate()+1);
+	       			}
+	       			
+	   		    	System.out.println("remaining amount : "+rem);
+	   		    	hostPenalty = rem * 1.15;
+	   		    	
+	   		    	guestCompensation = hostPenalty;
+    				
 		    }
 		    else
 		    {
@@ -202,8 +202,14 @@ public class PropertyUploadService {
 	    	accountService.saveAccountDetails(account);
 		  
 		    booking.get().setBooking_cancelled(true);
-		    
+		    booking.get().setHost_penalty(hostPenalty);
+		    booking.get().setAmount_paid(-guestCompensation);
+		    booking.get().setUser_checked_out_flag(true);
 		    bookingService.saveBookingDetails(booking.get());
+		}
+		else
+		{
+			System.out.println("Booking is already cancelled or is Null");
 		}
 	}
 	public Property deleteProperty(Property prop) throws ParseException {
@@ -221,5 +227,11 @@ public class PropertyUploadService {
 					cancelbooking(booking.getID());
 			}
 		return propertyRepository.save(to_be_deleted.get());
+	}
+	
+	public Booking cancelBooking(Long id) throws ParseException{
+		Optional<Booking> booking = bookingService.getBookingById(id);
+		cancelbooking(id);
+		return booking.get();
 	}
 }

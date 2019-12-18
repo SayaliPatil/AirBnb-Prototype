@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.service.AmazonClient;
 import com.cmpe275.openhome.service.EmailService;
@@ -99,6 +101,23 @@ public class PropertyUploadController {
 	        String deleteMessage = EmailUtility.propertyDeleteMessageHost();
 	        emailService.sendEmail(deleted.getHost_email(), deleteMessage, " Property Deleted!!");
 	    	return ResponseEntity.ok(deleted);
+    	}
+    	catch (Exception e){
+    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);  
+    	}  
+       
+    }
+    
+    @RequestMapping(method=RequestMethod.GET, value = "/cancelProperty/{id}")
+    public ResponseEntity<Booking> cancelBooking(@PathVariable Long id) throws ParseException{
+    	try {
+    		System.out.println("Cancel booking API hit");
+    		Booking booking = propertyUploadService.cancelBooking(id);
+	        String deleteMessage = EmailUtility.createHostInitiatedCancellationConfirmationMsgHost();
+	        emailService.sendEmail(booking.getHost_email(), deleteMessage, " Property Cancelled By You!!");
+	        deleteMessage = EmailUtility.createHostInitiatedCancellationConfirmationMsgGuest();
+	        emailService.sendEmail(booking.getUser_email(), deleteMessage, " Property Cancelled By Host!!");
+	    	return ResponseEntity.ok(booking);
     	}
     	catch (Exception e){
     		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);  
