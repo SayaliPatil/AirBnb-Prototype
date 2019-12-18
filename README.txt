@@ -10,7 +10,8 @@
 
 
 # URL to access app:
-https://cmpe275-openhome.herokuapp.com/login
+
+https://cmpe275-openhome.herokuapp.com/home
 
 # Instructions to run the application
   -  Signup
