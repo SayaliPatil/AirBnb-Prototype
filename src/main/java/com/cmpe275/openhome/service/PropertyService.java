@@ -79,14 +79,14 @@ public class PropertyService {
 		SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
 		
 		Date current = prop.getStartdate();
+		
+		System.out.println("startDate:" + prop.getStartdate());
+		System.out.println("endDate:" + prop.getEnddate());
 		 
 	    while (current.before(prop.getEnddate())) {
 	    	days.add("%" + simpleDateformat.format(current) + "%");
 	 
-	        Calendar calendar = Calendar.getInstance();
-	        calendar.setTime(current);
-	        calendar.add(Calendar.DATE, 1);
-	        current = calendar.getTime();
+	       current.setDate(current.getDate() + 1);
 	    }
 	    DoubleMetaphone dm = new DoubleMetaphone();
 	    dm.setMaxCodeLen(5);
@@ -101,12 +101,12 @@ public class PropertyService {
 	    	System.out.println("Day:" + string);
 	    
 	    StringBuilder daysprice = new StringBuilder();
-	    if(days.contains("%Sunday%") || days.contains("%Saturday%") || days.contains("%Friday%"))
+	    if(days.contains("%Sunday%") || days.contains("%Saturday%"))
 	    {
 	    	daysprice.append("(:minprice is null OR p.weekendprice >= :minprice) "
 	    			+ "AND (:maxprice is null OR p.weekendprice <= :maxprice) AND");
 	    }
-	    if(days.contains("%Monday%") || days.contains("%Tuesday%") || days.contains("%Wednesday%") || days.contains("%Thursday%"))
+	    if(days.contains("%Monday%") || days.contains("%Tuesday%") || days.contains("%Wednesday%") || days.contains("%Thursday%") || days.contains("%Friday%"))
 	    {
 	    	daysprice.append("(:minprice is null OR p.weekdayprice >= :minprice) "
 	    			+ "AND (:maxprice is null OR p.weekdayprice <= :maxprice) AND");
@@ -173,11 +173,11 @@ public class PropertyService {
 	    }
 	    List<Property> temp = new ArrayList<>();
 	    for(Property property : propList) {
-	    	boolean flag = bookingService.getBookingDetailsById(property , dateUtility.getStringDate(prop.getStartdate()), dateUtility.getStringDate(prop.getEnddate()) );
-	    	System.out.println("FLAG : " +flag);
-	    	if(!flag) {
+//	    	boolean flag = bookingService.getBookingDetailsById(property , dateUtility.getStringDate(prop.getStartdate()), dateUtility.getStringDate(prop.getEnddate()) );
+//	    	System.out.println("FLAG : " +flag);
+//	    	if(!flag) {
 	    		temp.add(property);
-	    	}
+//	    	}
 	    }
 	    System.out.println("TEMP LIST : " +temp);
 	    return temp;

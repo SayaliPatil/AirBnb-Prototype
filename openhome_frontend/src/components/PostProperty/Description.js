@@ -44,6 +44,8 @@ class Description extends Component {
             // console.log(`There are ${key} ${value}`);
             this.props.setProps(key,value);
         }
+        this.props.setProps("description",true);
+        alert("Description details Saved Successfully");
     }
 
     render()

@@ -18,8 +18,13 @@ class ListProperty extends Component {
         super(props);
 
         this.state = {
-             "host_email" : UTIL.getUserDetails()
+             "host_email" : UTIL.getUserDetails(),
             //"host_email" : "dharmadheeraj.chintala@sjsu.edu",
+            "photos": false,
+            "ameneties": false,
+            "description": false,
+            "location": false,
+            "pricing": false
         }
 
         this.submit = this.submit.bind(this);
@@ -44,7 +49,7 @@ class ListProperty extends Component {
 
     async submit(e)
     {
-
+    if(this.state.pricing && this.state.description && this.state.photos && this.state.location && this.state.ameneties) {
         let formData = new FormData();
 
         let test1 = await this.addFormData(formData);
@@ -53,22 +58,26 @@ class ListProperty extends Component {
 
         // Display the key/value pairs
         for (var pair of test2.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]);
+            console.log(pair[0] + ', ' + pair[1]);
         }
 
 
         axios.post(BASE_URL + '/uploadProperty', test2)
             .then((result) => {
                 // alert("Sending property");
-                if(result.status === 200) {
+                if (result.status === 200) {
                     alert('Property Uploaded Successfully');
-                    this.setState({uploaded : true});
+                    this.setState({uploaded: true});
                 }
-                else
-                {
+                else {
                     alert('Error while uploading property');
                 }
             });
+        }
+        else
+    {
+        alert("Please fill all the form sections and click on save at each form section");
+    }
 
     }
 

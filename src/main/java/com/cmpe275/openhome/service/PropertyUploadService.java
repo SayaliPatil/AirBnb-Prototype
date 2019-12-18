@@ -76,25 +76,30 @@ public class PropertyUploadService {
 		Set<Long> cancel = new HashSet<Long>();
 		for(Booking booking : bookings)
 		{
-			System.out.println("Checking Booking:" + booking.getID());
-			Date checkinDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getCheck_in_date());
-			Date checkoutDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getCheck_out_date());
-			SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
-			Date temp = checkinDate;
-			
-			int i=0;
-			while(i<7 && temp.before(checkoutDate))
+			if(!booking.isBooking_cancelled())
 			{
-				if(daysList.indexOf(simpleDateformat.format(temp).toLowerCase()) < 0)
-					cancel.add(booking.getID());
-				i++;
-//				temp.setDate(temp.getDate()+1);
+				System.out.println("Checking Booking:" + booking.getID());
+				Date checkinDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getCheck_in_date());
+				Date checkoutDate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getCheck_out_date());
+				SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
+				Date temp = checkinDate;
+				
+				int i=0;
+				while(i<7 && temp.before(checkoutDate))
+				{
+					if(daysList.indexOf(simpleDateformat.format(temp).toLowerCase()) < 0)
+						cancel.add(booking.getID());
+					i++;
+					temp.setDate(temp.getDate()+1);
+				}
+				
+				if(checkinDate.before(data.getStartdate()) || checkoutDate.after(data.getEnddate()))
+				{
+						cancel.add(booking.getID());
+				}
+
 			}
 			
-			if(checkinDate.before(data.getStartdate()) || checkoutDate.after(data.getEnddate()))
-			{
-					cancel.add(booking.getID());
-			}
 		}
 		
 		System.out.println("Finishied checking all bookings");
@@ -154,9 +159,9 @@ public class PropertyUploadService {
     			while(temp.before(today))
     			{
     				 if(Integer.parseInt(daynumber.format(temp)) < 6)
-    					 rem -= booking.get().getWeekdayprice();
+    					 rem -= (booking.get().getWeekdayprice() + booking.get().getParkingprice());
     				 else
-    					 rem -= booking.get().getWeekendprice();
+    					 rem -= (booking.get().getWeekendprice() + booking.get().getParkingprice());
     				temp.setDate(temp.getDate()+1);
     			}
     			
@@ -170,8 +175,16 @@ public class PropertyUploadService {
 		    {
 		    	if(checkinDiff < 7)
 		    	{
+		    		double rem = booking.get().getPrice();
+		    		SimpleDateFormat daynumber = new SimpleDateFormat("u");
+	    			Date temp = checkinDate;
+	    			
+	    			if(Integer.parseInt(daynumber.format(temp)) < 6)
+	    				hostPenalty = (booking.get().getWeekdayprice() + booking.get().getParkingprice()) * 0.15;
+	   				 else
+	   					hostPenalty = (booking.get().getWeekendprice() + booking.get().getParkingprice()) * 0.15;
+	    			
 		    		System.out.println("checkinDiff : " +checkinDiff);
-		    		hostPenalty = booking.get().getPrice() * 0.15;
 		    		guestCompensation = 0;
 		    	}
 		    	else
@@ -189,6 +202,7 @@ public class PropertyUploadService {
 	    	accountService.saveAccountDetails(account);
 		  
 		    booking.get().setBooking_cancelled(true);
+		    
 		    bookingService.saveBookingDetails(booking.get());
 		}
 	}
@@ -199,12 +213,12 @@ public class PropertyUploadService {
 		
 		List<Booking> bookings = bookingService.getBookingByProperty(prop.getId());
 		System.out.println("Found bookings:"+ bookings.size());
-		Set<Long> cancel = new HashSet<Long>();
 		
 		System.out.println("Finishied checking all bookings");
 			
-			for(Long booking_id : cancel) {
-				cancelbooking(booking_id);
+			for(Booking booking : bookings) {
+				if(!booking.isBooking_cancelled())
+					cancelbooking(booking.getID());
 			}
 		return propertyRepository.save(to_be_deleted.get());
 	}

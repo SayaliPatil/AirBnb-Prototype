@@ -51,6 +51,7 @@ class PlaceOrder extends Component {
       return new Promise((resolve,reject) => {
           let weekdayprice = this.state.orderSummary.weekdayprice;
           let weekendprice = this.state.orderSummary.weekendprice;
+          let parkingprice = this.state.orderSummary.parkingprice==null? 0 : this.state.orderSummary.parkingprice;
           console.log(weekdayprice + "weekday");
           console.log(weekendprice + "weekend");
           const startdate = new Date(this.state.orderSummary.userSelectedStartDate + " 15:00");
@@ -58,10 +59,10 @@ class PlaceOrder extends Component {
           console.log("StartDate :", startdate);
           let price = 0;
           for (var d = startdate; d < enddate; d.setDate(d.getDate() + 1)) {
-              if(d.getDay() < 6)
-                  price += weekdayprice;
+              if(d.getDay() < 6 && d.getDay() > 0)
+                  price += weekdayprice + parkingprice;
               else
-                  price += weekendprice;
+                  price += weekendprice + parkingprice;
           }
           if(price > 0)
               resolve(price);
@@ -96,13 +97,13 @@ class PlaceOrder extends Component {
         "price":price,
         "weekdayprice": this.state.orderSummary.weekdayprice,
         "weekendprice": this.state.orderSummary.weekendprice,
+        "parkingprice": this.state.orderSummary.parkingprice,
         "beds":this.state.orderSummary.beds,
         "user_checked_in_flag" : false,
         "user_email" : UTIL.getUserDetails(),
         "property_unique_id" : this.state.orderSummary.id,
         "total_nights" : total_nights,
         "headline" : this.state.orderSummary.headline,
-        "parkingprice" : this.state.orderSummary.parkingprice
         }
             fetch(`${BASE_URL}/api/book`, {
                method: 'POST',

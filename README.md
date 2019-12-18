@@ -2,7 +2,15 @@
 
 # OpenHome
 
-> CMPE275: Enterprise Application Development course team project
+> CMPE275 -Sec 01: Enterprise Application Development course team project
+> [Fall 2019]
+
+# Team Members 
+
+* Chintala Dheeraj Dharma( dharmadheeraj.chintala@sjsu.edu - 013760968)
+* Manish Katturu  (manish.katturu@sjsu.edu - 013825201)
+* Sayali Patil (sayali.patil@sjsu.edu - 013530439)
+* Surabhi Sinha (surabhi.sinha@sjsu.edu - 013704652)
 
 ## Goal
 

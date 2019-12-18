@@ -61,6 +61,9 @@ class Booking extends Component {
                     weekendprice : Item.weekendprice,
                 });
                 this.setState({
+                    parkingprice : Item.parkingprice,
+                });
+                this.setState({
                     wifi : Item.wifi,
                 });
                 this.setState({
@@ -147,6 +150,8 @@ class Booking extends Component {
 
                 <div className="list-owner">
                 <h2>${this.state.weekendprice}</h2><p>per night over weekend</p>
+                <h2>${this.state.weekdayprice}</h2><p>per night over weekday</p>
+                       <h5>${this.state.parkingprice}</h5><p>Parking price per day</p>
                 <form onSubmit={this.submitBooking}>
                 <div class="form-row">
                 <div class="form-group col-md-6">

@@ -4,6 +4,8 @@ import {history} from "./../../utils/util";
 import {Link} from 'react-router-dom';
 import * as UTIL from './../../utils/util';
 import * as VALIDATION from './../../utils/validation';
+import axios from "axios";
+import {BASE_URL} from "../Configs/Configs";
 
 class OrderSummary extends Component {
   constructor(props){
@@ -20,6 +22,38 @@ class OrderSummary extends Component {
       }
     this.carddetail ={}
   }
+    calculatePrice() {
+        return new Promise((resolve,reject) => {
+            let weekdayprice = this.props.order.weekdayprice;
+            let weekendprice = this.props.order.weekendprice;
+            let parkingprice = this.props.order.parkingprice==null? 0 : this.props.order.parkingprice;
+            console.log(weekdayprice + "weekday");
+            console.log(weekendprice + "weekend");
+            const startdate = new Date(this.props.order.userSelectedStartDate + " 15:00");
+            const enddate = new Date(this.props.order.userSelectedEnddate + " 15:00");
+            console.log("StartDate :", startdate);
+            let price = 0;
+            for (var d = startdate; d < enddate; d.setDate(d.getDate() + 1)) {
+                if(d.getDay() < 6 && d.getDay() > 0)
+                    price += weekdayprice + parkingprice;
+                else
+                    price += weekendprice + parkingprice;
+            }
+            if(price > 0)
+                resolve(price);
+            else
+                reject(null);
+
+        })
+    }
+
+    async componentWillMount() {
+        const parent = this.props.order;
+        let price = await this.calculatePrice();
+        this.setState({
+            totalprice : price
+        })
+    }
   render() {
     let imagesArray = this.props.order.images.split(";");
     let value = imagesArray[0];
@@ -65,15 +99,24 @@ class OrderSummary extends Component {
                   <th> Pricing details : </th>
                 </tr>
                 <tr>
-                  <th> $ {(this.props.order.weekdayprice)}</th>
-                  <th className="txt-field-price"> $ {(this.props.order.weekendprice)} </th>
-
+                  <th> Weekday: $ {(this.props.order.weekdayprice)}</th>
+                  <th className="txt-field-price"> Weekend: $ {(this.props.order.weekendprice)} </th>
+                </tr>
+                <tr>
+                    <th> Parking price : </th>
+                </tr>
+                <tr>
+                    <th> $ {(this.props.order.parkingprice)} / day</th>
                 </tr>
                 <br></br>
               <tr>
                 <td>Total Nights</td>
                 <th> {total_nights > 1 ? total_nights + " nights" : total_nights + " night"}   </th>
               </tr>
+                <tr>
+                    <td>Total Price</td>
+                    <th> {this.state.totalprice}    (Including Praking)</th>
+                </tr>
               <tr>
                 <td> Includes taxes and fees </td>
                 <td><a href="#"> View Details </a></td>

@@ -26,6 +26,8 @@ class Amenities extends Component{
             // console.log(`There are ${key} ${value}`);
             this.props.setProps(key,value);
         }
+        this.props.setProps("ameneties",true);
+        alert("Amenities details Saved Successfully");
     }
 
     handleChange = (e) =>

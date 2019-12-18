@@ -66,6 +66,8 @@ public class Booking {
     
     private int weekendprice;
     
+    private int parkingprice;
+    
     private double price;
     
     private int total_nights;
@@ -79,6 +81,8 @@ public class Booking {
     private String headline;
     
     private double amount_paid;
+    
+    private double host_penalty;
 	
 	private boolean user_checked_in_flag;
 	
@@ -87,8 +91,6 @@ public class Booking {
 	private boolean no_show;
 	
 	private boolean booking_cancelled;
-	
-	private int parkingprice;
 	
 	private String user_check_out_date;
 	
