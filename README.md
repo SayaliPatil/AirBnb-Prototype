@@ -218,7 +218,7 @@
 ![](Documentation/images/GuestDashboard/GuestDashboard2.png)
 
 #### Steps to run the application
-  -  Access URL : "https://cmpe275-openhome.herokuapp.com/login"
+  -  Access URL : "https://cmpe275-openhome.herokuapp.com/home"
   -  Signup
   -  Verify through the link sent to your email id.
   -  Login with verified email id.
