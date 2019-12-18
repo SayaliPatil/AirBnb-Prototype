@@ -33,3 +33,7 @@ https://cmpe275-openhome.herokuapp.com/home
   -  Click on month dropdown on dashboard page, to view monthly summary.
   -  In the header, click on "Time advancement" button to change the date and time.
   -  In the header click on "Host", through dropdown select "Guest Dashboard" to view guest's dashboard.
+
+# Build Instructions
+  -  Open the java Application as Maven Project and build and run the project.
+  -  OPen the frontend React Application in openhome_frontend folder.Run "npm install && npm start"
