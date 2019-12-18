@@ -11,7 +11,7 @@ public interface UserService {
 
 	boolean verifyUserRegistration(Long ID);
 	
-	boolean loginUser(User user);
+	String loginUser(User user);
 
 	User checkUserVerified(String email);
     

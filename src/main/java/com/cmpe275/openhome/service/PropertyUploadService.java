@@ -97,7 +97,9 @@ public class PropertyUploadService {
 				{
 						cancel.add(booking.getID());
 				}
+
 			}
+			
 		}
 		
 		System.out.println("Finishied checking all bookings");
@@ -200,6 +202,7 @@ public class PropertyUploadService {
 	    	accountService.saveAccountDetails(account);
 		  
 		    booking.get().setBooking_cancelled(true);
+		    
 		    bookingService.saveBookingDetails(booking.get());
 		}
 	}

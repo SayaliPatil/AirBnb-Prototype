@@ -65,11 +65,17 @@ public class BookingService {
 	
 	public boolean getBookingDetailsById(Property prop , String startDate , String endDate) {
 		System.out.println("booking details fetched: " +prop.getId());
-		Query query = entityManager.createQuery("from Booking as b WHERE (b.propertyId =:id AND b.check_in_date >= :startDate AND b.check_out_date >= :endDate)");
+		System.out.println("Start Date : " +startDate + " End date : " +endDate);
+		Query query = entityManager.createQuery("from Booking as b WHERE (b.propertyId =:id AND b.booking_cancelled =false "
+				+ "AND ((b.check_in_date <= :startDate AND b.check_out_date >= :endDate) "
+				+ "OR (b.check_in_date >= :startDate AND b.check_in_date <= :endDate) "
+				+ "OR (b.check_out_date >= :startDate AND b.check_out_date <= :endDate) "
+				+ " OR (b.check_in_date <= :startDate AND b.check_in_date <= :endDate "
+				+ "AND b.check_out_date >= :startDate AND b.check_out_date <= :endDate)))");
 		query.setParameter("id", prop.getId());
 		query.setParameter("startDate", startDate);
 		query.setParameter("endDate", endDate);
-		
+		System.out.println("Query : " +query.getHints());
 		List<Booking> book = null;
 		try {
 			book = (List<Booking>) query.getResultList();

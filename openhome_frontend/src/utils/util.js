@@ -15,6 +15,21 @@ export const saveUserDetails = (data, type) => {
         localStorage.setItem('first_name',JSON.stringify(data.first_name));
 };
 
+export const saveTimeDetails = (data, type) => {
+    console.log("time details : ",data);
+    localStorage.setItem('currentTime',JSON.stringify(data));
+};
+
+export const getTimeDetails=()=>{
+  if(localStorage.currentTime){
+    var currentTime = JSON.parse(localStorage.currentTime);
+    return (currentTime?currentTime:null);
+  }
+  else{
+      return null;
+  }
+}
+
 export const getUserDetails=()=>{
     console.log("currentUSer:",localStorage.currentUser);
   if(localStorage.currentUser){

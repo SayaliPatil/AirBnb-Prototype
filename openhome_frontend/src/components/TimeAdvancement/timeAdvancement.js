@@ -44,6 +44,7 @@ clickHandler() {
         }
       }).then(result => {
         console.log("Time advancement :",result);
+        UTIL.saveTimeDetails(this.state.date);
         alert("Time advanced successfully");
       })
   .catch(error => {

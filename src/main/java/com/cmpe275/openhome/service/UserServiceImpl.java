@@ -32,9 +32,15 @@ public class UserServiceImpl implements UserService{
 		
 	}
 	
-	public boolean loginUser(User user) {
+	public String loginUser(User user) {
 		User activeUser = findByEmail(user.getEmail());
-		return activeUser.getPassword().equals(HashingUtility.createHashedCode(user.getPassword()));
+		if(!activeUser.isVerified()) {
+			return "Not Verified";
+		}
+		else if(activeUser.getPassword().equals(HashingUtility.createHashedCode(user.getPassword()))) {
+			return "Authenticated Verified User";
+		}
+		return  "Not authenticated";
 	}
 	@Override
 	public User findByEmail(String email) {

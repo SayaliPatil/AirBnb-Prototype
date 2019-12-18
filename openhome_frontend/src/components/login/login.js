@@ -66,6 +66,13 @@ class Login extends Component {
 	 						 authFlag : false
 	 					 })
 	 				 }
+					 else if(response.status==406) {
+	 					 alert("Please verify user account before login");
+	 					 window.location.reload();
+	 					 this.setState({
+	 						 authFlag : false
+	 					 })
+	 				 }
           }).then(result => {
             console.log("Login details Results:",result);
 						UTIL.saveUserDetails(result);

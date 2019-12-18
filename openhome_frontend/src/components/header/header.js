@@ -103,6 +103,10 @@ class Header extends Component {
     history.push('/home');
     window.location.reload();
   }
+  loginHandler() {
+    history.push('/login');
+    window.location.reload();
+  }
 
   componentWillMount() {
     this.setState({
@@ -155,7 +159,7 @@ render() {
                             </Dropdown>
                       </NavItem>
                       <NavItem>
-                            {this.currentUser == null ? <Button type="button" className="btn btn-secondary timeadvance" onClick={() => this.props.history.push('/login')}>Login &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button> : ''}
+                            {this.currentUser == null ? <Button type="button" className="btn btn-secondary timeadvance" onClick={() => this.loginHandler()}>Login &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button> : ''}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Button type="button" className="btn btn-secondary timeadvance" onClick={() => this.timeAdvancementClickHandler(this.currentUser)}>Time Advancement</Button>
                             {this.state.timeClicked == true ? this.renderFuntion() : ''}
                       </NavItem>

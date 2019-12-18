@@ -49,50 +49,24 @@ class Checkin extends Component {
     }
   }
   userCheckin(data) {
-    var timezonedDate = new Date();
-    var dateInUTC = new Date(timezonedDate.toUTCString());
-    dateInUTC.setHours(dateInUTC.getHours()-8);
-    var utcDate = new Date(dateInUTC);
-    var pdtDate = utcDate.toISOString().split("T")[0];
-    console.log("utcDate : " +pdtDate);
-
-
-    var date = new Date();
-    var today = date.toISOString().split('T');
-    var time = date.getHours();
-    var yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    var value = yesterday.toISOString().split('T');
-    console.log("TODAYS DATE : " +today[0]);
-    console.log("CHECK IN DATE : " +data.check_in_date);
-    console.log("CHECK OUT DATE : " +data.check_out_date);
-    console.log("GET THE TIME : "+time);
-    // console.log("COMPARE DATES :" +date[0] == data.check_in_date);
-    console.log("yesterday : " +value[0]);
     if(data.booking_cancelled) {
       alert("User booking has been cancelled");
     }
     else if(data.user_checked_out_flag) {
       alert("User already checked out");
     }
-    else if(time >= 15 && time <= 23 || time >= 0 && time <= 3 ) {
-        if(data.user_checked_in_flag) {
+    if(data.user_checked_in_flag) {
           alert("User already checked in");
-        }
-        else {
+    }
+    else {
           data.user_checked_in_flag = true;
           data.no_show = false;
           data.amount_paid = data.price;
           data.user_check_out_date = "";
           console.log("DATA SENT : " +JSON.stringify(data));
           this.updateBooking(data,function alertFunc(){
-
           });
         }
-      }
-    else {
-        alert("user can not check in now");
-      }
     }
 
   userCheckout(data) {
@@ -102,11 +76,6 @@ class Checkin extends Component {
         alert("User can not check in.!! Your booking was cancelled");
       }
       else if(data.user_checked_in_flag && !data.user_checked_out_flag) {
-        var date = new Date();
-        var today = date.toISOString().split('T')[0];
-        data.user_checked_out_flag = true;
-        data.user_check_out_date = today.toString();
-        console.log("TODAYS DATE : " +today);
         this.updateBooking(data,function alertFunc(){
            alert("User checked out successfully");
         });
