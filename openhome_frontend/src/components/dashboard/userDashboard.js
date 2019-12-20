@@ -9,6 +9,7 @@ import {BASE_URL} from './../../components/Configs/Configs.js';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Header from './../header/header.js';
+import UserBillingSummary from './userBillingSummary.js';
 
 class UserDashboard extends Component {
   constructor(props){
@@ -18,10 +19,37 @@ class UserDashboard extends Component {
       current : 1,
       itemsPerPage : 2,
       activePage: 1,
+      month:' ',
+      monthSelected : false,
+      monthlyBillingDetails : [],
     }
     this.clickHandler = this.clickHandler.bind(this);
   }
-
+  fetchBillingDetails() {
+    this.state.monthSelected = true;
+    const data = {
+			email : UTIL.getUserDetails(),
+			month : this.state.month
+		}
+    fetch(`http://localhost:8080/api/user/fetchBillingDetails/`, {
+       method: 'POST',
+       mode: 'cors',
+       headers: { ...UTIL.getUserHTTPHeader(),'Content-Type': 'application/json' },
+       body: JSON.stringify(data)
+     }).then(response => {
+        console.log("Status Code : ",response);
+        if(response.status==200) {
+          return response.json();
+      }
+    }).then(result => {
+      console.log("Booking Results:",result);
+      result.month = this.state.month
+      this.props.history.push({
+          pathname: '/userBillingSummary',
+          state: { detail: result}
+      })
+    })
+  }
   clickHandler(event) {
       this.setState({
           current: Number(event.target.id)
@@ -48,6 +76,7 @@ class UserDashboard extends Component {
 
 
   render() {
+    console.log("Month Selected : " +this.state.month);
     const { current, itemsPerPage } = this.state;
     const indexOfLastPage = current * itemsPerPage;
     const indexOfFirstPage = indexOfLastPage - itemsPerPage;
@@ -57,7 +86,7 @@ class UserDashboard extends Component {
     for (let i = 1; i <= Math.ceil(this.state.bookingDetails.length / itemsPerPage); i++) {
         pageNumbers.push(i);
     }
-    const showPageNumbers1 = pageNumbers.map(number => {
+    const showPageNumbers = pageNumbers.map(number => {
         return (
           <li class="page-item active"
             key={number}
@@ -115,18 +144,36 @@ class UserDashboard extends Component {
     return (
               <div>
               <Header/>
-                  <img className = "dashboard-image-class" src = "http://wowk.sd38.bc.ca/sites/wowk.sd38.bc.ca/files/pac/feature-images/2015/12/team_celebration_pc_3655.png"/>
+              {this.state.month != ' ' ? <UserBillingSummary/> : <img className = "dashboard-image-class" src = "http://wowk.sd38.bc.ca/sites/wowk.sd38.bc.ca/files/pac/feature-images/2015/12/team_celebration_pc_3655.png"/>}
                   <div className="dashboard-header">
                       <h> Guest dashboard
                       </h></div>
                       <div>
                           {bookingInfo}
                       </div>
-                      <br/>
-                      <div className="prop_pagi">
+                      <select name="month-dropdown"
+                              className="month-type-dropdown"
+                              onChange={(event)=>{this.state.month = event.target.value; this.fetchBillingDetails()}}
+                              >
+                              <option value="">Select the billing month</option>
+                              <option value="January">January</option>
+                              <option value="February">February</option>
+                              <option value="March">March</option>
+                              <option value="April">April</option>
+                              <option value="May">May</option>
+                              <option value="June">June</option>
+                              <option value="July">July</option>
+                              <option value="August">August</option>
+                              <option value="September">September</option>
+                              <option value="October">October</option>
+                              <option value="November">November</option>
+                              <option value="December">December</option>
+                        </select>
+
+                      <div className="dashboard_pagi">
                       <nav aria-label="Page navigation example">
                       <ul class="pagination">
-                      {showPageNumbers1}
+                      {showPageNumbers}
                       </ul>
                       </nav>
                   </div>

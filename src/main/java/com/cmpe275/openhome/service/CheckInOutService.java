@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
+import com.cmpe275.openhome.model.Account;
 import com.cmpe275.openhome.model.Booking;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.BookingRepository;
@@ -29,6 +30,12 @@ public class CheckInOutService extends QuartzJobBean{
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private AccountService accountService;
+	
+	@Autowired
+	private UserService userService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CheckInOutService.class);
 	
@@ -89,5 +96,21 @@ public class CheckInOutService extends QuartzJobBean{
 	public void sendCancellationNotification(String guestMessage , String hostMessage, String guestEmail,  String hostEmail) {
 		emailService.sendEmail(guestEmail, guestMessage, " Booking Cancelled with OpenHome.!!");
         emailService.sendEmail(hostEmail, hostMessage, " Booked property got cancelled.!!");
+	}
+	
+	public void updateAccountDetails(Booking booking, Long id , double guestAmount, double hostAmount) {
+		System.out.println("Booking details sent : " +booking.getAmount_paid());
+		Account account = accountService.findAccountDetails(id);
+		if(account == null) {
+			System.out.println("Account details fetched : " +account);
+			account = new Account();
+			account.setBookingID(id);
+			account.setGuestID(userService.findByEmail(booking.getUser_email()).getID());
+			account.setHostID(userService.findByEmail(booking.getHost_email()).getID());
+			account.setPropertyID(booking.getProperty_unique_id());
+		}
+		account.setGuestAccountBalance(guestAmount);
+		account.setHostAccountBalance(hostAmount);
+		accountService.saveAccountDetails(account);
 	}
 }
