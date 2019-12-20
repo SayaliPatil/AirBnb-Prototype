@@ -2,6 +2,7 @@ package com.cmpe275.openhome.controller;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.cmpe275.openhome.model.Booking;
+import com.cmpe275.openhome.model.Filter;
 import com.cmpe275.openhome.model.Property;
 import com.cmpe275.openhome.repository.UserRepository;
 import com.cmpe275.openhome.service.BookingService;
@@ -59,4 +61,18 @@ public class DashboardController {
     	List<Property> property = propertyService.getPropertyDetails(email);
     	return ResponseEntity.ok(property);
     }
+	
+	@PostMapping("/user/fetchBillingDetails")
+    @ResponseBody
+    public ResponseEntity<?> cancel(@Valid @RequestBody Filter filter) throws URISyntaxException {
+		System.out.println("User ID send as a parm : " +filter.getEmail()+ " " +filter.getMonth());
+		return ResponseEntity.ok(dashboardService.getMonthlyDashboardDetails(filter.getEmail(), filter.getMonth()));
+    }
+//	@ResponseBody
+//    @RequestMapping(method=RequestMethod.GET, value = "/user/fetchBillingDetails/{email}")
+//    public ResponseEntity<?> getGuestMonthlyBillingInfo(@PathVariable String email) {
+//		System.out.println("User ID send as a parm : " +email);
+//		String[] queryParameter = email.split("&");
+//		return ResponseEntity.ok(dashboardService.getMonthlyDashboardDetails(queryParameter[0], queryParameter[1]));
+//    }
 }
