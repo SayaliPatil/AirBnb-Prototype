@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="readme-src/readme.css">
 
-# OpenHome
+# OpenHome - AirBnb Prototype
 
 > CMPE275 -Sec 01: Enterprise Application Development course team project
 > [Fall 2019]
